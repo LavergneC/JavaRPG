@@ -8,8 +8,9 @@ public abstract class Entity {
 	
 	protected abstract void receiveAttack(int dmgIncoming);
 	
-	protected Entity(int hp_, int stamina_, String name_)
+	protected Entity(int hp_, int stamina_, String name_, int agi, int stren, int m_hp, int max_sta)
 	{
+		this.characteristics = new Characteristics(agi, stren, m_hp, max_sta);
 		this.hp = hp_;
 		this.stamina = stamina_;
 		this.name = name_;		
@@ -23,11 +24,7 @@ public abstract class Entity {
 	
 	protected void attack(Entity target, int dmgs)
 	{
-		int new_life = target.getHp() - dmgs;
-		if (new_life < 0)
-			target.setHp(0);
-		else
-			target.setHp(new_life);
+		target.receiveAttack(dmgs);
 	}
 
 	protected int getHp() {
