@@ -1,0 +1,2 @@
+module classic_RPG {
+}
