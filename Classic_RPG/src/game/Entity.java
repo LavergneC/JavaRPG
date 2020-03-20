@@ -8,9 +8,9 @@ public abstract class Entity {
 	
 	protected abstract void receiveAttack(int dmgIncoming);
 	
-	protected Entity(int hp_, int stamina_, String name_, int agi, int stren, int m_hp, int max_sta)
+	protected Entity(int hp_, int stamina_, String name_, int agi, int stren)
 	{
-		this.characteristics = new Characteristics(agi, stren, m_hp, max_sta);
+		this.characteristics = new Characteristics(agi, stren, hp_, stamina_);
 		this.hp = hp_;
 		this.stamina = stamina_;
 		this.name = name_;		
