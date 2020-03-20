@@ -6,6 +6,8 @@ public abstract class Entity {
 	protected String name;
 	protected Characteristics characteristics;
 	
+	private ManaPool manaPool;
+	
 	protected abstract void receiveAttack(int dmgIncoming);
 	
 	protected Entity(int hp_, int stamina_, String name_, int agi, int stren)
@@ -14,6 +16,22 @@ public abstract class Entity {
 		this.hp = hp_;
 		this.stamina = stamina_;
 		this.name = name_;		
+	}
+	
+	protected Entity(int hp_, int stamina_, String name_, int agi, int stren, int mana)
+	{
+		this.characteristics = new Characteristics(agi, stren, hp_, stamina_);
+		this.hp = hp_;
+		this.stamina = stamina_;
+		this.name = name_;
+		this.manaPool = new ManaPool(mana);
+	}
+	
+	protected void setMana(int manaValue) {
+		if(manaPool != null)
+			manaPool.setMana(manaValue);
+		else
+			System.out.println("This entity have no mana pool !!!!");
 	}
 	
 	protected void basicHit(Entity target)
