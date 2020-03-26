@@ -9,4 +9,12 @@ public class Wave {
 		number = number_;
 		monsters = list_monster;
 	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public ArrayList<Monster> getMonsters() {
+		return monsters;
+	}
 }
