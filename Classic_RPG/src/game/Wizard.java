@@ -9,7 +9,7 @@ public class Wizard extends Player{
 	}
 	
 	public void specialHit(Entity target) {
-		target.receiveAttack(characteristics.getIntelligence() * 3);
+		attack(target, characteristics.getIntelligence() * 3);
 		
 		int currentMana = manaPool.getMana();
 		if(currentMana  - 75 < 0) {
