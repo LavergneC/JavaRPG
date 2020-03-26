@@ -8,11 +8,11 @@ public class Monster extends Entity{
 	
 	@Override
 	public void receiveAttack(int dmgIncoming) {
-		int newHp = super.hp - dmgIncoming;
+		int newHp = hp - dmgIncoming;
 		
 		if (newHp <= 0) 
-			super.hp = 0;
+			hp = 0;
 		else
-			super.hp = newHp;
+			hp = newHp;
 	}
 }
