@@ -14,10 +14,10 @@ public class ManaPool{
 	}
 
 	public void setMana(int mana) {
-		if(this.mana + mana > manaMax)
-			this.mana = manaMax;
-		else
-			this.mana = this.mana + mana;
+		this.mana = mana;
 	}
 
+	public int getManaMax() {
+		return manaMax;
+	}
 }
