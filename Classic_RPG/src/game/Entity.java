@@ -20,7 +20,7 @@ public abstract class Entity {
 	
 	protected Entity(int hp_, int stamina_, String name_, int agi, int stren, int mana)
 	{
-		this.characteristics = new Characteristics(agi, stren, hp_, stamina_);
+		this.characteristics = new MagicianCharacteristiques(agi, stren, hp_, stamina_, mana);
 		this.hp = hp_;
 		this.stamina = stamina_;
 		this.name = name_;
@@ -36,7 +36,7 @@ public abstract class Entity {
 	
 	protected void basicHit(Entity target)
 	{
-		int dmgs = target.characteristics.getStrength();
+		int dmgs = target.characteristics.getStrength() * 2;
 		this.attack(target, dmgs);
 	}
 	
