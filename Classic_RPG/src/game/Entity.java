@@ -7,8 +7,6 @@ public abstract class Entity {
 	protected String name;
 	protected Characteristics characteristics;
 	
-	protected ManaPool manaPool;
-	
 	protected abstract void receiveAttack(int dmgIncoming);
 	
 	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_)
@@ -28,18 +26,29 @@ public abstract class Entity {
 		this.stamina = stamina_;
 		this.name = name_;
 		this.level = 0;
-		this.manaPool = new ManaPool(mana_);
 	}
 	
 	protected void levelUp() {
 		this.level += 1;
 	}
 
-	protected void setMana(int manaValue) {
-		if(manaPool != null)
-			manaPool.setMana(manaValue);
-		else
+	protected void setMana(int manaValue) { //DownCast
+		if(characteristics instanceof MagicianCharacteristiques) {
+			((MagicianCharacteristiques)characteristics).setMax_hp(manaValue);
+		}
+		else {
 			System.out.println("This entity have no mana pool !!!!");
+		}
+	}
+	
+	protected int getMana() {
+		if(characteristics instanceof MagicianCharacteristiques) {
+			return ((MagicianCharacteristiques)characteristics).getMana();
+		}
+		else {
+			System.out.println("This entity have no mana pool !!!!");
+			return 77;
+		}
 	}
 	
 	protected void basicHit(Entity target)

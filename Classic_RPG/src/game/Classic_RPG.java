@@ -23,5 +23,4 @@ public class Classic_RPG {
 		
 		System.out.println("\nPlayer HP :" + player1.hp +  "\nMonster HP :" + m1.hp);
 	}
-
 }
