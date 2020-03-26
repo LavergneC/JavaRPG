@@ -3,14 +3,16 @@ package game;
 public class Characteristics {
 	private int agility;
 	private int strength;
+	private int intelligence;
 	private int max_hp;
 	private int max_stamina;
 	
-	public Characteristics(int agi, int stren, int m_hp, int max_sta) {
-		this.agility = agi;
-		this.strength = stren;
+	public Characteristics(int agility_, int strength_, int intelligence_, int m_hp, int m_stamina) {
+		this.agility = agility_;
+		this.strength = strength_;
 		this.max_hp = m_hp;
-		this.max_stamina = max_sta;
+		this.max_stamina = m_stamina;
+		this.intelligence = intelligence_;
 	}
 	
 	public int getAgility() {

@@ -10,15 +10,16 @@ public abstract class Entity {
 	
 	protected abstract void receiveAttack(int dmgIncoming);
 	
-	protected Entity(int hp_, int stamina_, String name_, int agi, int stren)
+	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_)
 	{
-		this.characteristics = new Characteristics(agi, stren, hp_, stamina_);
+		this.characteristics = new Characteristics(agility_, strength_, intelligence_,  hp_, stamina_);
 		this.hp = hp_;
+		
 		this.stamina = stamina_;
-		this.name = name_;		
+		this.name = name_;
 	}
 	
-	protected Entity(int hp_, int stamina_, String name_, int agi, int stren, int mana)
+	protected Entity(int hp_, int stamina_, String name_, int agi, int stren, int intelligence_, int mana)
 	{
 		this.characteristics = new Characteristics(agi, stren, hp_, stamina_);
 		this.hp = hp_;
