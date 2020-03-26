@@ -1,10 +1,17 @@
 package game;
 
 public class Wizard extends Player{
+	final static int BASE_HP = 750;
+	final static int BASE_STAMINA = 1000;
+	
+	final static int BASE_STRENGTH = 5;
+	final static int BASE_AGILITY = 5;
+	final static int BASE_INTELLIGENCE = 30;
+	
 	private int magicSheildHp;
 	
 	public Wizard(String name) {
-		super(750, 1000, name, 3000, 5, 5, 30);
+		super(BASE_HP, BASE_STAMINA, name, BASE_AGILITY, BASE_STRENGTH, BASE_INTELLIGENCE);
 		magicSheildHp = 0;
 	}
 	

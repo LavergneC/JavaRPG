@@ -1,9 +1,15 @@
 package game;
 
 public class Ninja extends Player{
+	final static int BASE_HP = 1300;
+	final static int BASE_STAMINA = 3000;
+	
+	final static int BASE_STRENGTH = 10;
+	final static int BASE_AGILITY = 20;
+	final static int BASE_INTELLIGENCE = 10;
 	
 	public Ninja(String name) {
-		super(1300, 3000, name, 10, 10, 20);
+		super(BASE_HP, BASE_STAMINA, name, BASE_AGILITY, BASE_STRENGTH, BASE_INTELLIGENCE);
 	}
 	
 	/* Should not be pared */
