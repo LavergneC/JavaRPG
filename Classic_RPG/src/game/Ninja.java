@@ -8,7 +8,7 @@ public class Ninja extends Player{
 	
 	/* Should not be pared */
 	public void specialHit(Entity target) {
-		target.receiveAttack(this.characteristics.getStrength() * 1 + 3 * this.characteristics.getAgility());
+		attack(target, this.characteristics.getStrength() * 1 + 3 * this.characteristics.getAgility());
 	}
 	
 	public void receiveAttack(int dmgIncoming) {
