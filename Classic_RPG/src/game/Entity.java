@@ -1,6 +1,7 @@
 package game;
 
 public abstract class Entity {
+	protected int level;
 	protected int hp;
 	protected int stamina;
 	protected String name;
@@ -17,17 +18,23 @@ public abstract class Entity {
 		
 		this.stamina = stamina_;
 		this.name = name_;
+		this.level = 0;
 	}
-	
+
 	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_, int mana_)
 	{
 		this.characteristics = new MagicianCharacteristiques(agility_, strength_, intelligence_, hp_, stamina_, mana_);
 		this.hp = hp_;
 		this.stamina = stamina_;
 		this.name = name_;
+		this.level = 0;
 		this.manaPool = new ManaPool(mana_);
 	}
 	
+	protected void levelUp() {
+		this.level += 1;
+	}
+
 	protected void setMana(int manaValue) {
 		if(manaPool != null)
 			manaPool.setMana(manaValue);
