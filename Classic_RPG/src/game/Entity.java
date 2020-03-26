@@ -19,13 +19,13 @@ public abstract class Entity {
 		this.name = name_;
 	}
 	
-	protected Entity(int hp_, int stamina_, String name_, int agi, int stren, int intelligence_, int mana)
+	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_, int mana_)
 	{
-		this.characteristics = new MagicianCharacteristiques(agi, stren, hp_, stamina_, mana);
+		this.characteristics = new MagicianCharacteristiques(agility_, strength_, intelligence_, hp_, stamina_, mana_);
 		this.hp = hp_;
 		this.stamina = stamina_;
 		this.name = name_;
-		this.manaPool = new ManaPool(mana);
+		this.manaPool = new ManaPool(mana_);
 	}
 	
 	protected void setMana(int manaValue) {

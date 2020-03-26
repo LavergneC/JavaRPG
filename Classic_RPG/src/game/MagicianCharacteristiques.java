@@ -3,9 +3,9 @@ package game;
 public class MagicianCharacteristiques extends Characteristics {
 	private int manaMax;
 	
-	public MagicianCharacteristiques(int agi, int stren, int m_hp, int max_sta, int mana) {
-		super(agi, stren, m_hp, max_sta);
-		this.manaMax = mana;
+	public MagicianCharacteristiques(int agility_, int strength_, int intelligence_, int m_hp, int m_stamina, int mana_) {
+		super(agility_, strength_, intelligence_, m_hp, m_stamina);
+		this.manaMax = mana_;
 	}
 
 	public int getManaMax() {
