@@ -2,7 +2,7 @@ package game;
 
 public class Warrior extends Player{
 	public Warrior(String name) {
-		super(2000, 2000, name, 5, 30);
+		super(2000, 2000, name, 5, 30, 5);
 	}
 	
 	public void specialHit(Entity target) {
