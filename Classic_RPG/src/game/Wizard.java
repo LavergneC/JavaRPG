@@ -1,7 +1,7 @@
 package game;
 
 public class Wizard extends Player{
-	private int magicSheildHp; // Need to be reset at the end of the turn
+	private int magicSheildHp;
 	
 	public Wizard(String name) {
 		super(750, 1000, name, 3000, 5, 5, 30);
@@ -33,5 +33,13 @@ public class Wizard extends Player{
 		else {
 			hp -= dmgIncoming;
 		}
+	}
+	
+	public void setDefensePosition(boolean defense_position_){
+		if(defense_position_) {
+			magicSheildHp = characteristics.getIntelligence() * 2;
+			manaPool.setMana(manaPool.getMana() - 55);
+		}
+		super.setDefensePosition(defense_position_);
 	}
 }
