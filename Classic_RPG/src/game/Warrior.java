@@ -8,8 +8,7 @@ public class Warrior extends Player{
 	public void specialHit(Entity target) {
 		basicHit(target);
 		basicHit(target);
-		basicHit(target);
-		stamina -= 150;
+		stamina -= 100;
 	}
 	
 	public void receiveAttack(int dmgIncoming) {

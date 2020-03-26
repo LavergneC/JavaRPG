@@ -6,7 +6,7 @@ public abstract class Entity {
 	protected String name;
 	protected Characteristics characteristics;
 	
-	private ManaPool manaPool;
+	protected ManaPool manaPool;
 	
 	protected abstract void receiveAttack(int dmgIncoming);
 	
@@ -38,6 +38,7 @@ public abstract class Entity {
 	protected void basicHit(Entity target)
 	{
 		int dmgs = target.characteristics.getStrength() * 2;
+		stamina -= 50;
 		this.attack(target, dmgs);
 	}
 	

@@ -23,6 +23,10 @@ public class Characteristics {
 		return strength;
 	}
 
+	public int getIntelligence() {
+		return intelligence;
+	}
+
 	public int getMax_hp() {
 		return max_hp;
 	}
