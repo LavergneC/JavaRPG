@@ -81,6 +81,8 @@ public class Turn {
 			
 			/* Attack */
 			switch(attack) {
+			/* Think to handle monster differently when there are severals monsters targeted because index could 
+			 * could be decaled if monster died */
 			case BASIC_ATTACK:
 				player.basicHit(actual_wave.getMonsters().get(index_monstre));
 				break;
