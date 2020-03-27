@@ -36,7 +36,7 @@ public class Wizard extends Player{
 				hpChange(false, Math.abs(diff));
 			}
 			else {
-				System.out.println(this.name + " stayed behind is magic shield");
+				System.out.println(this.name + " stayed behind his magic shield");
 			}
 		}
 		else {

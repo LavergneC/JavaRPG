@@ -2,6 +2,7 @@ package game;
 
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Turn {
 	private int number;
@@ -84,6 +85,8 @@ public class Turn {
 			
 			System.out.println("Player " + player.getName() + " attack " + actual_wave.getMonsters().get(index_monstre).getName());
 			
+			delaySec(2);
+			
 			/* Attack */
 			switch(attack) {
 			case BASIC_ATTACK:
@@ -97,9 +100,8 @@ public class Turn {
 				//TODO add new attacks when created
 			}
 			/* Remove monster from the wave if we get hp != 0 */
-			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0) {
+			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0)
 				actual_wave.removeMonster(index_monstre);
-			}
 			break;
 			
 		case REST:
@@ -117,6 +119,7 @@ public class Turn {
 		Iterator<Monster> it = this.actual_wave.getMonsters().iterator();
 		
 		while(it.hasNext()) {
+			delaySec(2);
 			Monster monster = it.next();
 			if(monster.getStamina() < 50) { /* not enough stamina to attack */
 				System.out.println(monster.getName() + " take some rest.");
@@ -133,5 +136,15 @@ public class Turn {
 		}
 		player.setDefensePosition(false);
 		return true;
+	}
+	
+	void delaySec(int s) {
+		try {
+			TimeUnit.SECONDS.sleep(s);
+		}
+		catch(InterruptedException ex)
+		{
+		    Thread.currentThread().interrupt();
+		}
 	}
 }

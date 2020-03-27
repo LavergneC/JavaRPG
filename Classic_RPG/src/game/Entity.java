@@ -68,14 +68,12 @@ public abstract class Entity {
 
 	void rest()
 	{
-		if(stamina + (int)Math.ceil(stamina/10) > characteristics.getMax_stamina())
+		if(stamina + (int)Math.ceil(characteristics.getMax_stamina()/10) > characteristics.getMax_stamina())
 			stamina = characteristics.getMax_stamina();
 		else
-			stamina += (int)Math.ceil(stamina/10); // TODO could be changed or implement in daughter class
-		if(hp + (int)Math.ceil(hp/20) > characteristics.getMax_hp())
-			hp = characteristics.getMax_hp();
-		else
-			hp += (int)Math.ceil(hp/20);
+			stamina += (int)Math.ceil(characteristics.getMax_stamina()/10); // TODO could be changed or implement in daughter class
+
+		hpChange(true, (int)Math.ceil(characteristics.getMax_hp()/20));
 	}
 
 	protected int getHp() {
@@ -123,6 +121,7 @@ public abstract class Entity {
 				System.out.println(name + " took " + value + " damage(s)");
 			}
 		}
+		System.out.println();
 	}
 
 }
