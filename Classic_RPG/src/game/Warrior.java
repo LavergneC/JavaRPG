@@ -21,8 +21,13 @@ public class Warrior extends Player{
 	public void receiveAttack(int dmgIncoming) {
 		if(defense_position) {
 			if(dmgIncoming > characteristics.getStrength()) {
-				hp -= dmgIncoming / 2;
+				hpChange(false, dmgIncoming / 2);
 			}
+			else
+				System.out.println(this.name + " held behind his shield");
+		}
+		else {
+			super.receiveAttack(dmgIncoming);
 		}
 	}
 }

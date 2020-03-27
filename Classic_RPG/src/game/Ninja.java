@@ -15,14 +15,21 @@ public class Ninja extends Player{
 	/* Should not be pared */
 	public void specialHit(Entity target) {
 		attack(target, this.characteristics.getStrength() * 1 + 3 * this.characteristics.getAgility());
+		stamina -= 50;
 	}
 	
 	public void receiveAttack(int dmgIncoming) {
 		// Add esquive based on agility and random
 		if(defense_position) {
 			if(dmgIncoming > characteristics.getStrength()) {
-				hp -= dmgIncoming / 2;
+				hpChange(false, dmgIncoming / 2);
 			}
+			else {
+				System.out.println(this.name + " did a beautiful dodge roll");
+			}
+		}
+		else {
+			super.receiveAttack(dmgIncoming);
 		}
 	}
 }

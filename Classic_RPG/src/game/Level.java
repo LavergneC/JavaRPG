@@ -11,4 +11,16 @@ public class Level {
 		number = number_;
 		waves = list_waves;
 	}
+	
+	public int getNumber() {
+		return number;
+	}
+
+	public ArrayList<Wave> getWaves() {
+		return waves;
+	}
+
+	public String getName() {
+		return name;
+	}
 }
