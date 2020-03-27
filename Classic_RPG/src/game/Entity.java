@@ -2,19 +2,21 @@ package game;
 
 public abstract class Entity {
 	protected int level;
-	protected int hp;
+	private int hp;
 	protected int stamina;
 	protected String name;
 	protected Characteristics characteristics;
 
-	protected abstract void receiveAttack(int dmgIncoming);
+	protected void receiveAttack(int dmgIncoming) {
+		hpChange(false, dmgIncoming);
+	}
+	
 	public abstract String toString();
 
 	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_)
 	{
 		this.characteristics = new Characteristics(agility_, strength_, intelligence_,  hp_, stamina_);
 		this.hp = hp_;
-
 		this.stamina = stamina_;
 		this.name = name_;
 		this.level = 0;
@@ -96,6 +98,31 @@ public abstract class Entity {
 		return name;
 	}
 
-
+	protected void hpChange(boolean add, int value) {
+		if(value <= 0) {
+			return;
+		}
+		
+		if(add) {
+			if(value + hp > characteristics.getMax_hp()) {
+				System.out.println(name + " healed of " + (characteristics.getMax_hp() - hp));
+				hp = characteristics.getMax_hp();
+			}
+			else {
+				hp += value;
+				System.out.println(name + " healed of " + value);
+			}
+		}
+		else {
+			if(hp - value <= 0) {
+				hp = 0;
+				System.out.println(name + " took " + value + " damage(s) and died");
+			}
+			else {
+				hp -= value;
+				System.out.println(name + " took " + value + " damage(s)");
+			}
+		}
+	}
 
 }

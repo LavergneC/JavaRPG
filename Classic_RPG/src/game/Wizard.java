@@ -33,16 +33,14 @@ public class Wizard extends Player{
 			magicShieldHp -= dmgIncoming;
 			
 			if(diff < 0) {
-				hp -= Math.abs(diff);
-				System.out.println(this.name + " took " + Math.abs(diff) + "damage(s)");
+				hpChange(false, Math.abs(diff));
 			}
 			else {
-				System.out.println(this.name + " took 0 damage(s)");
+				System.out.println(this.name + " stayed behind is magic shield");
 			}
 		}
 		else {
-			hp -= dmgIncoming;
-			System.out.println(this.name + " took " + dmgIncoming + "damage(s)");
+			super.receiveAttack(dmgIncoming);
 		}
 	}
 	
@@ -61,7 +59,7 @@ public class Wizard extends Player{
 	
 	@Override
 	public String toString() {
-		return name + " | " + "HP: " + hp + "/" + characteristics.getMax_hp() + " | Stamina: " + stamina + "/" + characteristics.getMax_stamina() + 
+		return name + " | " + "HP: " + getHp() + "/" + characteristics.getMax_hp() + " | Stamina: " + stamina + "/" + characteristics.getMax_stamina() + 
 				" | Mana: " + getMana() + "/" + ((MagicianCharacteristiques)characteristics).getManaMax();
 	}
 }

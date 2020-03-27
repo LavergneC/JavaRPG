@@ -22,16 +22,14 @@ public class Ninja extends Player{
 		// Add esquive based on agility and random
 		if(defense_position) {
 			if(dmgIncoming > characteristics.getStrength()) {
-				hp -= dmgIncoming / 2;
-				System.out.println(this.name + " took " + dmgIncoming / 2 + "damage(s)");
+				hpChange(false, dmgIncoming / 2);
 			}
 			else {
-				System.out.println(this.name + " took 0 damage(s)");
+				System.out.println(this.name + " did a beautiful dodge roll");
 			}
 		}
 		else {
-			hp -= dmgIncoming;
-			System.out.println(this.name + " took " + dmgIncoming + "damage(s)");
+			super.receiveAttack(dmgIncoming);
 		}
 	}
 }

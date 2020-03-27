@@ -97,8 +97,7 @@ public class Turn {
 				//TODO add new attacks when created
 			}
 			/* Remove monster from the wave if we get hp != 0 */
-			if (actual_wave.getMonsters().get(index_monstre).hp <= 0) {
-				System.out.println(actual_wave.getMonsters().get(index_monstre).name + " has been killed");
+			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0) {
 				actual_wave.removeMonster(index_monstre);
 			}
 			break;

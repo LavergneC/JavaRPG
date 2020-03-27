@@ -7,19 +7,7 @@ public class Monster extends Entity{
 	}
 	
 	@Override
-	public void receiveAttack(int dmgIncoming) {
-		int newHp = hp - dmgIncoming;
-		
-		System.out.println(this.name + " took " + dmgIncoming + "damage(s)");
-		
-		if (newHp <= 0)
-			hp = 0;
-		else
-			hp = newHp;
-	}
-	
-	@Override
 	public String toString() {
-		return name + " | " + "HP: " + hp + "/" + characteristics.getMax_hp();
+		return name + " | " + "HP: " + getHp() + "/" + characteristics.getMax_hp();
 	}
 }
