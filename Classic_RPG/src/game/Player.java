@@ -18,4 +18,5 @@ public abstract class Player extends Entity{
 	void setDefensePosition(boolean defense_position_) {
 		this.defense_position = defense_position_;
 	}
+
 }

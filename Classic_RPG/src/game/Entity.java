@@ -62,6 +62,12 @@ public abstract class Entity {
 	{
 		target.receiveAttack(dmgs);
 	}
+	
+	void rest()
+	{
+		stamina += (int)Math.ceil( stamina/10 ); // TODO could be changed or implement in daughter class
+		hp += (int)Math.ceil( hp/20 );
+	}
 
 	protected int getHp() {
 		return hp;
@@ -82,5 +88,7 @@ public abstract class Entity {
 	protected String getName() {
 		return name;
 	}
+	
+	
 	
 }

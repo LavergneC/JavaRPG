@@ -14,7 +14,7 @@ public class Turn {
 		player = player_;
 	}
 	
-	public void turn() {
+	public void run_turn() {
 		Scanner input_player = new Scanner(System.in);
 		boolean is_valid = true;
 		Action action = null;
@@ -97,12 +97,41 @@ public class Turn {
 			break;
 			
 		case REST:
+			System.out.println("Player " + player.getName() + " take some rest.");
+			player.rest();
+			if (player instanceof Wizard) {
+				System.out.println("Player have now " + player.getStamina() + " stamina and " + player.getMana() + " mana.");
+			}
+			else {
+				System.out.println("Player have now " + player.getStamina() + " stamina.");
+			}
 			break;
 			
 		case DEFENSE:
+			player.setDefensePosition(true);
 			break;
-			
-			
+		 //TODO add new actions
+		}
+		
+		/* Monsters turn */
+		Iterator<Monster> it = this.actual_wave.getMonsters().iterator();
+		
+		while(it.hasNext()) {
+			Monster monster = it.next();
+			if(monster.getStamina() < 50) { /* not enough stamina to attack */
+				System.out.println("Monster " + monster.getName() + " take some rest.");
+				monster.rest();
+				System.out.println("Monster " + monster.getName() + "get now " + monster.getStamina() + " stamina.");
+			}
+			else {
+				System.out.println("Monster " + monster.getName() + " attacks player " + player.getName());
+				monster.basicHit(player);
+				System.out.println("Player " + player.getName() + "has now " + player.getHp());
+				if (player.getHp() == 0) {
+					System.out.println("Loser, you are defeated by weak monsters !");
+					break;
+				}
+			}
 		}
 	}
 }
