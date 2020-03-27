@@ -7,18 +7,35 @@ import java.util.ArrayList;
 public class Classic_RPG {
 	private ArrayList<Level> levels;
 	private Player player;
-	//TODO add turn
+	private Turn currentTurn;
 
 	public Classic_RPG() {
 		levels = new ArrayList<Level>();
 		levels.add(generateLevel1());
 		levels.add(generateLevel2());
 	}
+	public void launchGame() {
+		for(Level currentLevel : levels) {
+			System.out.println("New level !\nLevel n°" + currentLevel.getNumber() + " : " + currentLevel.getName());
+			for (Wave currentWave : currentLevel.getWaves()) {
+				System.out.println("New wave ! Wave n°" + currentWave.getNumber());
+				int turnIndex = 1;
+				
+				while(!currentWave.getMonsters().isEmpty()) {
+					System.out.println("Turn n°" + turnIndex);
+					currentTurn = new Turn(turnIndex, currentWave, player);
+					currentTurn.run_turn();
+					turnIndex++;
+				}
+			}
+		}
+	}
 	public static void main(String[] args) {
 		System.out.println("This is Classic RPG game; enjoy !");
 		
 		Classic_RPG Game = new Classic_RPG();
 		Game.generatePlayer();
+		Game.launchGame();
 	}
 
 	public Level generateLevel1() {
@@ -103,6 +120,6 @@ public class Classic_RPG {
 
 			}
 		}while (!inputOK);
-		scan.close();
+		//scan.close();
 	}
 }

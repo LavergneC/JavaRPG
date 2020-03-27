@@ -59,7 +59,7 @@ public class Turn {
 				default:
 					attack_valid = false;
 				}
-			} while(attack_valid);
+			} while(!attack_valid);
 			String choix_monstre = "";
 			int index_monstre = 0;
 			do {
@@ -126,7 +126,7 @@ public class Turn {
 			else {
 				System.out.println("Monster " + monster.getName() + " attacks player " + player.getName());
 				monster.basicHit(player);
-				System.out.println("Player " + player.getName() + "has now " + player.getHp());
+				System.out.println("Player " + player.getName() + " has now " + player.getHp() + " HP");
 				if (player.getHp() == 0) {
 					System.out.println("Loser, you are defeated by weak monsters !");
 					break;

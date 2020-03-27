@@ -24,5 +24,8 @@ public class Warrior extends Player{
 				hp -= dmgIncoming / 2;
 			}
 		}
+		else {
+			hp -= dmgIncoming;
+		}
 	}
 }
