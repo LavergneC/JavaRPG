@@ -17,4 +17,8 @@ public class Wave {
 	public ArrayList<Monster> getMonsters() {
 		return monsters;
 	}
+	
+	public void removeMonster(int index) {
+		monsters.remove(index);
+	}
 }

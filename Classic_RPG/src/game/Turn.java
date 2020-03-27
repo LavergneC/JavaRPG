@@ -79,6 +79,30 @@ public class Turn {
 			
 			System.out.println("Player " + player.getName() + " attack " + actual_wave.getMonsters().get(index_monstre).getName());
 			
+			/* Attack */
+			switch(attack) {
+			case BASIC_ATTACK:
+				player.basicHit(actual_wave.getMonsters().get(index_monstre));
+				break;
+			
+			case SPECIAL_ATTACK:
+				player.specialHit(actual_wave.getMonsters().get(index_monstre));
+				break;
+				
+				//TODO add new attacks when created
+			}
+			/* Remove monster from the wave if we get hp != 0 */
+			if (actual_wave.getMonsters().get(index_monstre).hp == 0)
+				actual_wave.removeMonster(index_monstre);
+			break;
+			
+		case REST:
+			break;
+			
+		case DEFENSE:
+			break;
+			
+			
 		}
 	}
 }
