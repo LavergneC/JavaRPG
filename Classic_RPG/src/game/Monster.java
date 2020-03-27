@@ -10,9 +10,16 @@ public class Monster extends Entity{
 	public void receiveAttack(int dmgIncoming) {
 		int newHp = hp - dmgIncoming;
 		
-		if (newHp <= 0) 
+		System.out.println(this.name + " took " + dmgIncoming + "damage(s)");
+		
+		if (newHp <= 0)
 			hp = 0;
 		else
 			hp = newHp;
+	}
+	
+	@Override
+	public String toString() {
+		return name + " | " + "HP: " + hp + "/" + characteristics.getMax_hp();
 	}
 }

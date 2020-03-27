@@ -3,7 +3,7 @@ package game;
 public class Wizard extends Player{
 	final static int BASE_HP = 750;
 	final static int BASE_STAMINA = 1000;
-	final static int BASE_MANA = 3000;
+	final static int BASE_MANA = 1000;
 	
 	final static int BASE_STRENGTH = 5;
 	final static int BASE_AGILITY = 5;
@@ -34,10 +34,15 @@ public class Wizard extends Player{
 			
 			if(diff < 0) {
 				hp -= Math.abs(diff);
+				System.out.println(this.name + " took " + Math.abs(diff) + "damage(s)");
+			}
+			else {
+				System.out.println(this.name + " took 0 damage(s)");
 			}
 		}
 		else {
 			hp -= dmgIncoming;
+			System.out.println(this.name + " took " + dmgIncoming + "damage(s)");
 		}
 	}
 	
@@ -52,5 +57,11 @@ public class Wizard extends Player{
 	public void rest() {
 		super.rest();
 		setMana(getMana() + (int)Math.ceil(getMana() / 15)); 
+	}
+	
+	@Override
+	public String toString() {
+		return name + " | " + "HP: " + hp + "/" + characteristics.getMax_hp() + " | Stamina: " + stamina + "/" + characteristics.getMax_stamina() + 
+				" | Mana: " + getMana() + "/" + ((MagicianCharacteristiques)characteristics).getManaMax();
 	}
 }

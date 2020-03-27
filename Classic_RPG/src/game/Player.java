@@ -20,5 +20,10 @@ public abstract class Player extends Entity{
 	void setDefensePosition(boolean defense_position_) {
 		this.defense_position = defense_position_;
 	}
+	
+	@Override
+	public String toString() {
+		return name + " | " + "HP: " + hp + "/" + characteristics.getMax_hp() + " | Stamina: " + stamina + "/" + characteristics.getMax_stamina();
+	}
 
 }

@@ -22,10 +22,14 @@ public class Warrior extends Player{
 		if(defense_position) {
 			if(dmgIncoming > characteristics.getStrength()) {
 				hp -= dmgIncoming / 2;
+				System.out.println(this.name + " took " + dmgIncoming / 2 + "damage(s)");
 			}
+			else
+				System.out.println(this.name + " took 0 damage(s)");
 		}
 		else {
 			hp -= dmgIncoming;
+			System.out.println(this.name + " took " + dmgIncoming + "damage(s)");
 		}
 	}
 }

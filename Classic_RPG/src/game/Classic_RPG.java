@@ -20,24 +20,34 @@ public class Classic_RPG {
 			for (Wave currentWave : currentLevel.getWaves()) {
 				System.out.println("New wave ! Wave n°" + currentWave.getNumber());
 				int turnIndex = 1;
-				
-				while(!currentWave.getMonsters().isEmpty()) {
-					System.out.println("Turn n°" + turnIndex);
+				boolean playerAlive = true;
+
+				while(!currentWave.getMonsters().isEmpty() && playerAlive) {
+					System.out.println("\nTurn n°" + turnIndex);
 					currentTurn = new Turn(turnIndex, currentWave, player);
 					currentTurn.run_turn();
 					turnIndex++;
+					waitEnter();
 				}
 			}
 		}
 	}
 	public static void main(String[] args) {
 		System.out.println("This is Classic RPG game; enjoy !");
-		
+
 		Classic_RPG Game = new Classic_RPG();
 		Game.generatePlayer();
 		Game.launchGame();
 	}
 
+	public void waitEnter() {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+		System.out.println("press Enter to continue...");
+
+		@SuppressWarnings("unused")
+		String s = scan.nextLine();
+	}
 	public Level generateLevel1() {
 		Monster bebeDragon = new Monster(200,200,"Bébé dragon", 1, 20, 1);
 		Monster fantomeDeChienSauvage1 = new Monster(100, 200, "Fantôme de chien sauvage", 1, 10, 1);
@@ -88,15 +98,16 @@ public class Classic_RPG {
 	}
 
 	public void generatePlayer() {
+		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		boolean inputOK = false;
-		
+
 		System.out.println("How will this courageous aventurer named ?");
 		String name = scan.nextLine();
 		System.out.println("Oh ! " + name + " what a fabulous name !");
-		
+
 		do {
-			System.out.println("Player generation :\nPlease choose a class :\n\t1)Warrior\n\t2)Wizard\n\t3)Ninja");
+			System.out.println("\nPlease choose a class :\n  1)Warrior\n  2)Wizard\n  3)Ninja");
 			String line = scan.nextLine();
 
 			switch(line) {
@@ -120,6 +131,6 @@ public class Classic_RPG {
 
 			}
 		}while (!inputOK);
-		//scan.close();
+		waitEnter();
 	}
 }
