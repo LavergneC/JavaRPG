@@ -17,6 +17,7 @@ public class Wizard extends Player{
 	}
 	
 	public void specialHit(Entity target) {
+		System.out.println(name + " target " + target.getName() + " with fire breath");
 		attack(target, characteristics.getIntelligence() * 3);
 		
 		if(getMana() - 75 < 0) {

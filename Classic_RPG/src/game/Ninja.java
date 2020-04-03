@@ -14,6 +14,7 @@ public class Ninja extends Player{
 	
 	/* Should not be pared */
 	public void specialHit(Entity target) {
+		System.out.println(name + " use surgical attack on " + target.getName());
 		attack(target, this.characteristics.getStrength() * 1 + 3 * this.characteristics.getAgility());
 		staminaChange(false, 50);
 	}
