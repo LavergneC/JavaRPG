@@ -111,7 +111,6 @@ public abstract class Entity {
 				stamina += value;
 				System.out.println(name + " recovred " + value + " stamina");
 			}
-			System.out.println();
 		}
 		else {
 			if(stamina - value <= 0) {

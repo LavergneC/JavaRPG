@@ -8,6 +8,7 @@ public class Classic_RPG {
 	private ArrayList<Level> levels;
 	private Player player;
 	private Turn currentTurn;
+	private GUI gui;
 
 	public Classic_RPG() {
 		levels = new ArrayList<Level>();
@@ -15,15 +16,21 @@ public class Classic_RPG {
 		levels.add(generateLevel2());
 	}
 	public void launchGame() {
+		gui = new GUI(this.player);
+		gui.setVisible(true);
+		
 		for(Level currentLevel : levels) {
 			System.out.println("New level !\nLevel n°" + currentLevel.getNumber() + " : " + currentLevel.getName());
+			gui.infobarNewLevel(currentLevel.getNumber(), currentLevel.getName());
 			for (Wave currentWave : currentLevel.getWaves()) {
 				System.out.println("New wave ! Wave n°" + currentWave.getNumber());
+				gui.infobarSetWave(currentWave.getNumber());
 				int turnIndex = 1;
 
 				while(!currentWave.getMonsters().isEmpty() && player.getHp() > 0) {
 					System.out.println("\nTurn n°" + turnIndex);
-					currentTurn = new Turn(turnIndex, currentWave, player);
+					currentTurn = new Turn(turnIndex, currentWave, player, gui);
+					gui.infobarSetTurn(currentTurn.getNumber());
 					currentTurn.run_turn();
 					turnIndex++;
 					waitEnter();
@@ -36,6 +43,7 @@ public class Classic_RPG {
 
 		Classic_RPG Game = new Classic_RPG();
 		Game.generatePlayer();
+		
 		Game.launchGame();
 	}
 

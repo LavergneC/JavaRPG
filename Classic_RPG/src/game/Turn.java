@@ -8,14 +8,17 @@ public class Turn {
 	private int number;
 	private Wave actual_wave;
 	private Player player;
+	private GUI gui;
 	
-	public Turn(int number_, Wave wave_, Player player_) {
+	public Turn(int number_, Wave wave_, Player player_, GUI gui_) {
 		number = number_;
 		actual_wave = wave_;
 		player = player_;
+		gui = gui_;
 	}
 	
 	public boolean run_turn() {
+		@SuppressWarnings("resource")
 		Scanner input_player = new Scanner(System.in);
 		boolean is_valid = true;
 		Action action = null;
@@ -110,7 +113,7 @@ public class Turn {
 			break;
 		 //TODO add new actions
 		}
-		
+		gui.updatePlayerBars(player);
 		/* Monsters turn */
 		Iterator<Monster> it = this.actual_wave.getMonsters().iterator();
 		
@@ -123,6 +126,7 @@ public class Turn {
 			else {
 				System.out.println(monster.getName() + " attacks " + player.getName());
 				monster.basicHit(player);
+				gui.updatePlayerBars(player);
 				if (player.getHp() <= 0) {
 					System.out.println("Loser, you are defeated by weak monsters !");
 					return false;
@@ -131,6 +135,10 @@ public class Turn {
 		}
 		player.setDefensePosition(false);
 		return true;
+	}
+	
+	public int getNumber() {
+		return number;
 	}
 	
 	void delaySec(int s) {
