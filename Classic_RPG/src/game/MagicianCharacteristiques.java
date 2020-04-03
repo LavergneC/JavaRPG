@@ -8,8 +8,11 @@ public class MagicianCharacteristiques extends Characteristics {
 		return mana;
 	}
 
-	public void setMana(int mana) {
-		this.mana = mana;
+	public void setMana(int mana_) {
+		if(mana_ > manaMax)
+			this.mana = manaMax;
+		else
+			this.mana = mana_;
 	}
 
 	public MagicianCharacteristiques(int agility_, int strength_, int intelligence_, int m_hp, int m_stamina, int mana_) {
