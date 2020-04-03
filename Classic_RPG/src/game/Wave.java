@@ -21,4 +21,10 @@ public class Wave {
 	public void removeMonster(int index) {
 		monsters.remove(index);
 	}
+	
+	public void printMonsters() {
+		for (Monster monster  : getMonsters()) {
+			System.out.println(monster.toString());
+		}
+	}
 }

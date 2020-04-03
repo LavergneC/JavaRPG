@@ -22,9 +22,7 @@ public class Turn {
 		
 		do {
 			System.out.println(player.toString());
-			for(Monster monster : actual_wave.getMonsters()) {
-				System.out.println(monster.toString());
-			}
+			actual_wave.printMonsters();
 			
 			System.out.println("\nWhich action ?\n  1) Attack\n  2) Rest\n  3) Defense\n");
 			String choix = input_player.nextLine();
