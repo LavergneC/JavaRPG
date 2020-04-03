@@ -13,6 +13,7 @@ public class Warrior extends Player{
 	}
 	
 	public void specialHit(Entity target) {
+		System.out.println(name + " use double smash on " + target.getName());
 		basicHit(target);
 		basicHit(target);
 		staminaChange(false, 100);

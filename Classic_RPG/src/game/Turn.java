@@ -79,10 +79,7 @@ public class Turn {
 				index_monstre = Integer.parseInt(choix_monstre) - 1;
 			}while(index_monstre > actual_wave.getMonsters().size() - 1);
 	
-			// Check Stamina to attack
-			
-			System.out.println("Player " + player.getName() + " attack " + actual_wave.getMonsters().get(index_monstre).getName());
-			
+			// TODO Check Stamina to attack
 			delaySec(2);
 			
 			/* Attack */

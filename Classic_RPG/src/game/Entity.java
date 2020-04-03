@@ -57,6 +57,9 @@ public abstract class Entity {
 	protected void basicHit(Entity target)
 	{
 		int dmgs = characteristics.getStrength() * 2;
+		
+		System.out.println(name + " basic attack on " + target.getName());
+		
 		staminaChange(false, 50);
 		this.attack(target, dmgs);
 	}
