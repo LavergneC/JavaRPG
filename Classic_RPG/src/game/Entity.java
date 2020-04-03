@@ -68,10 +68,9 @@ public abstract class Entity {
 
 	void rest() // TODO could be changed or implement in daughter class
 	{
+		System.out.println(getName() + " take some rest.");
 		staminaChange(true, characteristics.getMax_stamina() / 10);
 		hpChange(true, (int)Math.ceil(characteristics.getMax_hp()/20));
-		
-		System.out.println(getName() + " take some rest.");
 	}
 
 	protected int getHp() {
