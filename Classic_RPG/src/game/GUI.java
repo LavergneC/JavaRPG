@@ -70,6 +70,7 @@ public class GUI extends JFrame {
 		Header.add(headTexts, BorderLayout.WEST);
 
 		JPanel H_text = new JPanel();
+		H_text.setBackground(Color.WHITE);
 		headTexts.add(H_text);
 		H_text.setLayout(new GridLayout(0, 1, 0, 30));
 

@@ -127,7 +127,6 @@ public class Turn {
 				monster.rest();
 			}
 			else {
-				System.out.println(monster.getName() + " attacks " + player.getName());
 				monster.basicHit(player);
 				gui.updatePlayerBars(player);
 				if (player.getHp() <= 0) {

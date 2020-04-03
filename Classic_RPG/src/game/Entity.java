@@ -60,7 +60,7 @@ public abstract class Entity {
 		
 		System.out.println(name + " basic attack on " + target.getName());
 		
-		staminaChange(false, 50);
+		staminaChange(false, 200);
 		this.attack(target, dmgs);
 	}
 
