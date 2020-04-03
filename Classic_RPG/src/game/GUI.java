@@ -17,6 +17,8 @@ import javax.swing.JSplitPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.JProgressBar;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -39,6 +41,8 @@ public class GUI extends JFrame {
 	private JLabel lblLvlGame;
 	private JLabel lblWave;
 	private JLabel lblTurn;
+	
+	private JPanel monstersPanel;
 
 	/**
 	 * Create the frame.
@@ -161,50 +165,50 @@ public class GUI extends JFrame {
 		JLabel lblMana = new JLabel("Mana");
 		lblMana.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JPanel place_and_time = new JPanel();
-		Header.add(place_and_time, BorderLayout.SOUTH);
-		place_and_time.setBackground(Color.WHITE);
-		place_and_time.setLayout(new GridLayout(0, 3, 0, 0));
+		JPanel infoBar = new JPanel();
+		Header.add(infoBar, BorderLayout.SOUTH);
+		infoBar.setBackground(Color.WHITE);
+		infoBar.setLayout(new GridLayout(0, 3, 0, 0));
 
 		JSeparator separator = new JSeparator();
-		place_and_time.add(separator);
+		infoBar.add(separator);
 		separator.setForeground(Color.BLACK);
 
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setForeground(Color.BLACK);
-		place_and_time.add(separator_2);
+		infoBar.add(separator_2);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(Color.BLACK);
-		place_and_time.add(separator_1);
+		infoBar.add(separator_1);
 
 		lblLvlGame = new JLabel("Level X - Default level Name");
 		lblLvlGame.setVerticalAlignment(SwingConstants.TOP);
 		lblLvlGame.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLvlGame.setBackground(Color.WHITE);
-		place_and_time.add(lblLvlGame);
+		infoBar.add(lblLvlGame);
 
 		lblWave = new JLabel("Wave XX");
 		lblWave.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWave.setBackground(Color.WHITE);
-		place_and_time.add(lblWave);
+		infoBar.add(lblWave);
 
-		 lblTurn = new JLabel("Turn XX");
+		lblTurn = new JLabel("Turn XX");
 		lblTurn.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTurn.setBackground(Color.WHITE);
-		place_and_time.add(lblTurn);
+		infoBar.add(lblTurn);
 
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setForeground(Color.BLACK);
-		place_and_time.add(separator_3);
+		infoBar.add(separator_3);
 
 		JSeparator separator_2_1 = new JSeparator();
 		separator_2_1.setForeground(Color.BLACK);
-		place_and_time.add(separator_2_1);
+		infoBar.add(separator_2_1);
 
 		JSeparator separator_1_1 = new JSeparator();
 		separator_1_1.setForeground(Color.BLACK);
-		place_and_time.add(separator_1_1);
+		infoBar.add(separator_1_1);
 
 		JPanel Actions = new JPanel();
 		contentPane.add(Actions, BorderLayout.WEST);
@@ -218,6 +222,24 @@ public class GUI extends JFrame {
 
 		Button button_rest = new Button("Rest");
 		Actions.add(button_rest);
+		
+		monstersPanel = new JPanel();
+		monstersPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
+		contentPane.add(monstersPanel, BorderLayout.CENTER);
+		monstersPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JPanel monster_1 = new JPanel();
+		monstersPanel.add(monster_1);
+		monster_1.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
+		
+		JLabel monster_1_name = new JLabel("monster1_name");
+		monster_1.add(monster_1_name);
+		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setForeground(Color.RED);
+		progressBar.setStringPainted(true);
+		progressBar.setValue(50);
+		monster_1.add(progressBar);
 
 		if(player instanceof Wizard) {
 			manaBar = new JProgressBar();
@@ -277,5 +299,29 @@ public class GUI extends JFrame {
 	
 	public void infobarSetTurn(int turnNumber) {
 		lblTurn.setText("Turn " + turnNumber);
+	}
+	
+	public void updateMonsters(ArrayList<Monster> wave) {
+		monstersPanel.removeAll();
+		
+		for (Monster monster : wave) {
+			JPanel new_monster_panel = new JPanel();
+			new_monster_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
+			
+			JLabel new_monster_name = new JLabel(monster.getName());
+			new_monster_panel.add(new_monster_name);
+			
+			JProgressBar progressBar = new JProgressBar();
+			progressBar.setForeground(Color.RED);
+			progressBar.setStringPainted(true);
+			progressBar.setMaximum(monster.characteristics.getMax_hp());
+			progressBar.setValue(monster.getHp());
+			progressBar.setString(progressBar.getValue() + "/" + progressBar.getMaximum());
+			new_monster_panel.add(progressBar);
+			
+			monstersPanel.add(new_monster_panel);
+		}
+		monstersPanel.revalidate();
+		monstersPanel.repaint();
 	}
 }

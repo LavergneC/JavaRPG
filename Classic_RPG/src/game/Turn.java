@@ -23,6 +23,8 @@ public class Turn {
 		boolean is_valid = true;
 		Action action = null;
 		
+		gui.updateMonsters(actual_wave.getMonsters());
+		
 		do {
 			System.out.println(player.toString());
 			actual_wave.printMonsters();
@@ -83,7 +85,6 @@ public class Turn {
 			}while(index_monstre > actual_wave.getMonsters().size() - 1);
 	
 			// TODO Check Stamina to attack
-			delaySec(2);
 			
 			/* Attack */
 			switch(attack) {
@@ -102,6 +103,8 @@ public class Turn {
 			/* Remove monster from the wave if we get hp != 0 */
 			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0)
 				actual_wave.removeMonster(index_monstre);
+			
+			gui.updateMonsters(actual_wave.getMonsters());
 			break;
 			
 		case REST:
@@ -133,6 +136,8 @@ public class Turn {
 				}
 			}
 		}
+		
+		gui.updateMonsters(actual_wave.getMonsters());
 		player.setDefensePosition(false);
 		return true;
 	}
