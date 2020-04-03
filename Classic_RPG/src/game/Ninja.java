@@ -15,7 +15,7 @@ public class Ninja extends Player{
 	/* Should not be pared */
 	public void specialHit(Entity target) {
 		attack(target, this.characteristics.getStrength() * 1 + 3 * this.characteristics.getAgility());
-		stamina -= 50;
+		staminaChange(false, 50);
 	}
 	
 	public void receiveAttack(int dmgIncoming) {

@@ -20,9 +20,8 @@ public class Classic_RPG {
 			for (Wave currentWave : currentLevel.getWaves()) {
 				System.out.println("New wave ! Wave n°" + currentWave.getNumber());
 				int turnIndex = 1;
-				boolean playerAlive = true;
 
-				while(!currentWave.getMonsters().isEmpty() && playerAlive) {
+				while(!currentWave.getMonsters().isEmpty() && player.getHp() > 0) {
 					System.out.println("\nTurn n°" + turnIndex);
 					currentTurn = new Turn(turnIndex, currentWave, player);
 					currentTurn.run_turn();

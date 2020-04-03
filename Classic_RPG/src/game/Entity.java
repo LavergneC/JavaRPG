@@ -3,14 +3,14 @@ package game;
 public abstract class Entity {
 	protected int level;
 	private int hp;
-	protected int stamina;
+	private int stamina;
 	protected String name;
 	protected Characteristics characteristics;
 
 	protected void receiveAttack(int dmgIncoming) {
 		hpChange(false, dmgIncoming);
 	}
-	
+
 	public abstract String toString();
 
 	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_)
@@ -57,7 +57,7 @@ public abstract class Entity {
 	protected void basicHit(Entity target)
 	{
 		int dmgs = characteristics.getStrength() * 2;
-		stamina -= 50;
+		staminaChange(false, 50);
 		this.attack(target, dmgs);
 	}
 
@@ -66,13 +66,9 @@ public abstract class Entity {
 		target.receiveAttack(dmgs);
 	}
 
-	void rest()
+	void rest() // TODO could be changed or implement in daughter class
 	{
-		if(stamina + (int)Math.ceil(characteristics.getMax_stamina()/10) > characteristics.getMax_stamina())
-			stamina = characteristics.getMax_stamina();
-		else
-			stamina += (int)Math.ceil(characteristics.getMax_stamina()/10); // TODO could be changed or implement in daughter class
-
+		staminaChange(true, characteristics.getMax_stamina() / 10);
 		hpChange(true, (int)Math.ceil(characteristics.getMax_hp()/20));
 	}
 
@@ -89,6 +85,7 @@ public abstract class Entity {
 	}
 
 	protected void setStamina(int stamina) {
+		// Careful usage ! Prefer staminaChage(), better most of the time
 		this.stamina = stamina;
 	}
 
@@ -96,11 +93,37 @@ public abstract class Entity {
 		return name;
 	}
 
-	protected void hpChange(boolean add, int value) {
+	protected void staminaChange(boolean add, int value) {
 		if(value <= 0) {
 			return;
 		}
 		
+		if(add) {
+			if(value + stamina > characteristics.getMax_stamina()) {
+				System.out.println(name + " recovred " + (characteristics.getMax_stamina() - stamina) + " stamina");
+				stamina = characteristics.getMax_stamina();
+			}
+			else {
+				stamina += value;
+				System.out.println(name + " recovred " + value + " stamina");
+			}
+			System.out.println();
+		}
+		else {
+			if(stamina - value <= 0) {
+				stamina = 0;
+			}
+			else {
+				stamina -= value;
+			}
+		}
+	}
+
+	protected void hpChange(boolean add, int value) {
+		if(value <= 0) {
+			return;
+		}
+
 		if(add) {
 			if(value + hp > characteristics.getMax_hp()) {
 				System.out.println(name + " healed of " + (characteristics.getMax_hp() - hp));

@@ -59,7 +59,7 @@ public class Wizard extends Player{
 	
 	@Override
 	public String toString() {
-		return name + " | " + "HP: " + getHp() + "/" + characteristics.getMax_hp() + " | Stamina: " + stamina + "/" + characteristics.getMax_stamina() + 
+		return name + " | " + "HP: " + getHp() + "/" + characteristics.getMax_hp() + " | Stamina: " + getStamina() + "/" + characteristics.getMax_stamina() + 
 				" | Mana: " + getMana() + "/" + ((MagicianCharacteristiques)characteristics).getManaMax();
 	}
 }
