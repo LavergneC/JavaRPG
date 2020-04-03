@@ -70,6 +70,8 @@ public abstract class Entity {
 	{
 		staminaChange(true, characteristics.getMax_stamina() / 10);
 		hpChange(true, (int)Math.ceil(characteristics.getMax_hp()/20));
+		
+		System.out.println(getName() + " take some rest.");
 	}
 
 	protected int getHp() {
