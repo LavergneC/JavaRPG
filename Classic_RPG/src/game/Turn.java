@@ -107,7 +107,6 @@ public class Turn {
 			break;
 			
 		case REST:
-			System.out.println("Player " + player.getName() + " take some rest.");
 			player.rest();
 			break;
 			
@@ -124,7 +123,6 @@ public class Turn {
 			delaySec(2);
 			Monster monster = it.next();
 			if(monster.getStamina() < 50) { /* not enough stamina to attack */
-				System.out.println(monster.getName() + " take some rest.");
 				monster.rest();
 			}
 			else {
