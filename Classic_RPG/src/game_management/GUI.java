@@ -50,6 +50,11 @@ public class GUI extends JFrame {
 	private Game_action game_action = Game_action.PENDING;
 	private Attack attackType;
 	private int monsterTarget = -1;
+	
+	JButton button_attack_basic;
+	JButton button_attack_special;
+	JButton button_def;
+	JButton button_rest;
 
 	/**
 	 * Create the frame.
@@ -210,11 +215,11 @@ public class GUI extends JFrame {
 		Actions.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JButton button_attack = new JButton("Attack");
-		JButton button_attack_basic = new JButton("<html>Basic<br>attack</html>");
-		JButton button_attack_special = new JButton("<html>Special<br>attack</html>");
+		button_attack_basic = new JButton("<html>Basic<br>attack</html>");
+		button_attack_special = new JButton("<html>Special<br>attack</html>");
 		JButton button_attack_back = new JButton("<");
-		JButton button_def = new JButton("Defence");
-		JButton button_rest = new JButton("Rest");
+		button_def = new JButton("Defence");
+		button_rest = new JButton("Rest");
 
 		button_attack_basic.setBackground(Color.WHITE);
 		button_attack_special.setBackground(Color.WHITE);
@@ -418,6 +423,18 @@ public class GUI extends JFrame {
 		for(Component button : Actions.getComponents()) {
 			button.setEnabled(b);
 		}
+	}
+	
+	public void setButtonsEnable(boolean  b, Player player) {
+		if(b == false) {
+			setButtonsEnable(false);
+			return;
+		}
+		setButtonsEnable(true);
+		button_attack_basic.setEnabled(player.actionPossible(Attack.BASIC_ATTACK));
+		button_attack_special.setEnabled(player.actionPossible(Attack.SPECIAL_ATTACK));
+		button_def.setEnabled(player.actionPossible(Action.DEFENSE));
+		button_rest.setEnabled(player.actionPossible(Action.REST));
 	}
 
 	public void setSwordsVisible(boolean b) {

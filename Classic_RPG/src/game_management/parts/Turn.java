@@ -26,7 +26,7 @@ public class Turn {
 
 		gui.updateMonsters(actual_wave.getMonsters());
 		
-		gui.setButtonsEnable(true);
+		gui.setButtonsEnable(true, player);
 		do {// Wait user input
 			action = gui.getGame_action();
 			try {

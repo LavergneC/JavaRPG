@@ -2,6 +2,8 @@ package entities.character;
 
 import entities.Entity;
 import entities.Player;
+import game_management.Action;
+import game_management.Attack;
 
 public class Warrior extends Player{
 	final static int BASE_HP = 2000;
@@ -32,6 +34,37 @@ public class Warrior extends Player{
 		}
 		else {
 			super.receiveAttack(dmgIncoming);
+		}
+	}
+	
+	public boolean actionPossible(Action action) {
+		boolean r = false;
+		switch(action) {
+		case ATTACK:
+			System.out.println("class warrior::ERROR can't get action possible for attaque");
+			r = false;
+			break;
+			
+		case DEFENSE:
+			r = true;
+			break;
+
+		case REST:
+			r = true;
+			break;
+		}
+		return r;
+	}
+	
+	public boolean  actionPossible(Attack attackType) {
+		switch(attackType) {
+		case BASIC_ATTACK:
+			return getStamina() >= 200;
+		case SPECIAL_ATTACK:
+			return getStamina() >= 600;
+		default:
+			System.out.println("class warrior::ERROR this attack don't exist");
+			return false;
 		}
 	}
 }
