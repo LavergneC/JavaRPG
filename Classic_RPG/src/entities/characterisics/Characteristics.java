@@ -23,7 +23,7 @@ public class Characteristics {
 		return strength;
 	}
 
-	public int getIntelligence() {	
+	public int getIntelligence() {
 		return intelligence;
 	}
 
