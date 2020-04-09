@@ -243,7 +243,6 @@ public class GUI extends JFrame {
 				System.out.println("Attack basic");
 				game_action = Game_action.ATTACK;
 				attackType = Attack.BASIC_ATTACK;
-				setButtonsEnable(false);
 				setSwordsVisible(true);
 			}
 		});
@@ -253,7 +252,6 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				game_action = Game_action.ATTACK;
 				attackType = Attack.SPECIAL_ATTACK;
-				setButtonsEnable(false);
 				setSwordsVisible(true);
 			}
 		});
@@ -409,7 +407,6 @@ public class GUI extends JFrame {
 		swordButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				monsterTarget = indexMonster;
-				setButtonsEnable(true);
 				setSwordsVisible(false);
 			}
 		});

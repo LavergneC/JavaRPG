@@ -26,12 +26,14 @@ public class Turn {
 
 		gui.updateMonsters(actual_wave.getMonsters());
 		
+		gui.setButtonsEnable(true);
 		do {// Wait user input
 			action = gui.getGame_action();
 			try {
 				TimeUnit.MILLISECONDS.sleep(250);
 			} catch (InterruptedException e) {}
 		}while(action == Game_action.PENDING);
+		gui.setButtonsEnable(false);
 
 		int index_monstre = 0;
 		switch(action) {

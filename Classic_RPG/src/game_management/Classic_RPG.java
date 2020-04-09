@@ -27,6 +27,7 @@ public class Classic_RPG {
 	public void launchGame() {
 		gui = new GUI(this.player);
 		gui.setVisible(true);
+		gui.setButtonsEnable(false);
 		
 		for(Level currentLevel : levels) {
 			System.out.println("New level !\nLevel n°" + currentLevel.getNumber() + " : " + currentLevel.getName());
