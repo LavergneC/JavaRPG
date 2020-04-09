@@ -1,4 +1,5 @@
-package game;
+package entities;
+import entities.characterisics.*;
 
 public abstract class Entity {
 	protected int level;
@@ -36,17 +37,17 @@ public abstract class Entity {
 	}
 
 	protected void setMana(int manaValue) { //DownCast
-		if(characteristics instanceof MagicianCharacteristiques) {
-			((MagicianCharacteristiques)characteristics).setMana(manaValue);
+		if(getCharacteristics() instanceof MagicianCharacteristiques) {
+			((MagicianCharacteristiques)getCharacteristics()).setMana(manaValue);
 		}
 		else {
 			System.out.println("This entity have no mana pool !!!!");
 		}
 	}
 
-	protected int getMana() {
-		if(characteristics instanceof MagicianCharacteristiques) {
-			return ((MagicianCharacteristiques)characteristics).getMana();
+	public int getMana() {
+		if(getCharacteristics() instanceof MagicianCharacteristiques) {
+			return ((MagicianCharacteristiques)getCharacteristics()).getMana();
 		}
 		else {
 			System.out.println("This entity have no mana pool !!!!");
@@ -54,9 +55,9 @@ public abstract class Entity {
 		}
 	}
 
-	protected void basicHit(Entity target)
+	public void basicHit(Entity target)
 	{
-		int dmgs = characteristics.getStrength() * 2;
+		int dmgs = getCharacteristics().getStrength() * 2;
 		
 		System.out.println(name + " basic attack on " + target.getName());
 		
@@ -69,14 +70,14 @@ public abstract class Entity {
 		target.receiveAttack(dmgs);
 	}
 
-	void rest() // TODO could be changed or implement in daughter class
+	public void rest() // TODO could be changed or implement in daughter class
 	{
 		System.out.println(getName() + " take some rest.");
-		staminaChange(true, characteristics.getMax_stamina() / 10);
-		hpChange(true, (int)Math.ceil(characteristics.getMax_hp()/20));
+		staminaChange(true, getCharacteristics().getMax_stamina() / 10);
+		hpChange(true, (int)Math.ceil(getCharacteristics().getMax_hp()/20));
 	}
 
-	protected int getHp() {
+	public int getHp() {
 		return hp;
 	}
 
@@ -84,7 +85,7 @@ public abstract class Entity {
 		this.hp = hp;
 	}
 
-	protected int getStamina() {
+	public int getStamina() {
 		return stamina;
 	}
 
@@ -93,7 +94,7 @@ public abstract class Entity {
 		this.stamina = stamina;
 	}
 
-	protected String getName() {
+	public String getName() {
 		return name;
 	}
 
@@ -103,9 +104,9 @@ public abstract class Entity {
 		}
 		
 		if(add) {
-			if(value + stamina > characteristics.getMax_stamina()) {
-				System.out.println(name + " recovred " + (characteristics.getMax_stamina() - stamina) + " stamina");
-				stamina = characteristics.getMax_stamina();
+			if(value + stamina > getCharacteristics().getMax_stamina()) {
+				System.out.println(name + " recovred " + (getCharacteristics().getMax_stamina() - stamina) + " stamina");
+				stamina = getCharacteristics().getMax_stamina();
 			}
 			else {
 				stamina += value;
@@ -128,9 +129,9 @@ public abstract class Entity {
 		}
 
 		if(add) {
-			if(value + hp > characteristics.getMax_hp()) {
-				System.out.println(name + " healed of " + (characteristics.getMax_hp() - hp));
-				hp = characteristics.getMax_hp();
+			if(value + hp > getCharacteristics().getMax_hp()) {
+				System.out.println(name + " healed of " + (getCharacteristics().getMax_hp() - hp));
+				hp = getCharacteristics().getMax_hp();
 			}
 			else {
 				hp += value;
@@ -148,6 +149,10 @@ public abstract class Entity {
 			}
 		}
 		System.out.println();
+	}
+
+	public Characteristics getCharacteristics() {
+		return characteristics;
 	}
 
 }

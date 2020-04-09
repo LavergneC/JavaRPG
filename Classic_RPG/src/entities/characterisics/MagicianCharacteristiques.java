@@ -1,4 +1,4 @@
-package game;
+package entities.characterisics;
 
 public class MagicianCharacteristiques extends Characteristics {
 	private int manaMax;

@@ -1,4 +1,4 @@
-package game;
+package game_management.random;
 
 public class Random {
 	static TestOutput test1D100(int sucess) {

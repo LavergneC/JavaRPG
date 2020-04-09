@@ -1,4 +1,7 @@
-package game;
+package entities.character;
+
+import entities.Entity;
+import entities.Player;
 
 public class Warrior extends Player{
 	final static int BASE_HP = 2000;
@@ -21,7 +24,7 @@ public class Warrior extends Player{
 	
 	public void receiveAttack(int dmgIncoming) {
 		if(defense_position) {
-			if(dmgIncoming > characteristics.getStrength()) {
+			if(dmgIncoming > getCharacteristics().getStrength()) {
 				hpChange(false, dmgIncoming / 2);
 			}
 			else

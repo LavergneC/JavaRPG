@@ -1,4 +1,8 @@
-package game;
+package entities.character;
+
+import entities.Entity;
+import entities.Player;
+import entities.characterisics.MagicianCharacteristiques;
 
 public class Wizard extends Player{
 	final static int BASE_HP = 750;
@@ -18,7 +22,7 @@ public class Wizard extends Player{
 	
 	public void specialHit(Entity target) {
 		System.out.println(name + " target " + target.getName() + " with fire breath");
-		attack(target, characteristics.getIntelligence() * 3);
+		attack(target, getCharacteristics().getIntelligence() * 3);
 		
 		if(getMana() - 75 < 0) {
 			setMana(0);
@@ -47,7 +51,7 @@ public class Wizard extends Player{
 	
 	public void setDefensePosition(boolean defense_position_){
 		if(defense_position_) {
-			magicShieldHp = characteristics.getIntelligence() * 2;
+			magicShieldHp = getCharacteristics().getIntelligence() * 2;
 			setMana(getMana() - 55);
 		}
 		super.setDefensePosition(defense_position_);
@@ -60,7 +64,7 @@ public class Wizard extends Player{
 	
 	@Override
 	public String toString() {
-		return name + " | " + "HP: " + getHp() + "/" + characteristics.getMax_hp() + " | Stamina: " + getStamina() + "/" + characteristics.getMax_stamina() + 
-				" | Mana: " + getMana() + "/" + ((MagicianCharacteristiques)characteristics).getManaMax();
+		return name + " | " + "HP: " + getHp() + "/" + getCharacteristics().getMax_hp() + " | Stamina: " + getStamina() + "/" + getCharacteristics().getMax_stamina() + 
+				" | Mana: " + getMana() + "/" + ((MagicianCharacteristiques)getCharacteristics()).getManaMax();
 	}
 }

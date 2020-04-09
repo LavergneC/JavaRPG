@@ -1,14 +1,17 @@
+package game_management;
 
-package game;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.html.*;
+
+import entities.Monster;
+import entities.Player;
+import entities.character.Wizard;
+import entities.characterisics.MagicianCharacteristiques;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
@@ -16,11 +19,6 @@ import java.awt.Image;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.Box;
-import javax.swing.JSplitPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.JProgressBar;
@@ -31,15 +29,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import java.awt.Button;
-import javax.swing.JLayeredPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
 public class GUI extends JFrame {
-
 	private JPanel contentPane;
 
 	private JProgressBar HPBar;
@@ -320,8 +314,7 @@ public class GUI extends JFrame {
 			manaBar = new JProgressBar();
 			manaBar.setMaximum(player.getMana());
 			manaBar.setValue(player.getMana());
-			manaBar.setString(
-					player.getMana() + "/" + ((MagicianCharacteristiques) player.characteristics).getManaMax());
+			manaBar.setString(player.getMana() + "/" + ((MagicianCharacteristiques) player.getCharacteristics()).getManaMax());
 			manaBar.setStringPainted(true);
 			manaBar.setForeground(Color.BLUE);
 			GroupLayout gl_mana_panel = new GroupLayout(mana_panel);
@@ -387,7 +380,7 @@ public class GUI extends JFrame {
 			JProgressBar progressBar = new JProgressBar();
 			progressBar.setForeground(Color.RED);
 			progressBar.setStringPainted(true);
-			progressBar.setMaximum(monster.characteristics.getMax_hp());
+			progressBar.setMaximum(monster.getCharacteristics().getMax_hp());
 			progressBar.setValue(monster.getHp());
 			progressBar.setString(progressBar.getValue() + "/" + progressBar.getMaximum());
 			new_monster_panel.add(progressBar);

@@ -1,4 +1,4 @@
-package game;
+package entities.characterisics;
 
 public class Characteristics {
 	private int agility;

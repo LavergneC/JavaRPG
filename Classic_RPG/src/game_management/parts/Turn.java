@@ -1,9 +1,12 @@
-package game;
+package game_management.parts;
+
+import game_management.*;
 
 import java.util.Iterator;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import entities.Monster;
+import entities.Player;
 
 public class Turn {
 	private int number;
