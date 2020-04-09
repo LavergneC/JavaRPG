@@ -1,5 +1,7 @@
-package game;
+package game_management.parts;
 import java.util.ArrayList;
+
+import entities.Monster;
 
 public class Wave {
 	private int number;

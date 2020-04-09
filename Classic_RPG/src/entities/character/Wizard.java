@@ -1,4 +1,8 @@
-package game;
+package entities.character;
+
+import entities.Entity;
+import entities.Player;
+import entities.characterisics.MagicianCharacteristiques;
 
 public class Wizard extends Player{
 	final static int BASE_HP = 750;

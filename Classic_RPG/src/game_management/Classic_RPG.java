@@ -1,6 +1,15 @@
-package game;
+package game_management;
 
 import java.util.Scanner;
+
+import entities.Monster;
+import entities.Player;
+import entities.character.Ninja;
+import entities.character.Warrior;
+import entities.character.Wizard;
+import game_management.parts.Level;
+import game_management.parts.Turn;
+import game_management.parts.Wave;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,7 @@
-package game;
+package entities.character;
+
+import entities.Entity;
+import entities.Player;
 
 public class Warrior extends Player{
 	final static int BASE_HP = 2000;

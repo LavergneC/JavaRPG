@@ -1,4 +1,4 @@
-package game;
+package entities.characterisics;
 
 public class Characteristics {
 	private int agility;
@@ -23,7 +23,7 @@ public class Characteristics {
 		return strength;
 	}
 
-	public int getIntelligence() {
+	public int getIntelligence() {	
 		return intelligence;
 	}
 
