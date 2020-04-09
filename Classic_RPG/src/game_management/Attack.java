@@ -1,4 +1,4 @@
-package game;
+package game_management;
 
 public enum Attack {
 	BASIC_ATTACK,

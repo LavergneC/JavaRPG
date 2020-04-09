@@ -1,4 +1,4 @@
-package game;
+package game_management.random;
 
 public enum TestOutput {
 	CRITICAL_FAILURE,

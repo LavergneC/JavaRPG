@@ -1,4 +1,4 @@
-package game;
+package entities;
 
 public class Monster extends Entity{
 	

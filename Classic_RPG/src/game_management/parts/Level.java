@@ -1,4 +1,4 @@
-package game;
+package game_management.parts;
 import java.util.ArrayList;
 
 public class Level {
@@ -6,7 +6,7 @@ public class Level {
 	private int number;
 	private ArrayList<Wave> waves;
 	
-	Level(String name_, int number_, ArrayList<Wave> list_waves){
+	public Level(String name_, int number_, ArrayList<Wave> list_waves){
 		name = name_;
 		number = number_;
 		waves = list_waves;

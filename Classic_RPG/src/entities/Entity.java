@@ -1,4 +1,5 @@
-package game;
+package entities;
+import entities.characterisics.*;
 
 public abstract class Entity {
 	protected int level;
@@ -44,7 +45,7 @@ public abstract class Entity {
 		}
 	}
 
-	protected int getMana() {
+	public int getMana() {
 		if(characteristics instanceof MagicianCharacteristiques) {
 			return ((MagicianCharacteristiques)characteristics).getMana();
 		}
@@ -54,7 +55,7 @@ public abstract class Entity {
 		}
 	}
 
-	protected void basicHit(Entity target)
+	public void basicHit(Entity target)
 	{
 		int dmgs = characteristics.getStrength() * 2;
 		
@@ -69,14 +70,14 @@ public abstract class Entity {
 		target.receiveAttack(dmgs);
 	}
 
-	void rest() // TODO could be changed or implement in daughter class
+	public void rest() // TODO could be changed or implement in daughter class
 	{
 		System.out.println(getName() + " take some rest.");
 		staminaChange(true, characteristics.getMax_stamina() / 10);
 		hpChange(true, (int)Math.ceil(characteristics.getMax_hp()/20));
 	}
 
-	protected int getHp() {
+	public int getHp() {
 		return hp;
 	}
 
@@ -84,7 +85,7 @@ public abstract class Entity {
 		this.hp = hp;
 	}
 
-	protected int getStamina() {
+	public int getStamina() {
 		return stamina;
 	}
 
@@ -93,7 +94,7 @@ public abstract class Entity {
 		this.stamina = stamina;
 	}
 
-	protected String getName() {
+	public String getName() {
 		return name;
 	}
 
