@@ -7,11 +7,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+import javax.swing.text.html.*;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.Box;
 import javax.swing.JSplitPane;
 import java.awt.GridBagLayout;
@@ -24,25 +26,30 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import java.awt.Button;
 import javax.swing.JLayeredPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUI extends JFrame {
 
 	private JPanel contentPane;
-	
+
 	private JProgressBar HPBar;
 	private JProgressBar manaBar;
 	private JProgressBar staminaBar;
-	
+
 	private JLabel lblLvlGame;
 	private JLabel lblWave;
 	private JLabel lblTurn;
-	
+
 	private JPanel monstersPanel;
+
+	private Game_action game_action = Game_action.PENDING;
 
 	/**
 	 * Create the frame.
@@ -101,26 +108,18 @@ public class GUI extends JFrame {
 		HPBar.setForeground(Color.RED);
 		HPBar.setString(HPBar.getValue() + "/" + HPBar.getMaximum());
 		GroupLayout gl_HP_panel = new GroupLayout(HP_panel);
-		gl_HP_panel.setHorizontalGroup(
-				gl_HP_panel.createParallelGroup(Alignment.LEADING)
+		gl_HP_panel.setHorizontalGroup(gl_HP_panel.createParallelGroup(Alignment.LEADING)
 				.addGap(0, 250, Short.MAX_VALUE)
-				.addGroup(gl_HP_panel.createSequentialGroup()
-						.addGap(18)
-						.addComponent(lblHP)
-						.addGap(27)
-						.addComponent(HPBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGap(38))
-				);
-		gl_HP_panel.setVerticalGroup(
-				gl_HP_panel.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 56, Short.MAX_VALUE)
-				.addGroup(gl_HP_panel.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_HP_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblHP)
-								.addComponent(HPBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(24, Short.MAX_VALUE))
-				);
+				.addGroup(gl_HP_panel
+						.createSequentialGroup().addGap(18).addComponent(lblHP).addGap(27).addComponent(HPBar,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(38)));
+		gl_HP_panel.setVerticalGroup(gl_HP_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
+				.addGroup(gl_HP_panel.createSequentialGroup().addContainerGap()
+						.addGroup(gl_HP_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblHP).addComponent(
+								HPBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(24, Short.MAX_VALUE)));
 		HP_panel.setLayout(gl_HP_panel);
 
 		JPanel stamina_panel = new JPanel();
@@ -137,25 +136,20 @@ public class GUI extends JFrame {
 		staminaBar.setString(player.getStamina() + "/" + staminaBar.getMaximum());
 		staminaBar.setForeground(Color.GREEN);
 		GroupLayout gl_stamina_panel = new GroupLayout(stamina_panel);
-		gl_stamina_panel.setHorizontalGroup(
-				gl_stamina_panel.createParallelGroup(Alignment.LEADING)
+		gl_stamina_panel.setHorizontalGroup(gl_stamina_panel.createParallelGroup(Alignment.LEADING)
 				.addGap(0, 250, Short.MAX_VALUE)
-				.addGroup(gl_stamina_panel.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblStamina)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(staminaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(20, Short.MAX_VALUE))
-				);
-		gl_stamina_panel.setVerticalGroup(
-				gl_stamina_panel.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 56, Short.MAX_VALUE)
-				.addGroup(gl_stamina_panel.createSequentialGroup()
-						.addGroup(gl_stamina_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(staminaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblStamina))
-						.addContainerGap(24, Short.MAX_VALUE))
-				);
+				.addGroup(gl_stamina_panel.createSequentialGroup().addContainerGap().addComponent(lblStamina)
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(staminaBar,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(20, Short.MAX_VALUE)));
+		gl_stamina_panel
+				.setVerticalGroup(gl_stamina_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
+						.addGroup(gl_stamina_panel.createSequentialGroup()
+								.addGroup(gl_stamina_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(staminaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblStamina))
+								.addContainerGap(24, Short.MAX_VALUE)));
 		gl_stamina_panel.setAutoCreateContainerGaps(true);
 		stamina_panel.setLayout(gl_stamina_panel);
 
@@ -216,59 +210,119 @@ public class GUI extends JFrame {
 		Actions.setLayout(new GridLayout(0, 1, 0, 0));
 
 		Button button_attack = new Button("Attack");
+		JButton button_attack_basic = new JButton("<html>Basic<br>attack</html>");
+		JButton button_attack_special = new JButton("<html>Special<br>attack</html>");
+		Button button_attack_back = new Button("Back");
+		Button button_def = new Button("Defence");
+		Button button_rest = new Button("Rest");
+		
+		button_attack_basic.setBackground(Color.LIGHT_GRAY);
+		button_attack_special.setBackground(Color.LIGHT_GRAY);
+
+		button_attack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				Actions.remove(button_attack);
+				Actions.add(button_attack_basic);
+				Actions.add(button_attack_special);
+				Actions.add(button_attack_back);
+				Actions.remove(button_def);
+				Actions.remove(button_rest);
+				
+				Actions.revalidate();
+				Actions.repaint();
+			}
+		});
 		Actions.add(button_attack);
 
-		Button button_def = new Button("Defence");
-		Actions.add(button_def);
+		button_attack_basic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Attack basic");
+				game_action = Game_action.BASIC_ATTACK;
+			}
+		});
+		//Actions.add(button_attack_basic);
 
-		Button button_rest = new Button("Rest");
+		button_attack_special.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Attack spécial");
+				game_action = Game_action.SPECIAL_ATTACK;
+			}
+		});
+		//Actions.add(button_attack_special);
+
+		button_attack_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				Actions.remove(button_attack_back);
+				Actions.add(button_attack);
+				Actions.add(button_def);
+				Actions.add(button_rest);
+				Actions.remove(button_attack_basic);
+				Actions.remove(button_attack_special);
+				
+				Actions.revalidate();
+				Actions.repaint();
+			}
+		});
+		//Actions.add(button_attack_back);
+
+		Actions.add(button_def);
+		button_def.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				game_action = Game_action.DEFENCE;
+				System.out.println("Defense");
+			}
+		});
+
 		Actions.add(button_rest);
+		button_rest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				game_action = Game_action.REST;
+				System.out.println("rest");
+			}
+		});
+		
 		
 		monstersPanel = new JPanel();
 		monstersPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
 		contentPane.add(monstersPanel, BorderLayout.CENTER);
 		monstersPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		JPanel monster_1 = new JPanel();
 		monstersPanel.add(monster_1);
 		monster_1.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
-		
+
 		JLabel monster_1_name = new JLabel("monster1_name");
 		monster_1.add(monster_1_name);
-		
+
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setForeground(Color.RED);
 		progressBar.setStringPainted(true);
 		progressBar.setValue(50);
 		monster_1.add(progressBar);
 
-		if(player instanceof Wizard) {
+		if (player instanceof Wizard) {
 			manaBar = new JProgressBar();
 			manaBar.setMaximum(player.getMana());
 			manaBar.setValue(player.getMana());
-			manaBar.setString(player.getMana() + "/" + ((MagicianCharacteristiques)player.characteristics).getManaMax());
+			manaBar.setString(
+					player.getMana() + "/" + ((MagicianCharacteristiques) player.characteristics).getManaMax());
 			manaBar.setStringPainted(true);
 			manaBar.setForeground(Color.BLUE);
 			GroupLayout gl_mana_panel = new GroupLayout(mana_panel);
-			gl_mana_panel.setHorizontalGroup(
-					gl_mana_panel.createParallelGroup(Alignment.LEADING)
+			gl_mana_panel.setHorizontalGroup(gl_mana_panel.createParallelGroup(Alignment.LEADING)
 					.addGap(0, 250, Short.MAX_VALUE)
-					.addGroup(gl_mana_panel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblMana)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(manaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(39, Short.MAX_VALUE))
-					);
+					.addGroup(gl_mana_panel.createSequentialGroup().addContainerGap().addComponent(lblMana)
+							.addPreferredGap(ComponentPlacement.RELATED).addComponent(manaBar,
+									GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(39, Short.MAX_VALUE)));
 			gl_mana_panel.setVerticalGroup(
-					gl_mana_panel.createParallelGroup(Alignment.LEADING)
-					.addGap(0, 56, Short.MAX_VALUE)
-					.addGroup(gl_mana_panel.createSequentialGroup()
-							.addGroup(gl_mana_panel.createParallelGroup(Alignment.BASELINE)
-									.addComponent(manaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblMana))
-							.addContainerGap(24, Short.MAX_VALUE))
-					);
+					gl_mana_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
+							.addGroup(gl_mana_panel.createSequentialGroup()
+									.addGroup(gl_mana_panel.createParallelGroup(Alignment.BASELINE)
+											.addComponent(manaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+													GroupLayout.PREFERRED_SIZE)
+											.addComponent(lblMana))
+									.addContainerGap(24, Short.MAX_VALUE)));
 			gl_mana_panel.setAutoCreateContainerGaps(true);
 			mana_panel.setLayout(gl_mana_panel);
 		}
@@ -280,38 +334,38 @@ public class GUI extends JFrame {
 
 		staminaBar.setValue(p.getStamina());
 		staminaBar.setString(staminaBar.getValue() + "/" + staminaBar.getMaximum());
-		
-		if(p instanceof Wizard) {
+
+		if (p instanceof Wizard) {
 			manaBar.setValue(p.getMana());
 			manaBar.setString(manaBar.getValue() + "/" + manaBar.getMaximum());
 		}
 	}
-	
+
 	public void infobarNewLevel(int levelNumber, String levelName) {
 		lblLvlGame.setText("Level " + levelNumber + " - " + levelName);
 		lblWave.setText("Wave 1");
 		lblTurn.setText("Turn 1");
 	}
-	
+
 	public void infobarSetWave(int waveNumber) {
 		lblWave.setText("Wave " + waveNumber);
 		lblTurn.setText("Turn 1");
 	}
-	
+
 	public void infobarSetTurn(int turnNumber) {
 		lblTurn.setText("Turn " + turnNumber);
 	}
-	
+
 	public void updateMonsters(ArrayList<Monster> wave) {
 		monstersPanel.removeAll();
-		
+
 		for (Monster monster : wave) {
 			JPanel new_monster_panel = new JPanel();
 			new_monster_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
-			
+
 			JLabel new_monster_name = new JLabel(monster.getName());
 			new_monster_panel.add(new_monster_name);
-			
+
 			JProgressBar progressBar = new JProgressBar();
 			progressBar.setForeground(Color.RED);
 			progressBar.setStringPainted(true);
@@ -319,7 +373,7 @@ public class GUI extends JFrame {
 			progressBar.setValue(monster.getHp());
 			progressBar.setString(progressBar.getValue() + "/" + progressBar.getMaximum());
 			new_monster_panel.add(progressBar);
-			
+
 			monstersPanel.add(new_monster_panel);
 		}
 		monstersPanel.revalidate();
