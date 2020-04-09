@@ -88,8 +88,6 @@ public class Turn {
 				}
 			}
 		}
-
-		gui.updateMonsters(actual_wave.getMonsters());
 		player.setDefensePosition(false);
 		return true;
 	}
