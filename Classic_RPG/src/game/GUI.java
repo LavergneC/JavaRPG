@@ -51,6 +51,7 @@ public class GUI extends JFrame {
 	private JLabel lblTurn;
 
 	private JPanel monstersPanel;
+	private JPanel Actions;
 
 	private Game_action game_action = Game_action.PENDING;
 	private Attack attackType;
@@ -148,13 +149,13 @@ public class GUI extends JFrame {
 								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(20, Short.MAX_VALUE)));
 		gl_stamina_panel
-				.setVerticalGroup(gl_stamina_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
-						.addGroup(gl_stamina_panel.createSequentialGroup()
-								.addGroup(gl_stamina_panel.createParallelGroup(Alignment.BASELINE)
-										.addComponent(staminaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblStamina))
-								.addContainerGap(24, Short.MAX_VALUE)));
+		.setVerticalGroup(gl_stamina_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
+				.addGroup(gl_stamina_panel.createSequentialGroup()
+						.addGroup(gl_stamina_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(staminaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblStamina))
+						.addContainerGap(24, Short.MAX_VALUE)));
 		gl_stamina_panel.setAutoCreateContainerGaps(true);
 		stamina_panel.setLayout(gl_stamina_panel);
 
@@ -210,19 +211,23 @@ public class GUI extends JFrame {
 		separator_1_1.setForeground(Color.BLACK);
 		infoBar.add(separator_1_1);
 
-		JPanel Actions = new JPanel();
+		Actions = new JPanel();
 		contentPane.add(Actions, BorderLayout.WEST);
 		Actions.setLayout(new GridLayout(0, 1, 0, 0));
 
-		Button button_attack = new Button("Attack");
+		JButton button_attack = new JButton("Attack");
 		JButton button_attack_basic = new JButton("<html>Basic<br>attack</html>");
 		JButton button_attack_special = new JButton("<html>Special<br>attack</html>");
-		Button button_attack_back = new Button("Back");
-		Button button_def = new Button("Defence");
-		Button button_rest = new Button("Rest");
-		
-		button_attack_basic.setBackground(Color.LIGHT_GRAY);
-		button_attack_special.setBackground(Color.LIGHT_GRAY);
+		JButton button_attack_back = new JButton("<");
+		JButton button_def = new JButton("Defence");
+		JButton button_rest = new JButton("Rest");
+
+		button_attack_basic.setBackground(Color.WHITE);
+		button_attack_special.setBackground(Color.WHITE);
+		button_attack_back.setBackground(Color.WHITE);
+		button_attack.setBackground(Color.WHITE);
+		button_def.setBackground(Color.WHITE);
+		button_rest.setBackground(Color.WHITE);
 
 		button_attack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
@@ -232,7 +237,7 @@ public class GUI extends JFrame {
 				Actions.add(button_attack_back);
 				Actions.remove(button_def);
 				Actions.remove(button_rest);
-				
+
 				Actions.revalidate();
 				Actions.repaint();
 			}
@@ -244,6 +249,8 @@ public class GUI extends JFrame {
 				System.out.println("Attack basic");
 				game_action = Game_action.ATTACK;
 				attackType = Attack.BASIC_ATTACK;
+				setButtonsEnable(false);
+				setSwordsVisible(true);
 			}
 		});
 		//Actions.add(button_attack_basic);
@@ -252,6 +259,8 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				game_action = Game_action.ATTACK;
 				attackType = Attack.SPECIAL_ATTACK;
+				setButtonsEnable(false);
+				setSwordsVisible(true);
 			}
 		});
 		//Actions.add(button_attack_special);
@@ -264,7 +273,7 @@ public class GUI extends JFrame {
 				Actions.add(button_rest);
 				Actions.remove(button_attack_basic);
 				Actions.remove(button_attack_special);
-				
+
 				Actions.revalidate();
 				Actions.repaint();
 			}
@@ -286,8 +295,8 @@ public class GUI extends JFrame {
 				System.out.println("rest");
 			}
 		});
-		
-		
+
+
 		monstersPanel = new JPanel();
 		monstersPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
 		contentPane.add(monstersPanel, BorderLayout.CENTER);
@@ -305,7 +314,7 @@ public class GUI extends JFrame {
 		progressBar.setStringPainted(true);
 		progressBar.setValue(50);
 		monster_1.add(progressBar);
-		
+
 
 		if (player instanceof Wizard) {
 			manaBar = new JProgressBar();
@@ -324,15 +333,17 @@ public class GUI extends JFrame {
 							.addContainerGap(39, Short.MAX_VALUE)));
 			gl_mana_panel.setVerticalGroup(
 					gl_mana_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
-							.addGroup(gl_mana_panel.createSequentialGroup()
-									.addGroup(gl_mana_panel.createParallelGroup(Alignment.BASELINE)
-											.addComponent(manaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-													GroupLayout.PREFERRED_SIZE)
-											.addComponent(lblMana))
-									.addContainerGap(24, Short.MAX_VALUE)));
+					.addGroup(gl_mana_panel.createSequentialGroup()
+							.addGroup(gl_mana_panel.createParallelGroup(Alignment.BASELINE)
+									.addComponent(manaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblMana))
+							.addContainerGap(24, Short.MAX_VALUE)));
 			gl_mana_panel.setAutoCreateContainerGaps(true);
 			mana_panel.setLayout(gl_mana_panel);
 		}
+		
+		setSwordsVisible(false);
 	}
 
 	public void updatePlayerBars(Player p) {
@@ -380,13 +391,8 @@ public class GUI extends JFrame {
 			progressBar.setValue(monster.getHp());
 			progressBar.setString(progressBar.getValue() + "/" + progressBar.getMaximum());
 			new_monster_panel.add(progressBar);
-			
-			JButton swordButton = swordButton();
-			swordButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					monsterTarget = wave.indexOf(monster);
-				}
-			});
+
+			JButton swordButton = swordButton(wave.indexOf(monster));
 			new_monster_panel.add(swordButton);
 
 			monstersPanel.add(new_monster_panel);
@@ -394,8 +400,8 @@ public class GUI extends JFrame {
 		monstersPanel.revalidate();
 		monstersPanel.repaint();
 	}
-	
-	public JButton swordButton(){
+
+	public JButton swordButton(int indexMonster){
 		ImageIcon icon = new ImageIcon("Images/sword.png");
 		Image img = icon.getImage() ;  
 		Image newimg = img.getScaledInstance( 16, 16,  java.awt.Image.SCALE_SMOOTH ) ;  
@@ -405,10 +411,34 @@ public class GUI extends JFrame {
 		swordButton.setBackground(Color.WHITE);
 		swordButton.setPreferredSize(new Dimension(30, 30));
 		swordButton.setFocusable(false);
-		
+		swordButton.setVisible(false);
+
+		swordButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				monsterTarget = indexMonster;
+				setButtonsEnable(true);
+				setSwordsVisible(false);
+			}
+		});
+
 		return swordButton;
 	}
-	
+
+	public void setButtonsEnable(boolean  b) {
+		for(Component button : Actions.getComponents()) {
+			button.setEnabled(b);
+		}
+	}
+
+	public void setSwordsVisible(boolean b) {
+		for(Component c : monstersPanel.getComponents()) {
+			for(Component c2 : ((JPanel)c).getComponents()){
+				if(c2 instanceof JButton) 
+					c2.setVisible(b);
+			}
+		}
+	}
+
 	public Game_action getGame_action() {
 		return game_action;
 	}
