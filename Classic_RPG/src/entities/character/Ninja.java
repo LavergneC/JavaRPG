@@ -2,6 +2,8 @@ package entities.character;
 
 import entities.Entity;
 import entities.Player;
+import game_management.Action;
+import game_management.Attack;
 
 public class Ninja extends Player{
 	final static int BASE_HP = 1300;
@@ -18,14 +20,14 @@ public class Ninja extends Player{
 	/* Should not be pared */
 	public void specialHit(Entity target) {
 		System.out.println(name + " use surgical attack on " + target.getName());
-		attack(target, this.characteristics.getStrength() * 1 + 3 * this.characteristics.getAgility());
-		staminaChange(false, 50);
+		attack(target, this.getCharacteristics().getStrength() * 1 + 3 * this.getCharacteristics().getAgility());
+		staminaChange(false, 300);
 	}
 	
 	public void receiveAttack(int dmgIncoming) {
 		// Add esquive based on agility and random
 		if(defense_position) {
-			if(dmgIncoming > characteristics.getStrength()) {
+			if(dmgIncoming > getCharacteristics().getStrength()) {
 				hpChange(false, dmgIncoming / 2);
 			}
 			else {
@@ -34,6 +36,37 @@ public class Ninja extends Player{
 		}
 		else {
 			super.receiveAttack(dmgIncoming);
+		}
+	}
+	
+	public boolean actionPossible(Action action) {
+		boolean r = false;
+		switch(action) {
+		case ATTACK:
+			System.out.println("class ninja::ERROR can't get action possible for attaque");
+			r = false;
+			break;
+			
+		case DEFENSE:
+			r = true;
+			break;
+
+		case REST:
+			r = true;
+			break;
+		}
+		return r;
+	}
+	
+	public boolean  actionPossible(Attack attackType) {
+		switch(attackType) {
+		case BASIC_ATTACK:
+			return getStamina() >= 200;
+		case SPECIAL_ATTACK:
+			return getStamina() >= 300;
+		default:
+			System.out.println("class ninja::ERROR this attack don't exist");
+			return false;
 		}
 	}
 }

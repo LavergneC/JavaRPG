@@ -1,5 +1,8 @@
 package entities;
 
+import game_management.Action;
+import game_management.Attack;
+
 public abstract class Player extends Entity{
 	
 	protected boolean defense_position;
@@ -22,7 +25,9 @@ public abstract class Player extends Entity{
 	
 	@Override
 	public String toString() {
-		return name + " | " + "HP: " + getHp() + "/" + characteristics.getMax_hp() + " | Stamina: " + getStamina() + "/" + characteristics.getMax_stamina();
+		return name + " | " + "HP: " + getHp() + "/" + getCharacteristics().getMax_hp() + " | Stamina: " + getStamina() + "/" + getCharacteristics().getMax_stamina();
 	}
-
+	
+	public abstract boolean actionPossible(Attack attackType);
+	public abstract boolean actionPossible(Action action);
 }

@@ -3,6 +3,8 @@ package entities.character;
 import entities.Entity;
 import entities.Player;
 import entities.characterisics.MagicianCharacteristiques;
+import game_management.Action;
+import game_management.Attack;
 
 public class Wizard extends Player{
 	final static int BASE_HP = 750;
@@ -22,7 +24,7 @@ public class Wizard extends Player{
 	
 	public void specialHit(Entity target) {
 		System.out.println(name + " target " + target.getName() + " with fire breath");
-		attack(target, characteristics.getIntelligence() * 3);
+		attack(target, getCharacteristics().getIntelligence() * 3);
 		
 		if(getMana() - 75 < 0) {
 			setMana(0);
@@ -51,7 +53,7 @@ public class Wizard extends Player{
 	
 	public void setDefensePosition(boolean defense_position_){
 		if(defense_position_) {
-			magicShieldHp = characteristics.getIntelligence() * 2;
+			magicShieldHp = getCharacteristics().getIntelligence() * 2;
 			setMana(getMana() - 55);
 		}
 		super.setDefensePosition(defense_position_);
@@ -59,12 +61,45 @@ public class Wizard extends Player{
 	
 	public void rest() {
 		super.rest();
-		setMana(getMana() + (int)Math.ceil(getMana() / 15)); 
+		int manaSup = ((MagicianCharacteristiques)getCharacteristics()).getManaMax() / 15;
+		manaSup = (int)Math.ceil(manaSup);
+		setMana(manaSup + getMana()); 
 	}
 	
 	@Override
 	public String toString() {
-		return name + " | " + "HP: " + getHp() + "/" + characteristics.getMax_hp() + " | Stamina: " + getStamina() + "/" + characteristics.getMax_stamina() + 
-				" | Mana: " + getMana() + "/" + ((MagicianCharacteristiques)characteristics).getManaMax();
+		return name + " | " + "HP: " + getHp() + "/" + getCharacteristics().getMax_hp() + " | Stamina: " + getStamina() + "/" + getCharacteristics().getMax_stamina() + 
+				" | Mana: " + getMana() + "/" + ((MagicianCharacteristiques)getCharacteristics()).getManaMax();
+	}
+	
+	public boolean actionPossible(Action action) {
+		boolean r = false;
+		switch(action) {
+		case ATTACK:
+			System.out.println("class wizard::ERROR can't get action possible for attaque");
+			r = false;
+			break;
+			
+		case DEFENSE:
+			r = getMana() >= 55;
+			break;
+
+		case REST:
+			r = true;
+			break;
+		}
+		return r;
+	}
+	
+	public boolean  actionPossible(Attack attackType) {
+		switch(attackType) {
+		case BASIC_ATTACK:
+			return getStamina() >= 200;
+		case SPECIAL_ATTACK:
+			return getMana() >= 75;
+		default:
+			System.out.println("class wizard::ERROR this attack don't exist");
+			return false;
+		}
 	}
 }

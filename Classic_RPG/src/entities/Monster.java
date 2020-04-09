@@ -8,6 +8,6 @@ public class Monster extends Entity{
 	
 	@Override
 	public String toString() {
-		return name + " | " + "HP: " + getHp() + "/" + characteristics.getMax_hp();
+		return name + " | " + "HP: " + getHp() + "/" + getCharacteristics().getMax_hp();
 	}
 }
