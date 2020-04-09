@@ -6,11 +6,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.html.*;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -34,6 +36,7 @@ import java.awt.Button;
 import javax.swing.JLayeredPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class GUI extends JFrame {
 
@@ -50,6 +53,8 @@ public class GUI extends JFrame {
 	private JPanel monstersPanel;
 
 	private Game_action game_action = Game_action.PENDING;
+	private Attack attackType;
+	private int monsterTarget = -1;
 
 	/**
 	 * Create the frame.
@@ -237,15 +242,16 @@ public class GUI extends JFrame {
 		button_attack_basic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Attack basic");
-				game_action = Game_action.BASIC_ATTACK;
+				game_action = Game_action.ATTACK;
+				attackType = Attack.BASIC_ATTACK;
 			}
 		});
 		//Actions.add(button_attack_basic);
 
 		button_attack_special.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Attack spécial");
-				game_action = Game_action.SPECIAL_ATTACK;
+				game_action = Game_action.ATTACK;
+				attackType = Attack.SPECIAL_ATTACK;
 			}
 		});
 		//Actions.add(button_attack_special);
@@ -299,6 +305,7 @@ public class GUI extends JFrame {
 		progressBar.setStringPainted(true);
 		progressBar.setValue(50);
 		monster_1.add(progressBar);
+		
 
 		if (player instanceof Wizard) {
 			manaBar = new JProgressBar();
@@ -373,10 +380,50 @@ public class GUI extends JFrame {
 			progressBar.setValue(monster.getHp());
 			progressBar.setString(progressBar.getValue() + "/" + progressBar.getMaximum());
 			new_monster_panel.add(progressBar);
+			
+			JButton swordButton = swordButton();
+			swordButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					monsterTarget = wave.indexOf(monster);
+				}
+			});
+			new_monster_panel.add(swordButton);
 
 			monstersPanel.add(new_monster_panel);
 		}
 		monstersPanel.revalidate();
 		monstersPanel.repaint();
+	}
+	
+	public JButton swordButton(){
+		ImageIcon icon = new ImageIcon("Images/sword.png");
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance( 16, 16,  java.awt.Image.SCALE_SMOOTH ) ;  
+		icon = new ImageIcon(newimg);
+		JButton swordButton = new JButton("");
+		swordButton.setIcon(icon);
+		swordButton.setBackground(Color.WHITE);
+		swordButton.setPreferredSize(new Dimension(30, 30));
+		swordButton.setFocusable(false);
+		
+		return swordButton;
+	}
+	
+	public Game_action getGame_action() {
+		return game_action;
+	}
+
+	public void setGame_action(Game_action game_action) {
+		this.game_action = game_action;
+	}
+	public int getMonsterTarget() {
+		return monsterTarget;
+	}
+
+	public void resetMonsterTarget() {
+		monsterTarget = -1;
+	}
+	public Attack getAttackType() {
+		return attackType;
 	}
 }

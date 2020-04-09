@@ -33,7 +33,6 @@ public class Classic_RPG {
 					gui.infobarSetTurn(currentTurn.getNumber());
 					currentTurn.run_turn();
 					turnIndex++;
-					waitEnter();
 				}
 			}
 		}
@@ -47,14 +46,6 @@ public class Classic_RPG {
 		Game.launchGame();
 	}
 
-	public void waitEnter() {
-		@SuppressWarnings("resource")
-		Scanner scan = new Scanner(System.in);
-		System.out.println("press Enter to continue...");
-
-		@SuppressWarnings("unused")
-		String s = scan.nextLine();
-	}
 	public Level generateLevel1() {
 		Monster bebeDragon = new Monster(200,600,"Bébé dragon", 1, 34, 1);
 		Monster fantomeDeChienSauvage1 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
@@ -138,6 +129,5 @@ public class Classic_RPG {
 
 			}
 		}while (!inputOK);
-		waitEnter();
 	}
 }
