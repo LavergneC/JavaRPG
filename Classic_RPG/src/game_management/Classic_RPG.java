@@ -44,7 +44,9 @@ public class Classic_RPG {
 					currentTurn.run_turn();
 					turnIndex++;
 				}
+				player.rest();
 			}
+			player.rest();
 		}
 	}
 	public static void main(String[] args) {
