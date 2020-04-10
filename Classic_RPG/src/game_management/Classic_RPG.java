@@ -1,15 +1,12 @@
 package game_management;
 
-import java.util.Scanner;
-
 import entities.Monster;
 import entities.Player;
-import entities.character.Ninja;
-import entities.character.Warrior;
-import entities.character.Wizard;
-import game_management.parts.Level;
-import game_management.parts.Turn;
-import game_management.parts.Wave;
+import game_management.Interfaces.GUI;
+import game_management.Interfaces.PlayerCreation;
+import game_management.Sections.Level;
+import game_management.Sections.Turn;
+import game_management.Sections.Wave;
 
 import java.util.ArrayList;
 
@@ -53,8 +50,7 @@ public class Classic_RPG {
 		System.out.println("This is Classic RPG game; enjoy !");
 
 		Classic_RPG Game = new Classic_RPG();
-		Game.generatePlayer();
-		
+		Game.generatePlayer(Game);
 		Game.launchGame();
 	}
 
@@ -79,7 +75,7 @@ public class Classic_RPG {
 		return new Level("Sortie du village du Bjouty", 1, wavesLevel);
 	}
 
-	public Level generateLevel2() {		
+	public Level generateLevel2() {
 		Monster fantomeDeChienSauvage1 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
 		Monster fantomeDeChienSauvage2 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
 		Monster fantomeDeChienSauvage3 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
@@ -107,39 +103,12 @@ public class Classic_RPG {
 		return new Level("Clairière du donjon de Bjouty", 2, wavesLevel);
 	}
 
-	public void generatePlayer() {
-		@SuppressWarnings("resource")
-		Scanner scan = new Scanner(System.in);
-		boolean inputOK = false;
-
-		System.out.println("How will this courageous aventurer named ?");
-		String name = scan.nextLine();
-		System.out.println("Oh ! " + name + " what a fabulous name !");
-
-		do {
-			System.out.println("\nPlease choose a class :\n  1)Warrior\n  2)Wizard\n  3)Ninja");
-			String line = scan.nextLine();
-
-			switch(line) {
-			case "1":
-				System.out.println("Great ! You will be a strong Warrior !");
-				player = new Warrior(name);
-				inputOK = true;
-				break;
-			case "2":
-				System.out.println("Great ! You will be a powerfull Wizard !");
-				player = new Wizard(name);
-				inputOK = true;
-				break;
-			case "3":
-				System.out.println("Great ! You will be a agile Ninja !");
-				player = new Ninja(name);
-				inputOK = true;
-				break;
-			default:
-				inputOK = false;
-
-			}
-		}while (!inputOK);
+	public void generatePlayer(Classic_RPG game) {
+		PlayerCreation pc = new PlayerCreation(game);
+		pc.setVisible(true);
+		pc.waitPlayerCreated();
+	}
+	public void setPlayer(Player p) {
+		this.player = p;
 	}
 }
