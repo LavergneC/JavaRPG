@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="/home/thynes/Desktop/Classic-RPG.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/Classic_RPG/jar_dsc.jardesc" exportErrors="false" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <jar path="/home/thynes/workspace/JavaRPG/Classic-RPG.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Classic_RPG/jar_dsc.jardesc" exportErrors="false" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
     <manifest generateManifest="true" mainClassHandleIdentifier="=Classic_RPG/src&lt;game_management{Classic_RPG.java[Classic_RPG" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
