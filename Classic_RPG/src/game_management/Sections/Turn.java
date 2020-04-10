@@ -49,6 +49,7 @@ public class Turn {
 				player.specialHit(actual_wave.getMonsters().get(index_monstre));
 				break;
 			}
+			
 
 			/* Remove monster from the wave if we get hp != 0 */
 			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0)
@@ -69,13 +70,12 @@ public class Turn {
 			System.out.println("Turn Run error");
 		}
 		gui.setGame_action(Game_action.PENDING);
-		
+		gui.set_text_console(0);
 		gui.updatePlayerBars(player);
 		/* Monsters turn */
 		Iterator<Monster> it = this.actual_wave.getMonsters().iterator();
 
 		while(it.hasNext()) {
-			delaySec(2);
 			Monster monster = it.next();
 			if(monster.getStamina() < 50) { /* not enough stamina to attack */
 				monster.rest();
@@ -84,10 +84,11 @@ public class Turn {
 				monster.basicHit(player);
 				gui.updatePlayerBars(player);
 				if (player.getHp() <= 0) {
-					System.out.println("Loser, you are defeated by weak monsters !");
+					GUI.edit_message("Loser, you are defeated by weak monsters !");
 					return false;
 				}
 			}
+			gui.set_text_console(0);
 		}
 		player.setDefensePosition(false);
 		return true;
@@ -97,15 +98,7 @@ public class Turn {
 		return number;
 	}
 
-	void delaySec(int s) {
-		try {
-			TimeUnit.SECONDS.sleep(s);
-		}
-		catch(InterruptedException ex)
-		{
-			Thread.currentThread().interrupt();
-		}
-	}
+	
 
 	int monsterPick(Wave wave) {
 		int index_monstre = -1;

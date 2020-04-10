@@ -3,6 +3,7 @@ package entities.character;
 import entities.Entity;
 import entities.Player;
 import entities.characterisics.MagicianCharacteristiques;
+import game_management.Interfaces.GUI;
 import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
 
@@ -23,7 +24,7 @@ public class Wizard extends Player{
 	}
 	
 	public void specialHit(Entity target) {
-		System.out.println(name + " target " + target.getName() + " with fire breath");
+		GUI.edit_message(name + " target " + target.getName() + " with fire breath");
 		attack(target, getCharacteristics().getIntelligence() * 3);
 		
 		manaChange(false, 75);
@@ -38,7 +39,7 @@ public class Wizard extends Player{
 				hpChange(false, Math.abs(diff));
 			}
 			else {
-				System.out.println(this.name + " stayed behind his magic shield");
+				GUI.edit_message(this.name + " stayed behind his magic shield");
 			}
 		}
 		else {

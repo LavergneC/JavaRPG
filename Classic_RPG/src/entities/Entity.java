@@ -1,5 +1,6 @@
 package entities;
 import entities.characterisics.*;
+import game_management.Interfaces.GUI;
 
 public abstract class Entity {
 	protected int level;
@@ -50,8 +51,7 @@ public abstract class Entity {
 	{
 		int dmgs = getCharacteristics().getStrength() * 2;
 		
-		System.out.println(name + " basic attack on " + target.getName());
-		
+		GUI.edit_message(name + " basic attack on " + target.getName());
 		staminaChange(false, 200);
 		this.attack(target, dmgs);
 	}
@@ -63,7 +63,7 @@ public abstract class Entity {
 
 	public void rest() // TODO could be changed or implement in daughter class
 	{
-		System.out.println(getName() + " take some rest.");
+		GUI.edit_message(getName() + " take some rest.");
 		staminaChange(true, getCharacteristics().getMax_stamina() / 10);
 		hpChange(true, (int)Math.ceil(getCharacteristics().getMax_hp()/20));
 	}
@@ -96,12 +96,12 @@ public abstract class Entity {
 		
 		if(add) {
 			if(value + stamina > getCharacteristics().getMax_stamina()) {
-				System.out.println(name + " recovred " + (getCharacteristics().getMax_stamina() - stamina) + " stamina");
+				GUI.edit_message(name + " recovred " + (getCharacteristics().getMax_stamina() - stamina) + " stamina");
 				stamina = getCharacteristics().getMax_stamina();
 			}
 			else {
 				stamina += value;
-				System.out.println(name + " recovred " + value + " stamina");
+				GUI.edit_message(name + " recovered " + value + " stamina");
 			}
 		}
 		else {
@@ -121,24 +121,25 @@ public abstract class Entity {
 
 		if(add) {
 			if(value + hp > getCharacteristics().getMax_hp()) {
-				System.out.println(name + " healed of " + (getCharacteristics().getMax_hp() - hp));
+				GUI.edit_message( name + " healed of " + (getCharacteristics().getMax_hp() - hp));
 				hp = getCharacteristics().getMax_hp();
 			}
 			else {
 				hp += value;
-				System.out.println(name + " healed of " + value);
+				GUI.edit_message(name + " healed of " + value);
 			}
 		}
 		else {
 			if(hp - value <= 0) {
 				hp = 0;
-				System.out.println(name + " took " + value + " damage(s) and died");
+				GUI.edit_message(name + " took " + value + " damage(s) and died");
 			}
 			else {
 				hp -= value;
-				System.out.println(name + " took " + value + " damage(s)");
+				GUI.edit_message(name + " took " + value + " damage(s)");
 			}
 		}
+		GUI.edit_message("\n");
 	}
 
 	protected void manaChange(boolean add, int value) {
