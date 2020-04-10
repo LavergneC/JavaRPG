@@ -1,4 +1,4 @@
-package game_management;
+package game_management.Interfaces;
 
 
 import java.awt.BorderLayout;
@@ -15,6 +15,8 @@ import entities.Monster;
 import entities.Player;
 import entities.character.Wizard;
 import entities.characterisics.MagicianCharacteristiques;
+import game_management.Action_Enums.Attack;
+import game_management.Action_Enums.Game_action;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -42,6 +44,7 @@ import javax.swing.DropMode;
 
 public class GUI extends JFrame {
 	public static String message;
+	private static boolean JAR = true; // Do not change that
 	private JPanel contentPane;
 
 	private JProgressBar HPBar;
@@ -63,7 +66,7 @@ public class GUI extends JFrame {
 	private Game_action game_action = Game_action.PENDING;
 	private Attack attackType;
 	private int monsterTarget = -1;
-	
+
 	JButton button_attack_basic;
 	JButton button_attack_special;
 	JButton button_def;
@@ -301,7 +304,7 @@ public class GUI extends JFrame {
 		Actions.add(button_def);
 		button_def.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				game_action = Game_action.DEFENCE;
+				game_action = Game_action.DEFENSE;
 				System.out.println("Defense");
 			}
 		});
@@ -375,7 +378,7 @@ public class GUI extends JFrame {
 			gl_mana_panel.setAutoCreateContainerGaps(true);
 			mana_panel.setLayout(gl_mana_panel);
 		}
-		
+
 		setSwordsVisible(false);
 	}
 
@@ -435,7 +438,18 @@ public class GUI extends JFrame {
 	}
 
 	public JButton swordButton(int indexMonster){
-		ImageIcon icon = new ImageIcon("Images/sword.png");
+		ImageIcon icon = null;
+		if(JAR) {
+			try {
+				icon = new ImageIcon(getClass().getResource("/Images/sword.png"));
+			}catch(Exception e) {
+				JAR = false; // switch to non-JAR mode
+				icon = new ImageIcon("Images/sword.png");
+			}
+		}
+		else
+			icon = new ImageIcon("Images/sword.png");
+
 		Image img = icon.getImage() ;  
 		Image newimg = img.getScaledInstance( 16, 16,  java.awt.Image.SCALE_SMOOTH ) ;  
 		icon = new ImageIcon(newimg);
@@ -461,7 +475,7 @@ public class GUI extends JFrame {
 			button.setEnabled(b);
 		}
 	}
-	
+
 	public void setButtonsEnable(boolean  b, Player player) {
 		if(b == false) {
 			setButtonsEnable(false);
@@ -470,8 +484,8 @@ public class GUI extends JFrame {
 		setButtonsEnable(true);
 		button_attack_basic.setEnabled(player.actionPossible(Attack.BASIC_ATTACK));
 		button_attack_special.setEnabled(player.actionPossible(Attack.SPECIAL_ATTACK));
-		button_def.setEnabled(player.actionPossible(Action.DEFENSE));
-		button_rest.setEnabled(player.actionPossible(Action.REST));
+		button_def.setEnabled(player.actionPossible(Game_action.DEFENSE));
+		button_rest.setEnabled(player.actionPossible(Game_action.REST));
 	}
 
 	public void setSwordsVisible(boolean b) {

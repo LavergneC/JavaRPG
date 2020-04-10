@@ -2,9 +2,9 @@ package entities.character;
 
 import entities.Entity;
 import entities.Player;
-import game_management.Action;
-import game_management.Attack;
-import game_management.GUI;
+import game_management.Interfaces.GUI;
+import game_management.Action_Enums.Attack;
+import game_management.Action_Enums.Game_action;
 
 public class Warrior extends Player{
 	final static int BASE_HP = 2000;
@@ -38,7 +38,7 @@ public class Warrior extends Player{
 		}
 	}
 	
-	public boolean actionPossible(Action action) {
+	public boolean actionPossible(Game_action action) {
 		boolean r = false;
 		switch(action) {
 		case ATTACK:
@@ -53,6 +53,7 @@ public class Warrior extends Player{
 		case REST:
 			r = true;
 			break;
+		case PENDING:
 		}
 		return r;
 	}

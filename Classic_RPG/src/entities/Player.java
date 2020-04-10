@@ -1,7 +1,7 @@
 package entities;
 
-import game_management.Action;
-import game_management.Attack;
+import game_management.Action_Enums.Attack;
+import game_management.Action_Enums.Game_action;
 
 public abstract class Player extends Entity{
 	
@@ -29,5 +29,5 @@ public abstract class Player extends Entity{
 	}
 	
 	public abstract boolean actionPossible(Attack attackType);
-	public abstract boolean actionPossible(Action action);
+	public abstract boolean actionPossible(Game_action action);
 }

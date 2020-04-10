@@ -1,6 +1,6 @@
 package entities;
 import entities.characterisics.*;
-import game_management.GUI;
+import game_management.Interfaces.GUI;
 
 public abstract class Entity {
 	protected int level;
@@ -35,15 +35,6 @@ public abstract class Entity {
 
 	protected void levelUp() {
 		this.level += 1;
-	}
-
-	protected void setMana(int manaValue) { //DownCast
-		if(getCharacteristics() instanceof MagicianCharacteristiques) {
-			((MagicianCharacteristiques)getCharacteristics()).setMana(manaValue);
-		}
-		else {
-			System.out.println("This entity have no mana pool !!!!");
-		}
 	}
 
 	public int getMana() {
@@ -149,6 +140,35 @@ public abstract class Entity {
 			}
 		}
 		GUI.edit_message("\n");
+	}
+
+	protected void manaChange(boolean add, int value) {
+		if(!(characteristics instanceof MagicianCharacteristiques)) {
+			System.out.println("This entity have no mana pool !!!!");
+			return;
+		}
+		if(value <= 0)
+			return;
+
+		MagicianCharacteristiques magicCharac = (MagicianCharacteristiques)this.characteristics;
+		int currentMana = magicCharac.getMana();
+
+		if(add) {
+			if(value + currentMana > magicCharac.getManaMax()) {
+				magicCharac.setMana(magicCharac.getManaMax());
+			}
+			else {
+				magicCharac.setMana(currentMana + value);
+			}
+		}
+		else {
+			if(currentMana - value <= 0) {
+				magicCharac.setMana(0);
+			}
+			else {
+				magicCharac.setMana(currentMana - value);
+			}
+		}
 	}
 
 	public Characteristics getCharacteristics() {

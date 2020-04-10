@@ -3,9 +3,9 @@ package entities.character;
 import entities.Entity;
 import entities.Player;
 import entities.characterisics.MagicianCharacteristiques;
-import game_management.Action;
-import game_management.Attack;
-import game_management.GUI;
+import game_management.Interfaces.GUI;
+import game_management.Action_Enums.Attack;
+import game_management.Action_Enums.Game_action;
 
 public class Wizard extends Player{
 	final static int BASE_HP = 750;
@@ -27,12 +27,7 @@ public class Wizard extends Player{
 		GUI.edit_message(name + " target " + target.getName() + " with fire breath");
 		attack(target, getCharacteristics().getIntelligence() * 3);
 		
-		if(getMana() - 75 < 0) {
-			setMana(0);
-		}
-		else {
-			setMana(getMana() - 75);
-		}
+		manaChange(false, 75);
 	}
 	
 	public void receiveAttack(int dmgIncoming) {
@@ -55,7 +50,7 @@ public class Wizard extends Player{
 	public void setDefensePosition(boolean defense_position_){
 		if(defense_position_) {
 			magicShieldHp = getCharacteristics().getIntelligence() * 2;
-			setMana(getMana() - 55);
+			manaChange(false, 55);
 		}
 		super.setDefensePosition(defense_position_);
 	}
@@ -64,7 +59,7 @@ public class Wizard extends Player{
 		super.rest();
 		int manaSup = ((MagicianCharacteristiques)getCharacteristics()).getManaMax() / 15;
 		manaSup = (int)Math.ceil(manaSup);
-		setMana(manaSup + getMana()); 
+		manaChange(true, manaSup);
 	}
 	
 	@Override
@@ -73,7 +68,7 @@ public class Wizard extends Player{
 				" | Mana: " + getMana() + "/" + ((MagicianCharacteristiques)getCharacteristics()).getManaMax();
 	}
 	
-	public boolean actionPossible(Action action) {
+	public boolean actionPossible(Game_action action) {
 		boolean r = false;
 		switch(action) {
 		case ATTACK:
@@ -88,6 +83,7 @@ public class Wizard extends Player{
 		case REST:
 			r = true;
 			break;
+		case PENDING:
 		}
 		return r;
 	}
