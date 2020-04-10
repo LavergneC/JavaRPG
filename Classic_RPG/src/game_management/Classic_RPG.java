@@ -2,9 +2,11 @@ package game_management;
 
 import entities.Monster;
 import entities.Player;
-import game_management.parts.Level;
-import game_management.parts.Turn;
-import game_management.parts.Wave;
+import game_management.Interfaces.GUI;
+import game_management.Interfaces.PlayerCreation;
+import game_management.Sections.Level;
+import game_management.Sections.Turn;
+import game_management.Sections.Wave;
 
 import java.util.ArrayList;
 

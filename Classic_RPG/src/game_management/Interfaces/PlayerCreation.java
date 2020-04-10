@@ -1,4 +1,4 @@
-package game_management;
+package game_management.Interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import entities.character.Ninja;
 import entities.character.Warrior;
 import entities.character.Wizard;
+import game_management.Classic_RPG;
 
 import javax.swing.JButton;
 import javax.swing.SwingConstants;

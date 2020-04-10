@@ -1,6 +1,8 @@
-package game_management.parts;
+package game_management.Sections;
 
 import game_management.*;
+import game_management.Action_Enums.Game_action;
+import game_management.Interfaces.GUI;
 
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -60,7 +62,7 @@ public class Turn {
 			player.rest();
 			break;
 
-		case DEFENCE:
+		case DEFENSE:
 			player.setDefensePosition(true);
 			break;
 			//TODO add new actions
