@@ -5,6 +5,7 @@ import entities.Player;
 import entities.characterisics.MagicianCharacteristiques;
 import game_management.Action;
 import game_management.Attack;
+import game_management.GUI;
 
 public class Wizard extends Player{
 	final static int BASE_HP = 750;
@@ -23,7 +24,7 @@ public class Wizard extends Player{
 	}
 	
 	public void specialHit(Entity target) {
-		System.out.println(name + " target " + target.getName() + " with fire breath");
+		GUI.edit_message(name + " target " + target.getName() + " with fire breath");
 		attack(target, getCharacteristics().getIntelligence() * 3);
 		
 		if(getMana() - 75 < 0) {
@@ -43,7 +44,7 @@ public class Wizard extends Player{
 				hpChange(false, Math.abs(diff));
 			}
 			else {
-				System.out.println(this.name + " stayed behind his magic shield");
+				GUI.edit_message(this.name + " stayed behind his magic shield");
 			}
 		}
 		else {

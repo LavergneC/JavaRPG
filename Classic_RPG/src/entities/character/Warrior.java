@@ -4,6 +4,7 @@ import entities.Entity;
 import entities.Player;
 import game_management.Action;
 import game_management.Attack;
+import game_management.GUI;
 
 public class Warrior extends Player{
 	final static int BASE_HP = 2000;
@@ -18,7 +19,7 @@ public class Warrior extends Player{
 	}
 	
 	public void specialHit(Entity target) {
-		System.out.println(name + " use double smash on " + target.getName());
+		GUI.edit_message(name + " use double smash on " + target.getName());
 		basicHit(target);
 		basicHit(target);
 		staminaChange(false, 200);
@@ -30,7 +31,7 @@ public class Warrior extends Player{
 				hpChange(false, dmgIncoming / 2);
 			}
 			else
-				System.out.println(this.name + " held behind his shield");
+				GUI.edit_message(this.name + " held behind his shield");
 		}
 		else {
 			super.receiveAttack(dmgIncoming);

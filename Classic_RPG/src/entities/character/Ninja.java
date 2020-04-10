@@ -4,6 +4,7 @@ import entities.Entity;
 import entities.Player;
 import game_management.Action;
 import game_management.Attack;
+import game_management.GUI;
 
 public class Ninja extends Player{
 	final static int BASE_HP = 1300;
@@ -19,7 +20,7 @@ public class Ninja extends Player{
 	
 	/* Should not be pared */
 	public void specialHit(Entity target) {
-		System.out.println(name + " use surgical attack on " + target.getName());
+		GUI.edit_message(name + " use surgical attack on " + target.getName());
 		attack(target, this.getCharacteristics().getStrength() * 1 + 3 * this.getCharacteristics().getAgility());
 		staminaChange(false, 300);
 	}
@@ -31,7 +32,7 @@ public class Ninja extends Player{
 				hpChange(false, dmgIncoming / 2);
 			}
 			else {
-				System.out.println(this.name + " did a beautiful dodge roll");
+				GUI.edit_message(this.name + " did a beautiful dodge roll");
 			}
 		}
 		else {

@@ -6,6 +6,10 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import entities.Monster;
 import entities.Player;
@@ -20,6 +24,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JProgressBar;
 import java.awt.Color;
@@ -32,8 +37,11 @@ import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JTextPane;
+import javax.swing.DropMode;
 
 public class GUI extends JFrame {
+	public static String message;
 	private JPanel contentPane;
 
 	private JProgressBar HPBar;
@@ -46,6 +54,11 @@ public class GUI extends JFrame {
 
 	private JPanel monstersPanel;
 	private JPanel Actions;
+	
+	private JTextPane txtpn;
+	public Style style1;
+	public StyledDocument sDoc;
+	private int position = 0;
 
 	private Game_action game_action = Game_action.PENDING;
 	private Attack attackType;
@@ -55,6 +68,14 @@ public class GUI extends JFrame {
 	JButton button_attack_special;
 	JButton button_def;
 	JButton button_rest;
+	
+	static public void reset_message() {
+		message = "";
+	}
+	
+	static public void edit_message(String s_message) {
+		message += '\n' + s_message;
+	}
 
 	/**
 	 * Create the frame.
@@ -62,7 +83,7 @@ public class GUI extends JFrame {
 
 	public GUI(Player player) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 706, 490);
+		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -311,8 +332,24 @@ public class GUI extends JFrame {
 		progressBar.setStringPainted(true);
 		progressBar.setValue(50);
 		monster_1.add(progressBar);
-
-
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.SOUTH);
+		
+		txtpn = new JTextPane();
+		txtpn.setText("");
+		panel.add(txtpn);
+		
+		Style defaut = txtpn.getStyle("default");
+		txtpn.setEditable(false);
+		style1 = txtpn.addStyle("style1", defaut);
+		StyleConstants.setFontSize(style1, 15);
+		
+		reset_message();
+		sDoc = (StyledDocument)txtpn.getDocument();
+		
+		txtpn.setPreferredSize(new Dimension(500, 110));
+		
 		if (player instanceof Wizard) {
 			manaBar = new JProgressBar();
 			manaBar.setMaximum(player.getMana());
@@ -453,6 +490,7 @@ public class GUI extends JFrame {
 	public void setGame_action(Game_action game_action) {
 		this.game_action = game_action;
 	}
+	
 	public int getMonsterTarget() {
 		return monsterTarget;
 	}
@@ -460,7 +498,37 @@ public class GUI extends JFrame {
 	public void resetMonsterTarget() {
 		monsterTarget = -1;
 	}
+	
 	public Attack getAttackType() {
 		return attackType;
+	}
+	
+	 public void set_text_console(int pos) {
+		clear_text_console();
+		delaySec(1);
+		try {
+			sDoc.insertString(pos, message, style1);
+		}
+		catch (BadLocationException e) {}
+		reset_message();
+		delaySec(2);
+	}
+	 
+	 public void clear_text_console() {
+		 txtpn.setText("");
+	 }
+	
+	public int get_position_text() {
+		return position;
+	}
+	
+	void delaySec(int s) {
+		try {
+			TimeUnit.SECONDS.sleep(s);
+		}
+		catch(InterruptedException ex)
+		{
+			Thread.currentThread().interrupt();
+		}
 	}
 }
