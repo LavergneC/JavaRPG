@@ -165,7 +165,7 @@ public abstract class Entity {
 				magicCharac.setMana(0);
 			}
 			else {
-				magicCharac.setMana(currentMana + value);
+				magicCharac.setMana(currentMana - value);
 			}
 		}
 	}
