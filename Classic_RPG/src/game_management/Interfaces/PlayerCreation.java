@@ -84,7 +84,7 @@ public class PlayerCreation extends JFrame {
 		okName.setFocusable(false);
 		okName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!textField.getText().isEmpty() && !textField.getText().isBlank()) {
+				if(!textField.getText().isEmpty()) {
 					tglbtnNewToggleButton.setEnabled(true);
 					tglbtnNewToggleButton_1.setEnabled(true);
 					tglbtnNewToggleButton_2.setEnabled(true);
@@ -95,7 +95,7 @@ public class PlayerCreation extends JFrame {
 		Name_panel.add(okName);
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!textField.getText().isEmpty() && !textField.getText().isBlank()) {
+				if(!textField.getText().isEmpty()) {
 					tglbtnNewToggleButton.setEnabled(true);
 					tglbtnNewToggleButton_1.setEnabled(true);
 					tglbtnNewToggleButton_2.setEnabled(true);

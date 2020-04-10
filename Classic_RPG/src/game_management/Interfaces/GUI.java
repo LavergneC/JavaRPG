@@ -40,7 +40,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
-import javax.swing.DropMode;
 
 public class GUI extends JFrame {
 	public static String message;
