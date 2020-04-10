@@ -63,7 +63,6 @@ public class GUI extends JFrame {
 	 */
 
 	public GUI(Player player) {
-		System.out.println("PLOP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 706, 490);
 		contentPane = new JPanel();
@@ -343,7 +342,6 @@ public class GUI extends JFrame {
 		}
 		
 		setSwordsVisible(false);
-		System.out.println("PLoup");
 	}
 
 	public void updatePlayerBars(Player p) {
@@ -437,8 +435,8 @@ public class GUI extends JFrame {
 		setButtonsEnable(true);
 		button_attack_basic.setEnabled(player.actionPossible(Attack.BASIC_ATTACK));
 		button_attack_special.setEnabled(player.actionPossible(Attack.SPECIAL_ATTACK));
-		button_def.setEnabled(player.actionPossible(game_action.DEFENSE));
-		button_rest.setEnabled(player.actionPossible(game_action.REST));
+		button_def.setEnabled(player.actionPossible(Game_action.DEFENSE));
+		button_rest.setEnabled(player.actionPossible(Game_action.REST));
 	}
 
 	public void setSwordsVisible(boolean b) {
