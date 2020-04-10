@@ -61,6 +61,7 @@ public class GUI extends JFrame {
 	 */
 
 	public GUI(Player player) {
+		System.out.println("PLOP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 706, 490);
 		contentPane = new JPanel();
@@ -340,6 +341,7 @@ public class GUI extends JFrame {
 		}
 		
 		setSwordsVisible(false);
+		System.out.println("PLoup");
 	}
 
 	public void updatePlayerBars(Player p) {
