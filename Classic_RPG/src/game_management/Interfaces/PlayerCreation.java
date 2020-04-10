@@ -31,6 +31,7 @@ public class PlayerCreation extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private boolean readyToLaunch = false;
+	private boolean JAR = true;
 	/**
 	 * Create the frame.
 	 */
@@ -106,7 +107,18 @@ public class PlayerCreation extends JFrame {
 		JPanel job_panel = new JPanel();
 		Body.add(job_panel, BorderLayout.CENTER);
 
-		ImageIcon icon = new ImageIcon("Images/knight.png");
+		ImageIcon icon = null;
+		if(JAR) {
+			try {
+				icon = new ImageIcon(getClass().getResource("/Images/knight.png"));
+			}catch(Exception e) {
+				JAR = false; // switch to non-JAR mode
+				icon = new ImageIcon("Images/knight.png");
+			}
+		}
+		else
+			icon = new ImageIcon("Images/knight.png");
+		
 		Image img = icon.getImage() ;  
 		Image newimg = img.getScaledInstance( 150, 150,  java.awt.Image.SCALE_SMOOTH );
 		icon = new ImageIcon(newimg);
@@ -128,7 +140,18 @@ public class PlayerCreation extends JFrame {
 		tglbtnNewToggleButton_1.setBackground(Color.WHITE);
 		tglbtnNewToggleButton_2.setBackground(Color.WHITE);
 
-		ImageIcon icon2 = new ImageIcon("Images/wizard.png");
+		ImageIcon icon2 = null;
+		if(JAR) {
+			try {
+				icon2 = new ImageIcon(getClass().getResource("/Images/wizard.png"));
+			}catch(Exception e) {
+				JAR = false; // switch to non-JAR mode
+				icon2 = new ImageIcon("Images/wizard.png");
+			}
+		}
+		else
+			icon2 = new ImageIcon("Images/wizard.png");
+		
 		Image img2 = icon2.getImage() ;  
 		Image newimg2 = img2.getScaledInstance( 150, 150,  java.awt.Image.SCALE_SMOOTH );
 		icon2 = new ImageIcon(newimg2);
@@ -143,7 +166,18 @@ public class PlayerCreation extends JFrame {
 			}
 		});
 
-		ImageIcon icon3 = new ImageIcon("Images/ninja.png");
+		ImageIcon icon3 = null;
+		if(JAR) {
+			try {
+				icon3 = new ImageIcon(getClass().getResource("/Images/ninja.png"));
+			}catch(Exception e) {
+				JAR = false; // switch to non-JAR mode
+				icon3 = new ImageIcon("Images/ninja.png");
+			}
+		}
+		else
+			icon3 = new ImageIcon("Images/ninja.png");
+		
 		Image img3 = icon3.getImage() ;  
 		Image newimg3 = img3.getScaledInstance( 150, 150,  java.awt.Image.SCALE_SMOOTH );
 		icon3 = new ImageIcon(newimg3);
