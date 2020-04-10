@@ -1,4 +1,4 @@
-package game_management.parts;
+package game_management.Sections;
 import java.util.ArrayList;
 
 public class Level {
