@@ -36,15 +36,6 @@ public abstract class Entity {
 		this.level += 1;
 	}
 
-	protected void setMana(int manaValue) { //DownCast
-		if(getCharacteristics() instanceof MagicianCharacteristiques) {
-			((MagicianCharacteristiques)getCharacteristics()).setMana(manaValue);
-		}
-		else {
-			System.out.println("This entity have no mana pool !!!!");
-		}
-	}
-
 	public int getMana() {
 		if(getCharacteristics() instanceof MagicianCharacteristiques) {
 			return ((MagicianCharacteristiques)getCharacteristics()).getMana();
@@ -148,7 +139,35 @@ public abstract class Entity {
 				System.out.println(name + " took " + value + " damage(s)");
 			}
 		}
-		System.out.println();
+	}
+
+	protected void manaChange(boolean add, int value) {
+		if(!(characteristics instanceof MagicianCharacteristiques)) {
+			System.out.println("This entity have no mana pool !!!!");
+			return;
+		}
+		if(value <= 0)
+			return;
+
+		MagicianCharacteristiques magicCharac = (MagicianCharacteristiques)this.characteristics;
+		int currentMana = magicCharac.getMana();
+
+		if(add) {
+			if(value + currentMana > magicCharac.getManaMax()) {
+				magicCharac.setMana(magicCharac.getManaMax());
+			}
+			else {
+				magicCharac.setMana(currentMana + value);
+			}
+		}
+		else {
+			if(currentMana - value <= 0) {
+				magicCharac.setMana(0);
+			}
+			else {
+				magicCharac.setMana(currentMana + value);
+			}
+		}
 	}
 
 	public Characteristics getCharacteristics() {
