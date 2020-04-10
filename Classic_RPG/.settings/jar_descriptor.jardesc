@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="/home/thynes/Desktop/Classic-RPG.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Classic_RPG/.settings/jar_descriptor.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=Classic_RPG/src&lt;game_management{Classic_RPG.java[Classic_RPG" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/Classic_RPG/miglayout-src.zip"/>
+        <javaElement handleIdentifier="=Classic_RPG/src"/>
+        <folder path="/Classic_RPG/Images"/>
+        <file path="/Classic_RPG/.classpath"/>
+        <file path="/Classic_RPG/.project"/>
+    </selectedElements>
+</jardesc>
