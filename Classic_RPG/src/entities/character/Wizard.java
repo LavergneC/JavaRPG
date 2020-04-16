@@ -121,7 +121,7 @@ public class Wizard extends Player{
 	}
 
 	public int getMagicShieldMaxHp() {
-		return getCharacteristics().getIntelligence() * 2;
+		return getCharacteristics().getIntelligence() * 8;
 	}
 }
 

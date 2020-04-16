@@ -10,6 +10,10 @@ public abstract class Player extends Entity{
 	protected int xp;
 	private int level;
 	
+	public int getNext_lvl_xp() {
+		return next_lvl_xp;
+	}
+
 	public Player(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_) {
 		super(hp_, stamina_, name_, agility_, strength_, intelligence_);
 		defense_position = false;
