@@ -41,6 +41,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 public class GUI extends JFrame {
 	public static String message;
@@ -166,7 +167,7 @@ public class GUI extends JFrame {
 		staminaBar.setStringPainted(true);
 		staminaBar.setString(player.getStamina() + "/" + staminaBar.getMaximum());
 
-		staminaBar.setForeground(Color.GREEN);
+		staminaBar.setForeground(UIManager.getColor("OptionPane.questionDialog.border.background"));
 		stamina_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		stamina_panel.add(lblStamina);
 		stamina_panel.add(staminaBar);
