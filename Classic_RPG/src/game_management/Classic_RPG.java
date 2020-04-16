@@ -34,16 +34,20 @@ public class Classic_RPG {
 				gui.infobarSetWave(currentWave.getNumber());
 				int turnIndex = 1;
 
-				while(!currentWave.getMonsters().isEmpty() && player.getHp() > 0) {
+				while(!currentWave.getMonsters().isEmpty()) {
 					System.out.println("\nTurn n°" + turnIndex);
 					currentTurn = new Turn(turnIndex, currentWave, player, gui);
 					gui.infobarSetTurn(currentTurn.getNumber());
 					currentTurn.run_turn();
 					turnIndex++;
+					
+					if( player.getHp() <= 0)
+						return;
 				}
-				player.rest();
+				player.rest(false);
+				
 			}
-			player.rest();
+			player.rest(false);
 		}
 	}
 	public static void main(String[] args) {
@@ -55,9 +59,9 @@ public class Classic_RPG {
 	}
 
 	public Level generateLevel1() {
-		Monster bebeDragon = new Monster(200,600,"Bébé dragon", 1, 34, 1);
-		Monster fantomeDeChienSauvage1 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
-		Monster fantomeDeChienSauvage2 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
+		Monster bebeDragon = new Monster(360,1000,"Bébé dragon", 1, 38, 1);
+		Monster fantomeDeChienSauvage1 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
+		Monster fantomeDeChienSauvage2 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
 
 		ArrayList<Monster> wave1Monsters = new ArrayList<Monster>();
 		wave1Monsters.add(fantomeDeChienSauvage1);
@@ -76,10 +80,10 @@ public class Classic_RPG {
 	}
 
 	public Level generateLevel2() {
-		Monster fantomeDeChienSauvage1 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
-		Monster fantomeDeChienSauvage2 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
-		Monster fantomeDeChienSauvage3 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
-		Monster fantomeDeChienSauvage4 = new Monster(100, 500, "Fantôme de chien sauvage", 1, 13, 1);
+		Monster fantomeDeChienSauvage1 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
+		Monster fantomeDeChienSauvage2 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
+		Monster fantomeDeChienSauvage3 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
+		Monster fantomeDeChienSauvage4 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
 
 		ArrayList<Monster> wave1Monsters = new ArrayList<Monster>();
 		wave1Monsters.add(fantomeDeChienSauvage1);
@@ -88,12 +92,10 @@ public class Classic_RPG {
 		wave1Monsters.add(fantomeDeChienSauvage4);
 		Wave wave1 = new Wave(1, wave1Monsters);
 
-		Monster trollGeant1 = new Monster(600, 1000, "Toll Géant Grrr", 1, 20, 1);
-		Monster trollGeant2 = new Monster(600, 1000, "Toll Géant Grrr", 1, 20, 1);
+		Monster trollGeant1 = new Monster(1300, 1000, "Troll Géant Grrr", 1, 30, 1);
 		
 		ArrayList<Monster> wave2Monsters = new ArrayList<Monster>();
 		wave2Monsters.add(trollGeant1);
-		wave2Monsters.add(trollGeant2);
 		Wave wave2 = new Wave(2, wave2Monsters);
 
 		ArrayList<Wave> wavesLevel = new ArrayList<Wave>();
