@@ -577,7 +577,7 @@ public class GUI extends JFrame {
 		ImageIcon icon3 = null;
 		if(JAR) {
 			try {
-				icon3 = new ImageIcon(getClass().getResource(source));
+				icon3 = new ImageIcon(getClass().getResource("/" + source));
 			}catch(Exception e) {
 				JAR = false; // switch to non-JAR mode
 				icon3 = new ImageIcon(source);
