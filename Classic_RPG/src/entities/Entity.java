@@ -32,6 +32,8 @@ public abstract class Entity {
 		this.name = name_;
 		this.level = 0;
 	}
+	
+	public abstract void specialHit(Entity target);
 
 	protected void levelUp() {
 		this.level += 1;

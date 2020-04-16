@@ -17,8 +17,6 @@ public abstract class Player extends Entity{
 		defense_position = false;
 	}
 	
-	public abstract void specialHit(Entity target);
-	
 	public void setDefensePosition(boolean defense_position_) {
 		this.defense_position = defense_position_;
 	}
