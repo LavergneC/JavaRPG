@@ -19,7 +19,7 @@ public class Monster extends Entity{
 	public void specialHit(Entity target) {
 		GUI.edit_message(name + " target " + target.getName() + " with his special hit");
 		attack(target, getCharacteristics().getStrength() * 7);
-		staminaChange(false, 400);
+		staminaChange(false, 300);
 	}
 	
 	public void action(Entity target) {
