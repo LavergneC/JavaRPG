@@ -40,6 +40,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 public class GUI extends JFrame {
 	public static String message;
@@ -162,7 +163,7 @@ public class GUI extends JFrame {
 		staminaBar.setValue(player.getStamina());
 		staminaBar.setStringPainted(true);
 		staminaBar.setString(player.getStamina() + "/" + staminaBar.getMaximum());
-		staminaBar.setForeground(Color.GREEN);
+		staminaBar.setForeground(UIManager.getColor("OptionPane.questionDialog.border.background"));
 		GroupLayout gl_stamina_panel = new GroupLayout(stamina_panel);
 		gl_stamina_panel.setHorizontalGroup(gl_stamina_panel.createParallelGroup(Alignment.LEADING)
 				.addGap(0, 250, Short.MAX_VALUE)
