@@ -53,10 +53,10 @@ public class Turn {
 
 			/* Remove monster from the wave if we get hp != 0 */
 			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0) {
-				boolean win_lvl = player.earn_xp(actual_wave.getMonsters().get(index_monstre).getXpGiven());
+				boolean earn_lvl = player.earn_xp(actual_wave.getMonsters().get(index_monstre).getXpGiven());
 				System.out.println("Xp : " + player.getXp());
 				actual_wave.removeMonster(index_monstre);
-				if (win_lvl) {
+				if (earn_lvl) {
 					gui.update_playerLevel(player.getLevel());
 					gui.updatePlayerBars(player);
 				}
