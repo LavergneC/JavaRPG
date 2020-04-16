@@ -13,6 +13,8 @@ import javax.swing.text.StyledDocument;
 
 import entities.Monster;
 import entities.Player;
+import entities.character.Ninja;
+import entities.character.Warrior;
 import entities.character.Wizard;
 import entities.characterisics.MagicianCharacteristiques;
 import game_management.Action_Enums.Attack;
@@ -37,9 +39,11 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
+
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 public class GUI extends JFrame {
 	public static String message;
@@ -48,6 +52,7 @@ public class GUI extends JFrame {
 
 	private JProgressBar HPBar;
 	private JProgressBar manaBar;
+	private JProgressBar manaBarShield;
 	private JProgressBar staminaBar;
 
 	private JLabel lblLvlGame;
@@ -56,7 +61,7 @@ public class GUI extends JFrame {
 
 	private JPanel monstersPanel;
 	private JPanel Actions;
-	
+
 	private JTextPane txtpn;
 	public Style style1;
 	public StyledDocument sDoc;
@@ -70,11 +75,11 @@ public class GUI extends JFrame {
 	JButton button_attack_special;
 	JButton button_def;
 	JButton button_rest;
-	
+
 	static public void reset_message() {
 		message = "";
 	}
-	
+
 	static public void edit_message(String s_message) {
 		message += '\n' + s_message;
 	}
@@ -107,13 +112,27 @@ public class GUI extends JFrame {
 		JPanel H_text = new JPanel();
 		H_text.setBackground(Color.WHITE);
 		headTexts.add(H_text);
-		H_text.setLayout(new GridLayout(0, 1, 0, 30));
+		H_text.setLayout(new GridLayout(0, 1, 0, 2));
+
+		
+		ImageIcon player_img = null;
+		
+		if(player instanceof Ninja)
+			player_img = createImage("Images/ninja.png", 45);
+		else if(player instanceof Wizard)
+			player_img = createImage("Images/wizard.png", 45);
+		else if(player instanceof Warrior)
+			player_img = createImage("Images/knight.png", 45);
+
+		JLabel player_image = new JLabel(player_img);
+		H_text.add(player_image);
 
 		JLabel lblName = new JLabel(player.getName());
 		H_text.add(lblName);
-		lblName.setHorizontalAlignment(SwingConstants.LEFT);
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JLabel lblLvl = new JLabel("lvl. 1");
+		lblLvl.setHorizontalAlignment(SwingConstants.CENTER);
 		H_text.add(lblLvl);
 
 		JPanel bars = new JPanel();
@@ -126,7 +145,7 @@ public class GUI extends JFrame {
 		HP_panel.setBackground(Color.WHITE);
 		bars.add(HP_panel);
 
-		JLabel lblHP = new JLabel("HP");
+		JLabel lblHP = new JLabel(createImage("Images/heart.png", 25));
 		lblHP.setHorizontalAlignment(SwingConstants.LEFT);
 
 		HPBar = new JProgressBar();
@@ -135,26 +154,15 @@ public class GUI extends JFrame {
 		HPBar.setValue(player.getHp());
 		HPBar.setForeground(Color.RED);
 		HPBar.setString(HPBar.getValue() + "/" + HPBar.getMaximum());
-		GroupLayout gl_HP_panel = new GroupLayout(HP_panel);
-		gl_HP_panel.setHorizontalGroup(gl_HP_panel.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 250, Short.MAX_VALUE)
-				.addGroup(gl_HP_panel
-						.createSequentialGroup().addGap(18).addComponent(lblHP).addGap(27).addComponent(HPBar,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGap(38)));
-		gl_HP_panel.setVerticalGroup(gl_HP_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
-				.addGroup(gl_HP_panel.createSequentialGroup().addContainerGap()
-						.addGroup(gl_HP_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblHP).addComponent(
-								HPBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(24, Short.MAX_VALUE)));
-		HP_panel.setLayout(gl_HP_panel);
+		HP_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		HP_panel.add(lblHP);
+		HP_panel.add(HPBar);
 
 		JPanel stamina_panel = new JPanel();
 		stamina_panel.setBackground(Color.WHITE);
 		bars.add(stamina_panel);
 
-		JLabel lblStamina = new JLabel("Stamina");
+		JLabel lblStamina = new JLabel(createImage("Images/flash.png", 25));
 		lblStamina.setHorizontalAlignment(SwingConstants.CENTER);
 
 		staminaBar = new JProgressBar();
@@ -162,31 +170,25 @@ public class GUI extends JFrame {
 		staminaBar.setValue(player.getStamina());
 		staminaBar.setStringPainted(true);
 		staminaBar.setString(player.getStamina() + "/" + staminaBar.getMaximum());
+
 		staminaBar.setForeground(Color.GREEN);
-		GroupLayout gl_stamina_panel = new GroupLayout(stamina_panel);
-		gl_stamina_panel.setHorizontalGroup(gl_stamina_panel.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 250, Short.MAX_VALUE)
-				.addGroup(gl_stamina_panel.createSequentialGroup().addContainerGap().addComponent(lblStamina)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(staminaBar,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(20, Short.MAX_VALUE)));
-		gl_stamina_panel
-		.setVerticalGroup(gl_stamina_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
-				.addGroup(gl_stamina_panel.createSequentialGroup()
-						.addGroup(gl_stamina_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(staminaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblStamina))
-						.addContainerGap(24, Short.MAX_VALUE)));
-		gl_stamina_panel.setAutoCreateContainerGaps(true);
-		stamina_panel.setLayout(gl_stamina_panel);
+		stamina_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		stamina_panel.add(lblStamina);
+		stamina_panel.add(staminaBar);
 
 		JPanel mana_panel = new JPanel();
 		mana_panel.setBackground(Color.WHITE);
 		bars.add(mana_panel);
+		
+		JPanel mana_shield_panel = new JPanel();
+		bars.add(mana_shield_panel);
+		mana_shield_panel.setBackground(Color.WHITE);
 
 		JLabel lblMana = new JLabel("Mana");
 		lblMana.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblManaShield = new JLabel("Mana_shield");
+		lblManaShield.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JPanel infoBar = new JPanel();
 		Header.add(infoBar, BorderLayout.SOUTH);
@@ -334,48 +336,54 @@ public class GUI extends JFrame {
 		progressBar.setStringPainted(true);
 		progressBar.setValue(50);
 		monster_1.add(progressBar);
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
-		
+
 		txtpn = new JTextPane();
 		txtpn.setText("");
 		panel.add(txtpn);
-		
+
 		Style defaut = txtpn.getStyle("default");
 		txtpn.setEditable(false);
 		style1 = txtpn.addStyle("style1", defaut);
 		StyleConstants.setFontSize(style1, 15);
-		
+
 		reset_message();
 		sDoc = (StyledDocument)txtpn.getDocument();
-		
+
 		txtpn.setPreferredSize(new Dimension(500, 110));
-		
+
 		if (player instanceof Wizard) {
+			lblMana = new JLabel(createImage("Images/mana.png", 25));
+			lblMana.setHorizontalAlignment(SwingConstants.CENTER);
+
 			manaBar = new JProgressBar();
-			manaBar.setMaximum(player.getMana());
-			manaBar.setValue(player.getMana());
-			manaBar.setString(player.getMana() + "/" + ((MagicianCharacteristiques) player.getCharacteristics()).getManaMax());
+			manaBar.setMaximum(((Wizard)player).getMana());
+			manaBar.setValue(manaBar.getMaximum());
 			manaBar.setStringPainted(true);
+			manaBar.setString(player.getMana() + "/" + manaBar.getMaximum());
 			manaBar.setForeground(Color.BLUE);
-			GroupLayout gl_mana_panel = new GroupLayout(mana_panel);
-			gl_mana_panel.setHorizontalGroup(gl_mana_panel.createParallelGroup(Alignment.LEADING)
-					.addGap(0, 250, Short.MAX_VALUE)
-					.addGroup(gl_mana_panel.createSequentialGroup().addContainerGap().addComponent(lblMana)
-							.addPreferredGap(ComponentPlacement.RELATED).addComponent(manaBar,
-									GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(39, Short.MAX_VALUE)));
-			gl_mana_panel.setVerticalGroup(
-					gl_mana_panel.createParallelGroup(Alignment.LEADING).addGap(0, 56, Short.MAX_VALUE)
-					.addGroup(gl_mana_panel.createSequentialGroup()
-							.addGroup(gl_mana_panel.createParallelGroup(Alignment.BASELINE)
-									.addComponent(manaBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-											GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblMana))
-							.addContainerGap(24, Short.MAX_VALUE)));
-			gl_mana_panel.setAutoCreateContainerGaps(true);
-			mana_panel.setLayout(gl_mana_panel);
+			mana_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			mana_panel.add(lblMana);
+			mana_panel.add(lblMana);
+			
+			mana_panel.add(manaBar);
+			
+			lblManaShield = new JLabel(createImage("Images/shield.png", 25));
+			lblManaShield.setHorizontalAlignment(SwingConstants.CENTER);
+			
+			manaBarShield = new JProgressBar();
+			manaBarShield.setMaximum(((Wizard)player).getMagicShieldMaxHp());
+			manaBarShield.setValue(0);
+			manaBarShield.setStringPainted(true);
+			manaBarShield.setString("0/" + manaBarShield.getMaximum());
+			manaBarShield.setForeground(Color.BLUE);
+			mana_shield_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			mana_shield_panel.add(lblManaShield);
+			mana_shield_panel.add(lblManaShield);
+			
+			mana_shield_panel.add(manaBarShield);
 		}
 
 		setSwordsVisible(false);
@@ -391,6 +399,11 @@ public class GUI extends JFrame {
 		if (p instanceof Wizard) {
 			manaBar.setValue(p.getMana());
 			manaBar.setString(manaBar.getValue() + "/" + manaBar.getMaximum());
+			
+			manaBarShield.setValue(
+					((Wizard)p).getMagicShieldHp()
+							);
+			manaBarShield.setString(manaBarShield.getValue() + "/" + manaBarShield.getMaximum());
 		}
 	}
 
@@ -503,7 +516,7 @@ public class GUI extends JFrame {
 	public void setGame_action(Game_action game_action) {
 		this.game_action = game_action;
 	}
-	
+
 	public int getMonsterTarget() {
 		return monsterTarget;
 	}
@@ -511,12 +524,12 @@ public class GUI extends JFrame {
 	public void resetMonsterTarget() {
 		monsterTarget = -1;
 	}
-	
+
 	public Attack getAttackType() {
 		return attackType;
 	}
-	
-	 public void set_text_console(int pos) {
+
+	public void set_text_console(int pos) {
 		clear_text_console();
 		delaySec(1);
 		try {
@@ -526,15 +539,15 @@ public class GUI extends JFrame {
 		reset_message();
 		delaySec(2);
 	}
-	 
-	 public void clear_text_console() {
-		 txtpn.setText("");
-	 }
-	
+
+	public void clear_text_console() {
+		txtpn.setText("");
+	}
+
 	public int get_position_text() {
 		return position;
 	}
-	
+
 	void delaySec(int s) {
 		try {
 			TimeUnit.SECONDS.sleep(s);
@@ -543,5 +556,24 @@ public class GUI extends JFrame {
 		{
 			Thread.currentThread().interrupt();
 		}
+	}
+	
+	ImageIcon createImage(String source, int size) {
+		ImageIcon icon3 = null;
+		if(JAR) {
+			try {
+				icon3 = new ImageIcon(getClass().getResource(source));
+			}catch(Exception e) {
+				JAR = false; // switch to non-JAR mode
+				icon3 = new ImageIcon(source);
+			}
+		}
+		else
+			icon3 = new ImageIcon(source);
+		
+		Image img3 = icon3.getImage() ;  
+		Image newimg3 = img3.getScaledInstance( size, size,  java.awt.Image.SCALE_SMOOTH );
+		
+		return new ImageIcon(newimg3);
 	}
 }
