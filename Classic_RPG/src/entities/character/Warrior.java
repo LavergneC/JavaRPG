@@ -7,7 +7,7 @@ import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
 
 public class Warrior extends Player{
-	final static int BASE_HP = 2000;
+	final static int BASE_HP = 1500;
 	final static int BASE_STAMINA = 2000;
 	
 	final static int BASE_STRENGTH = 30;
@@ -27,7 +27,7 @@ public class Warrior extends Player{
 	
 	public void receiveAttack(int dmgIncoming) {
 		if(defense_position) {
-			if(dmgIncoming > getCharacteristics().getStrength()) {
+			if(dmgIncoming > getCharacteristics().getStrength() * 5) {
 				hpChange(false, dmgIncoming / 2);
 			}
 			else

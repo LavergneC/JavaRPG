@@ -42,7 +42,7 @@ public abstract class Entity {
 
 	public void basicHit(Entity target)
 	{
-		int dmgs = getCharacteristics().getStrength() * 2;
+		int dmgs = getCharacteristics().getStrength() * 4;
 		
 		GUI.edit_message(name + " basic attack on " + target.getName());
 		staminaChange(false, 200);
@@ -54,11 +54,13 @@ public abstract class Entity {
 		target.receiveAttack(dmgs);
 	}
 
-	public void rest() // TODO could be changed or implement in daughter class
+	public void rest(boolean printView) // TODO could be changed or implement in daughter class
 	{
-		GUI.edit_message(getName() + " take some rest.");
-		staminaChange(true, getCharacteristics().getMax_stamina() / 10);
-		hpChange(true, (int)Math.ceil(getCharacteristics().getMax_hp()/20));
+		if(printView)
+			GUI.edit_message(getName() + " take some rest.");
+		
+		staminaChange(true, getCharacteristics().getMax_stamina() / 5);
+		hpChange(true, (int)Math.ceil(getCharacteristics().getMax_hp() / 14));
 	}
 
 	public int getHp() {
