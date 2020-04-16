@@ -30,8 +30,6 @@ public abstract class Player extends Entity{
 		level = 1;
 	}
 	
-	public abstract void specialHit(Entity target);
-	
 	public void setDefensePosition(boolean defense_position_) {
 		this.defense_position = defense_position_;
 	}
