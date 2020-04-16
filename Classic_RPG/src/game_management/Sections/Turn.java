@@ -59,7 +59,7 @@ public class Turn {
 			break;
 
 		case REST:
-			player.rest();
+			player.rest(true);
 			break;
 
 		case DEFENSE:
@@ -78,7 +78,7 @@ public class Turn {
 		while(it.hasNext()) {
 			Monster monster = it.next();
 			if(monster.getStamina() < 50) { /* not enough stamina to attack */
-				monster.rest();
+				monster.rest(true);
 			}
 			else {
 				monster.basicHit(player);

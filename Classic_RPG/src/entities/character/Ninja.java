@@ -7,7 +7,7 @@ import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
 
 public class Ninja extends Player{
-	final static int BASE_HP = 1300;
+	final static int BASE_HP = 1000;
 	final static int BASE_STAMINA = 3000;
 	
 	final static int BASE_STRENGTH = 10;
@@ -21,19 +21,23 @@ public class Ninja extends Player{
 	/* Should not be pared */
 	public void specialHit(Entity target) {
 		GUI.edit_message(name + " use surgical attack on " + target.getName());
-		attack(target, this.getCharacteristics().getStrength() * 1 + 3 * this.getCharacteristics().getAgility());
+		attack(target, this.getCharacteristics().getStrength() * 4 * this.getCharacteristics().getAgility() / 5);
 		staminaChange(false, 300);
+	}
+	
+	public void basicHit(Entity target) {
+		int dmgs = getCharacteristics().getStrength() * 4 * this.getCharacteristics().getAgility() / 10;
+		
+		GUI.edit_message(name + " basic attack on " + target.getName());
+		staminaChange(false, 130);
+		this.attack(target, dmgs);
 	}
 	
 	public void receiveAttack(int dmgIncoming) {
 		// Add esquive based on agility and random
 		if(defense_position) {
-			if(dmgIncoming > getCharacteristics().getStrength()) {
-				hpChange(false, dmgIncoming / 2);
-			}
-			else {
-				GUI.edit_message(this.name + " did a beautiful dodge roll");
-			}
+			staminaChange(false, 150);
+			GUI.edit_message(this.name + " did a beautiful dodge roll");
 		}
 		else {
 			super.receiveAttack(dmgIncoming);
