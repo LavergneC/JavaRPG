@@ -53,6 +53,7 @@ public class GUI extends JFrame {
 	private JLabel lblLvlGame;
 	private JLabel lblWave;
 	private JLabel lblTurn;
+	private JLabel lblLvl;
 
 	private JPanel monstersPanel;
 	private JPanel Actions;
@@ -113,7 +114,7 @@ public class GUI extends JFrame {
 		H_text.add(lblName);
 		lblName.setHorizontalAlignment(SwingConstants.LEFT);
 
-		JLabel lblLvl = new JLabel("lvl. 1");
+		lblLvl = new JLabel("lvl. " + player.getLevel());
 		H_text.add(lblLvl);
 
 		JPanel bars = new JPanel();
@@ -382,13 +383,16 @@ public class GUI extends JFrame {
 	}
 
 	public void updatePlayerBars(Player p) {
+		HPBar.setMaximum(p.getCharacteristics().getMax_hp());
 		HPBar.setValue(p.getHp());
 		HPBar.setString(HPBar.getValue() + "/" + HPBar.getMaximum());
-
+		
+		staminaBar.setMaximum(p.getCharacteristics().getMax_stamina());
 		staminaBar.setValue(p.getStamina());
 		staminaBar.setString(staminaBar.getValue() + "/" + staminaBar.getMaximum());
 
 		if (p instanceof Wizard) {
+			manaBar.setMaximum(((MagicianCharacteristiques)p.getCharacteristics()).getManaMax());
 			manaBar.setValue(p.getMana());
 			manaBar.setString(manaBar.getValue() + "/" + manaBar.getMaximum());
 		}
@@ -543,5 +547,9 @@ public class GUI extends JFrame {
 		{
 			Thread.currentThread().interrupt();
 		}
+	}
+	
+	public void update_playerLevel(int new_level) {
+		lblLvl.setText("lvl. " + new_level);
 	}
 }

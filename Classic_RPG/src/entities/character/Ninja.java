@@ -60,7 +60,7 @@ public class Ninja extends Player{
 		return r;
 	}
 	
-	public boolean  actionPossible(Attack attackType) {
+	public boolean actionPossible(Attack attackType) {
 		switch(attackType) {
 		case BASIC_ATTACK:
 			return getStamina() >= 200;
@@ -70,5 +70,10 @@ public class Ninja extends Player{
 			System.out.println("class ninja::ERROR this attack don't exist");
 			return false;
 		}
+	}
+	
+	public void levelUp() {
+		super.levelUp();
+		this.characteristics.setAgility(this.characteristics.getAgility() + 1);
 	}
 }
