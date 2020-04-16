@@ -45,18 +45,18 @@ public abstract class Player extends Entity{
 		System.out.println("Player lvl : "  + level + " - max hp : " + characteristics.getMax_hp() + " - max stamina " + characteristics.getMax_stamina());
 	}
 	
-	public boolean win_xp(int xp_winned) {
-		boolean win_lvl = false;
-		if (xp + xp_winned >= next_lvl_xp) {
-			xp = (xp + xp_winned) - next_lvl_xp;
+	public boolean earn_xp(int xp_earned) {
+		boolean earn_lvl = false;
+		if (xp + xp_earned >= next_lvl_xp) {
+			xp = (xp + xp_earned) - next_lvl_xp;
 			levelUp();
-			win_lvl = true;
+			earn_lvl = true;
 		}
 		else {
-			xp += xp_winned;
+			xp += xp_earned;
 		}
 		
-		return win_lvl;
+		return earn_lvl;
 	}
 	
 	public int getXp() {
