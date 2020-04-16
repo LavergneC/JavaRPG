@@ -51,6 +51,7 @@ public class GUI extends JFrame {
 
 	private JProgressBar HPBar;
 	private JProgressBar manaBar;
+	private JProgressBar manaBarShield;
 	private JProgressBar staminaBar;
 
 	private JLabel lblLvlGame;
@@ -176,9 +177,16 @@ public class GUI extends JFrame {
 		JPanel mana_panel = new JPanel();
 		mana_panel.setBackground(Color.WHITE);
 		bars.add(mana_panel);
+		
+		JPanel mana_shield_panel = new JPanel();
+		bars.add(mana_shield_panel);
+		mana_shield_panel.setBackground(Color.WHITE);
 
 		JLabel lblMana = new JLabel("Mana");
 		lblMana.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblManaShield = new JLabel("Mana_shield");
+		lblManaShield.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JPanel infoBar = new JPanel();
 		Header.add(infoBar, BorderLayout.SOUTH);
@@ -359,6 +367,21 @@ public class GUI extends JFrame {
 			mana_panel.add(lblMana);
 			
 			mana_panel.add(manaBar);
+			
+			lblManaShield = new JLabel(createImage("Images/shield.png", 25));
+			lblManaShield.setHorizontalAlignment(SwingConstants.CENTER);
+			
+			manaBarShield = new JProgressBar();
+			manaBarShield.setMaximum(((Wizard)player).getMagicShieldMaxHp());
+			manaBarShield.setValue(0);
+			manaBarShield.setStringPainted(true);
+			manaBarShield.setString("0/" + manaBarShield.getMaximum());
+			manaBarShield.setForeground(Color.BLUE);
+			mana_shield_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			mana_shield_panel.add(lblManaShield);
+			mana_shield_panel.add(lblManaShield);
+			
+			mana_shield_panel.add(manaBarShield);
 		}
 
 		setSwordsVisible(false);
@@ -374,6 +397,11 @@ public class GUI extends JFrame {
 		if (p instanceof Wizard) {
 			manaBar.setValue(p.getMana());
 			manaBar.setString(manaBar.getValue() + "/" + manaBar.getMaximum());
+			
+			manaBarShield.setValue(
+					((Wizard)p).getMagicShieldHp()
+							);
+			manaBarShield.setString(manaBarShield.getValue() + "/" + manaBarShield.getMaximum());
 		}
 	}
 
