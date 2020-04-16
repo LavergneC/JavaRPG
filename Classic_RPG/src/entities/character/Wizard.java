@@ -58,7 +58,7 @@ public class Wizard extends Player{
 
 	public void setDefensePosition(boolean defense_position_){
 		if(defense_position_) {
-			magicShieldHp = getCharacteristics().getIntelligence() * 9;
+			magicShieldHp = getMagicShieldMaxHp();
 			manaChange(false, 64);
 			super.setDefensePosition(defense_position_);
 		}
@@ -109,11 +109,19 @@ public class Wizard extends Player{
 		}
 	}
 	
+	public void levelUp() {
+		super.levelUp();
+		((MagicianCharacteristiques)this.characteristics).setManaMax(((int)Math.ceil(((MagicianCharacteristiques)this.characteristics).getManaMax() * 1.1)));
+		this.manaChange(true, getMana() + (int)Math.ceil(((MagicianCharacteristiques)this.characteristics).getManaMax() * 0.1));
+		this.characteristics.setIntelligence(this.characteristics.getIntelligence() + 1);
+	}
+
 	public int getMagicShieldHp() {
 		return magicShieldHp;
 	}
 
 	public int getMagicShieldMaxHp() {
-		return getCharacteristics().getIntelligence() * 2;
+		return getCharacteristics().getIntelligence() * 8;
 	}
 }
+

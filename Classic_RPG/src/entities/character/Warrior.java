@@ -69,4 +69,9 @@ public class Warrior extends Player{
 			return false;
 		}
 	}
+	
+	public void levelUp() {
+		super.levelUp();
+		this.characteristics.setStrength(this.characteristics.getStrength() + 1);
+	}
 }

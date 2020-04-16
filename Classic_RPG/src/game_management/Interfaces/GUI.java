@@ -33,10 +33,8 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JProgressBar;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
 
@@ -54,10 +52,12 @@ public class GUI extends JFrame {
 	private JProgressBar manaBar;
 	private JProgressBar manaBarShield;
 	private JProgressBar staminaBar;
+	private JProgressBar xpBar;
 
 	private JLabel lblLvlGame;
 	private JLabel lblWave;
 	private JLabel lblTurn;
+	private JLabel lblLvl;
 
 	private JPanel monstersPanel;
 	private JPanel Actions;
@@ -114,9 +114,9 @@ public class GUI extends JFrame {
 		headTexts.add(H_text);
 		H_text.setLayout(new GridLayout(0, 1, 0, 2));
 
-		
+
 		ImageIcon player_img = null;
-		
+
 		if(player instanceof Ninja)
 			player_img = createImage("Images/ninja.png", 45);
 		else if(player instanceof Wizard)
@@ -130,10 +130,6 @@ public class GUI extends JFrame {
 		JLabel lblName = new JLabel(player.getName());
 		H_text.add(lblName);
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel lblLvl = new JLabel("lvl. 1");
-		lblLvl.setHorizontalAlignment(SwingConstants.CENTER);
-		H_text.add(lblLvl);
 
 		JPanel bars = new JPanel();
 		Header.add(bars, BorderLayout.CENTER);
@@ -171,7 +167,7 @@ public class GUI extends JFrame {
 		staminaBar.setStringPainted(true);
 		staminaBar.setString(player.getStamina() + "/" + staminaBar.getMaximum());
 
-		staminaBar.setForeground(Color.GREEN);
+		staminaBar.setForeground(UIManager.getColor("OptionPane.questionDialog.border.background"));
 		stamina_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		stamina_panel.add(lblStamina);
 		stamina_panel.add(staminaBar);
@@ -179,33 +175,41 @@ public class GUI extends JFrame {
 		JPanel mana_panel = new JPanel();
 		mana_panel.setBackground(Color.WHITE);
 		bars.add(mana_panel);
-		
+
 		JPanel mana_shield_panel = new JPanel();
 		bars.add(mana_shield_panel);
 		mana_shield_panel.setBackground(Color.WHITE);
 
 		JLabel lblMana = new JLabel("Mana");
 		lblMana.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		JLabel lblManaShield = new JLabel("Mana_shield");
 		lblManaShield.setHorizontalAlignment(SwingConstants.CENTER);
 
+		JPanel header_bot = new JPanel();
+		Header.add(header_bot, BorderLayout.SOUTH);
+		header_bot.setLayout(new BorderLayout(0, 0));
+
+		JPanel xp_panel = new JPanel();
+		xp_panel.setBackground(Color.WHITE);
+		header_bot.add(xp_panel, BorderLayout.NORTH);
+		xp_panel.setLayout(new BorderLayout(0, 0));
+
+		lblLvl = new JLabel("lvl. " + player.getLevel());
+		xp_panel.add(lblLvl, BorderLayout.NORTH);
+		lblLvl.setHorizontalAlignment(SwingConstants.CENTER);
+
+		xpBar = new JProgressBar();
+		xpBar.setValue(0);
+		xpBar.setForeground(Color.GREEN);
+		xpBar.setBorder(null);
+		xp_panel.add(xpBar);
+
 		JPanel infoBar = new JPanel();
-		Header.add(infoBar, BorderLayout.SOUTH);
+		infoBar.setBorder(new EmptyBorder(12, 0, 0, 0));
+		header_bot.add(infoBar);
 		infoBar.setBackground(Color.WHITE);
 		infoBar.setLayout(new GridLayout(0, 3, 0, 0));
-
-		JSeparator separator = new JSeparator();
-		infoBar.add(separator);
-		separator.setForeground(Color.BLACK);
-
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setForeground(Color.BLACK);
-		infoBar.add(separator_2);
-
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setForeground(Color.BLACK);
-		infoBar.add(separator_1);
 
 		lblLvlGame = new JLabel("Level X - Default level Name");
 		lblLvlGame.setVerticalAlignment(SwingConstants.TOP);
@@ -367,12 +371,12 @@ public class GUI extends JFrame {
 			mana_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			mana_panel.add(lblMana);
 			mana_panel.add(lblMana);
-			
+
 			mana_panel.add(manaBar);
-			
+
 			lblManaShield = new JLabel(createImage("Images/shield.png", 25));
 			lblManaShield.setHorizontalAlignment(SwingConstants.CENTER);
-			
+
 			manaBarShield = new JProgressBar();
 			manaBarShield.setMaximum(((Wizard)player).getMagicShieldMaxHp());
 			manaBarShield.setValue(0);
@@ -382,7 +386,7 @@ public class GUI extends JFrame {
 			mana_shield_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			mana_shield_panel.add(lblManaShield);
 			mana_shield_panel.add(lblManaShield);
-			
+
 			mana_shield_panel.add(manaBarShield);
 		}
 
@@ -390,19 +394,25 @@ public class GUI extends JFrame {
 	}
 
 	public void updatePlayerBars(Player p) {
+		HPBar.setMaximum(p.getCharacteristics().getMax_hp());
 		HPBar.setValue(p.getHp());
 		HPBar.setString(HPBar.getValue() + "/" + HPBar.getMaximum());
 
+		staminaBar.setMaximum(p.getCharacteristics().getMax_stamina());
 		staminaBar.setValue(p.getStamina());
 		staminaBar.setString(staminaBar.getValue() + "/" + staminaBar.getMaximum());
+		
+		xpBar.setMaximum(p.getNext_lvl_xp());
+		xpBar.setValue(p.getXp());
 
 		if (p instanceof Wizard) {
+			manaBar.setMaximum(((MagicianCharacteristiques)p.getCharacteristics()).getManaMax());
 			manaBar.setValue(p.getMana());
 			manaBar.setString(manaBar.getValue() + "/" + manaBar.getMaximum());
-			
+
 			manaBarShield.setValue(
 					((Wizard)p).getMagicShieldHp()
-							);
+					);
 			manaBarShield.setString(manaBarShield.getValue() + "/" + manaBarShield.getMaximum());
 		}
 	}
@@ -548,7 +558,7 @@ public class GUI extends JFrame {
 		return position;
 	}
 
-	void delaySec(int s) {
+	private void delaySec(int s) {
 		try {
 			TimeUnit.SECONDS.sleep(s);
 		}
@@ -557,8 +567,13 @@ public class GUI extends JFrame {
 			Thread.currentThread().interrupt();
 		}
 	}
-	
-	ImageIcon createImage(String source, int size) {
+
+
+	public void update_playerLevel(int new_level) {
+		lblLvl.setText("lvl. " + new_level);
+	}
+
+	private ImageIcon createImage(String source, int size) {
 		ImageIcon icon3 = null;
 		if(JAR) {
 			try {
@@ -570,10 +585,10 @@ public class GUI extends JFrame {
 		}
 		else
 			icon3 = new ImageIcon(source);
-		
+
 		Image img3 = icon3.getImage() ;  
 		Image newimg3 = img3.getScaledInstance( size, size,  java.awt.Image.SCALE_SMOOTH );
-		
+
 		return new ImageIcon(newimg3);
 	}
 }

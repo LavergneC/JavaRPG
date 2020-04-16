@@ -3,7 +3,6 @@ import entities.characterisics.*;
 import game_management.Interfaces.GUI;
 
 public abstract class Entity {
-	protected int level;
 	private int hp;
 	private int stamina;
 	protected String name;
@@ -21,7 +20,6 @@ public abstract class Entity {
 		this.hp = hp_;
 		this.stamina = stamina_;
 		this.name = name_;
-		this.level = 0;
 	}
 
 	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_, int mana_)

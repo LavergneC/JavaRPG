@@ -34,8 +34,13 @@ public class Characteristics {
 	public int getMax_stamina() {
 		return max_stamina;
 	}
+	
 	public void setAgility(int agility) {
 		this.agility = agility;
+	}
+	
+	public void setIntelligence(int intelligence) {
+		this.intelligence = intelligence;
 	}
 
 	public void setStrength(int strength) {

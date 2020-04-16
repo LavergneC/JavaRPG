@@ -5,9 +5,15 @@ import game_management.Interfaces.GUI;
 public class Monster extends Entity{
 	
 	private int cpt_basic = 0;
+	private int xp_given;
 	
-	public Monster(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_) {
+	public Monster(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_, int xp_given_) {
 		super(hp_, stamina_, name_, agility_, strength_, intelligence_);
+		xp_given = xp_given_;
+	}
+	
+	public int getXpGiven() {
+		return xp_given;
 	}
 	
 	public void specialHit(Entity target) {
