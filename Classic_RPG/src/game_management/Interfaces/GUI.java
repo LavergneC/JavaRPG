@@ -43,6 +43,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 public class GUI extends JFrame {
 	public static String message;
@@ -169,6 +170,7 @@ public class GUI extends JFrame {
 		staminaBar.setValue(player.getStamina());
 		staminaBar.setStringPainted(true);
 		staminaBar.setString(player.getStamina() + "/" + staminaBar.getMaximum());
+
 		staminaBar.setForeground(Color.GREEN);
 		stamina_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		stamina_panel.add(lblStamina);
