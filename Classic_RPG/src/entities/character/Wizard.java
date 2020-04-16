@@ -58,7 +58,7 @@ public class Wizard extends Player{
 
 	public void setDefensePosition(boolean defense_position_){
 		if(defense_position_) {
-			magicShieldHp = getCharacteristics().getIntelligence() * 9;
+			magicShieldHp = getMagicShieldMaxHp();
 			manaChange(false, 64);
 			super.setDefensePosition(defense_position_);
 		}
