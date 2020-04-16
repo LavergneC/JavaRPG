@@ -59,9 +59,10 @@ public class Classic_RPG {
 	}
 
 	public Level generateLevel1() {
-		Monster bebeDragon = new Monster(360,1000,"Bébé dragon", 1, 38, 1);
-		Monster fantomeDeChienSauvage1 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
-		Monster fantomeDeChienSauvage2 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
+
+		Monster bebeDragon = new Monster(360,1000,"Bébé dragon", 1, 38, 1, 50);
+		Monster fantomeDeChienSauvage1 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1, 25);
+		Monster fantomeDeChienSauvage2 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1, 25);
 
 		ArrayList<Monster> wave1Monsters = new ArrayList<Monster>();
 		wave1Monsters.add(fantomeDeChienSauvage1);
@@ -80,10 +81,12 @@ public class Classic_RPG {
 	}
 
 	public Level generateLevel2() {
-		Monster fantomeDeChienSauvage1 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
-		Monster fantomeDeChienSauvage2 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
-		Monster fantomeDeChienSauvage3 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
-		Monster fantomeDeChienSauvage4 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1);
+
+		Monster fantomeDeChienSauvage1 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1, 25);
+		Monster fantomeDeChienSauvage2 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1, 25);
+		Monster fantomeDeChienSauvage3 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1, 25);
+		Monster fantomeDeChienSauvage4 = new Monster(240, 500, "Fantôme de chien sauvage", 1, 13, 1, 25);
+
 
 		ArrayList<Monster> wave1Monsters = new ArrayList<Monster>();
 		wave1Monsters.add(fantomeDeChienSauvage1);
@@ -92,7 +95,7 @@ public class Classic_RPG {
 		wave1Monsters.add(fantomeDeChienSauvage4);
 		Wave wave1 = new Wave(1, wave1Monsters);
 
-		Monster trollGeant1 = new Monster(1300, 1000, "Troll Géant Grrr", 1, 30, 1);
+		Monster trollGeant1 = new Monster(1300, 1000, "Troll Géant Grrr", 1, 30, 1, 100);
 		
 		ArrayList<Monster> wave2Monsters = new ArrayList<Monster>();
 		wave2Monsters.add(trollGeant1);
