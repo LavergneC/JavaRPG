@@ -34,8 +34,7 @@ public class Ninja extends Player{
 	}
 	
 	public void receiveAttack(int dmgIncoming) {
-		// Add esquive based on agility and random
-		if(defense_position) {
+		if(defense_position && getStamina() >= 150) {
 			staminaChange(false, 150);
 			GUI.edit_message(this.name + " did a beautiful dodge roll");
 		}
@@ -53,7 +52,7 @@ public class Ninja extends Player{
 			break;
 			
 		case DEFENSE:
-			r = true;
+			r = getStamina() >= 150;
 			break;
 
 		case REST:
@@ -67,7 +66,7 @@ public class Ninja extends Player{
 	public boolean  actionPossible(Attack attackType) {
 		switch(attackType) {
 		case BASIC_ATTACK:
-			return getStamina() >= 200;
+			return getStamina() >= 130;
 		case SPECIAL_ATTACK:
 			return getStamina() >= 300;
 		default:

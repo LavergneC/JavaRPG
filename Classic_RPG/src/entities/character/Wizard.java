@@ -85,7 +85,7 @@ public class Wizard extends Player{
 			break;
 			
 		case DEFENSE:
-			r = getMana() >= 55;
+			r = getMana() >= 64;
 			break;
 
 		case REST:
@@ -99,9 +99,9 @@ public class Wizard extends Player{
 	public boolean  actionPossible(Attack attackType) {
 		switch(attackType) {
 		case BASIC_ATTACK:
-			return getStamina() >= 200;
+			return getMana() >= 40;
 		case SPECIAL_ATTACK:
-			return getMana() >= 75;
+			return getMana() >= 100;
 		default:
 			System.out.println("class wizard::ERROR this attack don't exist");
 			return false;
