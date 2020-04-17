@@ -23,11 +23,11 @@ public class Monster extends Entity{
 	}
 	
 	public void action(Entity target) {
-		if((cpt_basic == 3 && getStamina() < 400) || getStamina() < 50) { /* not enough stamina to attack */
+		if((cpt_basic == 2 && getStamina() < 400) || getStamina() < 50) { /* not enough stamina to attack */
 			rest(true);
 		}
 		else {
-			if(cpt_basic == 3) {
+			if(cpt_basic == 2) {
 				specialHit(target);
 				cpt_basic = 0;
 			}

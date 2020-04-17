@@ -7,7 +7,7 @@ import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
 
 public class Ninja extends Player{
-	final static int BASE_HP = 1000;
+	final static int BASE_HP = 1300;
 	final static int BASE_STAMINA = 3000;
 	
 	final static int BASE_STRENGTH = 10;
@@ -33,14 +33,19 @@ public class Ninja extends Player{
 		this.attack(target, dmgs);
 	}
 	
-	public void receiveAttack(int dmgIncoming) {
+	public int receiveAttack(int dmgIncoming) {
+		int dmgTaken = 0;
+	
 		if(defense_position && getStamina() >= 150) {
 			staminaChange(false, 150);
 			GUI.edit_message(this.name + " did a beautiful dodge roll");
 		}
 		else {
 			super.receiveAttack(dmgIncoming);
+			dmgTaken = dmgIncoming;
 		}
+		
+		return dmgTaken;
 	}
 	
 	public boolean actionPossible(Game_action action) {

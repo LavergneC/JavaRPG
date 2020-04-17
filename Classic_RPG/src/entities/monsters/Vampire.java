@@ -20,9 +20,9 @@ public class Vampire extends Monster{
 	public void specialHit(Entity target) {
 		int dmgDealt = 0;
 		
-		GUI.edit_message(name + " drank " + target.getName() + " blood");
-		attack(target, getCharacteristics().getIntelligence() * 7);
-		staminaChange(false, 300);
+		GUI.edit_message(name + " try to drink " + target.getName() + " blood");
+		dmgDealt = attack(target, getCharacteristics().getIntelligence() * 7);
+		staminaChange(false, 600);
 		hpChange(true, dmgDealt);
 	}
 }

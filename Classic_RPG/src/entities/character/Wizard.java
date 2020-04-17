@@ -9,7 +9,7 @@ import game_management.Action_Enums.Game_action;
 
 
 public class Wizard extends Player{
-	final static int BASE_HP = 700;
+	final static int BASE_HP = 850;
 	final static int BASE_STAMINA = 1000;
 	final static int BASE_MANA = 1000;
 
@@ -39,13 +39,16 @@ public class Wizard extends Player{
 		this.attack(target, dmgs);
 	}
 
-	public void receiveAttack(int dmgIncoming) {
+	public int receiveAttack(int dmgIncoming) {
+		int dmgTaken = 0;
+		
 		if(defense_position) {
 			int diff = magicShieldHp - dmgIncoming;
 			magicShieldHp -= dmgIncoming;
 
 			if(diff < 0) {
 				hpChange(false, Math.abs(diff));
+				dmgTaken = Math.abs(diff);
 			}
 			else {
 				GUI.edit_message(this.name + " stayed behind his magic shield (" + magicShieldHp + ")");
@@ -53,7 +56,10 @@ public class Wizard extends Player{
 		}
 		else {
 			super.receiveAttack(dmgIncoming);
+			dmgTaken = dmgIncoming;
 		}
+		
+		return dmgTaken;
 	}
 
 	public void setDefensePosition(boolean defense_position_){
