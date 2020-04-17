@@ -1,6 +1,8 @@
 package entities;
+
 import entities.characterisics.*;
 import game_management.Interfaces.GUI;
+import game_management.random.Random;
 
 public abstract class Entity {
 	private int hp;
@@ -14,16 +16,14 @@ public abstract class Entity {
 
 	public abstract String toString();
 
-	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_)
-	{
-		this.characteristics = new Characteristics(agility_, strength_, intelligence_,  hp_, stamina_);
+	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_) {
+		this.characteristics = new Characteristics(agility_, strength_, intelligence_, hp_, stamina_);
 		this.hp = hp_;
 		this.stamina = stamina_;
 		this.name = name_;
 	}
 
-	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_, int mana_)
-	{
+	protected Entity(int hp_, int stamina_, String name_, int agility_, int strength_, int intelligence_, int mana_) {
 		this.characteristics = new MagicianCharacteristiques(agility_, strength_, intelligence_, hp_, stamina_, mana_);
 		this.hp = hp_;
 		this.stamina = stamina_;
@@ -31,36 +31,34 @@ public abstract class Entity {
 	}
 
 	public int getMana() {
-		if(getCharacteristics() instanceof MagicianCharacteristiques) {
-			return ((MagicianCharacteristiques)getCharacteristics()).getMana();
-		}
-		else {
+		if (getCharacteristics() instanceof MagicianCharacteristiques) {
+			return ((MagicianCharacteristiques) getCharacteristics()).getMana();
+		} else {
 			System.out.println("This entity have no mana pool !!!!");
 			return 77;
 		}
 	}
 
-	public void basicHit(Entity target)
-	{
-		int dmgs = getCharacteristics().getStrength() * 4;
-		
+	public void basicHit(Entity target) {
+		int dmgs = getCharacteristics().getStrength();
+		int success = getCharacteristics().getStrength() + 30;
+		Random.EffectiveDamage(success, dmgs);
 		GUI.edit_message(name + " basic attack on " + target.getName());
 		staminaChange(false, 200);
 		this.attack(target, dmgs);
 	}
 
-	protected void attack(Entity target, int dmgs)
-	{
+	protected void attack(Entity target, int dmgs) {
 		target.receiveAttack(dmgs);
 	}
 
 	public void rest(boolean printView) // TODO could be changed or implement in daughter class
 	{
-		if(printView)
+		if (printView)
 			GUI.edit_message(getName() + " take some rest.");
-		
+
 		staminaChange(true, getCharacteristics().getMax_stamina() / 5);
-		hpChange(true, (int)Math.ceil(getCharacteristics().getMax_hp() / 14));
+		hpChange(true, (int) Math.ceil(getCharacteristics().getMax_hp() / 14));
 	}
 
 	public int getHp() {
@@ -85,51 +83,45 @@ public abstract class Entity {
 	}
 
 	protected void staminaChange(boolean add, int value) {
-		if(value <= 0) {
+		if (value <= 0) {
 			return;
 		}
-		
-		if(add) {
-			if(value + stamina > getCharacteristics().getMax_stamina()) {
+
+		if (add) {
+			if (value + stamina > getCharacteristics().getMax_stamina()) {
 				GUI.edit_message(name + " recovred " + (getCharacteristics().getMax_stamina() - stamina) + " stamina");
 				stamina = getCharacteristics().getMax_stamina();
-			}
-			else {
+			} else {
 				stamina += value;
 				GUI.edit_message(name + " recovered " + value + " stamina");
 			}
-		}
-		else {
-			if(stamina - value <= 0) {
+		} else {
+			if (stamina - value <= 0) {
 				stamina = 0;
-			}
-			else {
+			} else {
 				stamina -= value;
 			}
 		}
 	}
 
 	protected void hpChange(boolean add, int value) {
-		if(value <= 0) {
+		if (value <= 0) {
 			return;
 		}
 
-		if(add) {
-			if(value + hp > getCharacteristics().getMax_hp()) {
-				GUI.edit_message( name + " healed of " + (getCharacteristics().getMax_hp() - hp));
+		if (add) {
+			if (value + hp > getCharacteristics().getMax_hp()) {
+				GUI.edit_message(name + " healed of " + (getCharacteristics().getMax_hp() - hp));
 				hp = getCharacteristics().getMax_hp();
-			}
-			else {
+			} else {
 				hp += value;
 				GUI.edit_message(name + " healed of " + value);
 			}
-		}
-		else {
-			if(hp - value <= 0) {
+		} else {
+			if (hp - value <= 0) {
 				hp = 0;
 				GUI.edit_message(name + " took " + value + " damage(s) and died");
-			}
-			else {
+			} else {
 				hp -= value;
 				GUI.edit_message(name + " took " + value + " damage(s)");
 			}
@@ -138,29 +130,26 @@ public abstract class Entity {
 	}
 
 	protected void manaChange(boolean add, int value) {
-		if(!(characteristics instanceof MagicianCharacteristiques)) {
+		if (!(characteristics instanceof MagicianCharacteristiques)) {
 			System.out.println("This entity have no mana pool !!!!");
 			return;
 		}
-		if(value <= 0)
+		if (value <= 0)
 			return;
 
-		MagicianCharacteristiques magicCharac = (MagicianCharacteristiques)this.characteristics;
+		MagicianCharacteristiques magicCharac = (MagicianCharacteristiques) this.characteristics;
 		int currentMana = magicCharac.getMana();
 
-		if(add) {
-			if(value + currentMana > magicCharac.getManaMax()) {
+		if (add) {
+			if (value + currentMana > magicCharac.getManaMax()) {
 				magicCharac.setMana(magicCharac.getManaMax());
-			}
-			else {
+			} else {
 				magicCharac.setMana(currentMana + value);
 			}
-		}
-		else {
-			if(currentMana - value <= 0) {
+		} else {
+			if (currentMana - value <= 0) {
 				magicCharac.setMana(0);
-			}
-			else {
+			} else {
 				magicCharac.setMana(currentMana - value);
 			}
 		}

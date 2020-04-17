@@ -4,6 +4,8 @@ import entities.Entity;
 import entities.Player;
 import entities.characterisics.MagicianCharacteristiques;
 import game_management.Interfaces.GUI;
+import game_management.random.Random;
+import game_management.random.TestOutput;
 import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
 
@@ -25,22 +27,28 @@ public class Wizard extends Player{
 	}
 
 	public void specialHit(Entity target) {
+		int dmgs = getCharacteristics().getIntelligence() * 6;
+		int success = getCharacteristics().getIntelligence() + 30;
+		int specialDamages = Random.EffectiveDamage(success, dmgs);
 		GUI.edit_message(name + " target " + target.getName() + " with fire breath");
-		attack(target, getCharacteristics().getIntelligence() * 6);
+		attack(target, specialDamages);
 		
 		manaChange(false, 100);
 	}
 	
 	public void basicHit(Entity target) {
 		int dmgs = getCharacteristics().getIntelligence() * 3;
-		
+		int success = getCharacteristics().getIntelligence() + 30;
+		Random.EffectiveDamage(success, dmgs);
 		GUI.edit_message(name + " fire a minor fire ball on " + target.getName());
 		manaChange(false, 40);
 		this.attack(target, dmgs);
 	}
 
 	public void receiveAttack(int dmgIncoming) {
-		if(defense_position) {
+		int success = getCharacteristics().getIntelligence() + 30;
+		TestOutput result1D100 = Random.test1D100(success);
+		if(defense_position && result1D100 != TestOutput.CRITICAL_FAILURE) {
 			int diff = magicShieldHp - dmgIncoming;
 			magicShieldHp -= dmgIncoming;
 
