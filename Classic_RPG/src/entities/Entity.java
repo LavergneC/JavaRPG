@@ -29,6 +29,8 @@ public abstract class Entity {
 		this.stamina = stamina_;
 		this.name = name_;
 	}
+	
+	public abstract void specialHit(Entity target);
 
 	public int getMana() {
 		if (getCharacteristics() instanceof MagicianCharacteristiques) {

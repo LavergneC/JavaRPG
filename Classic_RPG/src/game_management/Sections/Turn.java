@@ -84,19 +84,14 @@ public class Turn {
 
 		while(it.hasNext()) {
 			Monster monster = it.next();
-			if(monster.getStamina() < 50) { /* not enough stamina to attack */
-				monster.rest(true);
+			monster.action(player);
+			gui.updatePlayerBars(player);
+			if (player.getHp() <= 0) {
+				GUI.edit_message("Loser, you are defeated by weak monsters !");
+				return false;
 			}
-			else {
-				monster.basicHit(player);
-				gui.updatePlayerBars(player);
-				if (player.getHp() <= 0) {
-					GUI.edit_message("Loser, you are defeated by weak monsters !");
-					return false;
-				}
-			}
-			gui.set_text_console(0);
 		}
+		gui.set_text_console(0);
 		player.setDefensePosition(false);
 		return true;
 	}
