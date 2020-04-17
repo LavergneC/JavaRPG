@@ -49,7 +49,7 @@ public class Turn {
 				player.specialHit(actual_wave.getMonsters().get(index_monstre));
 				break;
 			}
-			
+			gui.generate_commands("Attack", player, actual_wave.getMonsters().get(index_monstre));
 
 			/* Remove monster from the wave if we get hp != 0 */
 			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0) {
@@ -77,7 +77,6 @@ public class Turn {
 			System.out.println("Turn Run error");
 		}
 		gui.setGame_action(Game_action.PENDING);
-		gui.set_text_console(0);
 		gui.updatePlayerBars(player);
 		/* Monsters turn */
 		Iterator<Monster> it = this.actual_wave.getMonsters().iterator();
@@ -91,7 +90,6 @@ public class Turn {
 				return false;
 			}
 		}
-		gui.set_text_console(0);
 		player.setDefensePosition(false);
 		return true;
 	}

@@ -7,10 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import entities.Entity;
 import entities.Monster;
 import entities.Player;
 import entities.character.Ninja;
@@ -23,6 +25,7 @@ import game_management.Action_Enums.Game_action;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
+import javax.swing.BoxLayout;
 import java.awt.Image;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -31,6 +34,8 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 
@@ -39,6 +44,8 @@ import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
@@ -61,10 +68,9 @@ public class GUI extends JFrame {
 
 	private JPanel monstersPanel;
 	private JPanel Actions;
+	
+	private JPanel commandPanel;
 
-	private JTextPane txtpn;
-	public Style style1;
-	public StyledDocument sDoc;
 	private int position = 0;
 
 	private Game_action game_action = Game_action.PENDING;
@@ -321,8 +327,19 @@ public class GUI extends JFrame {
 				System.out.println("rest");
 			}
 		});
-
-
+		
+		commandPanel = new JPanel();
+		commandPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
+		contentPane.add(commandPanel, BorderLayout.SOUTH);
+		commandPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		commandPanel.setPreferredSize(new Dimension(150, 150));
+		
+		commandPanel.add(new JLabel(""));
+		commandPanel.add(new JLabel(""));
+		/*commandPanel.add(new JLabel(""));
+		commandPanel.add(new JLabel(""));*/
+		//TODO c'est ici
+		
 		monstersPanel = new JPanel();
 		monstersPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
 		contentPane.add(monstersPanel, BorderLayout.CENTER);
@@ -341,22 +358,8 @@ public class GUI extends JFrame {
 		progressBar.setValue(50);
 		monster_1.add(progressBar);
 
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.SOUTH);
-
-		txtpn = new JTextPane();
-		txtpn.setText("");
-		panel.add(txtpn);
-
-		Style defaut = txtpn.getStyle("default");
-		txtpn.setEditable(false);
-		style1 = txtpn.addStyle("style1", defaut);
-		StyleConstants.setFontSize(style1, 15);
-
-		reset_message();
-		sDoc = (StyledDocument)txtpn.getDocument();
-
-		txtpn.setPreferredSize(new Dimension(500, 110));
+		/*JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.SOUTH);*/
 
 		if (player instanceof Wizard) {
 			lblMana = new JLabel(createImage("Images/mana.png", 25));
@@ -458,6 +461,44 @@ public class GUI extends JFrame {
 		monstersPanel.revalidate();
 		monstersPanel.repaint();
 	}
+	
+	public void generate_commands(String typeCommande, Entity entity) {
+		System.out.println("yo");
+	}
+	
+	public void generate_commands(String typeCommande, Entity entity1, Entity entity2) {
+		
+		commandPanel.remove(0);
+		JPanel text_panel = new JPanel();
+		text_panel.setPreferredSize(new Dimension(100, 20));
+		text_panel.setLayout(new FlowLayout());
+		
+		JLabel attacker_name = new JLabel(entity1.getName());
+		attacker_name.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		text_panel.add(attacker_name);
+		
+		ImageIcon img = createImage("Images/sword.png", 16);
+		JLabel imageAttaque = new JLabel(img);
+		text_panel.add(imageAttaque);
+		
+		JLabel attacked_name = new JLabel(entity2.getName());
+		attacker_name.setHorizontalAlignment(SwingConstants.LEFT);
+		text_panel.add(attacked_name);
+		
+		JPanel big_panel = new JPanel();
+		//big_panel.setPreferredSize(new Dimension(75, 30));
+		big_panel.setLayout(new GridLayout(2, 1, 0, 0));
+		big_panel.add(text_panel);
+		JLabel radom_txt = new JLabel("Truc a pris truc de dommages");
+		radom_txt.setHorizontalAlignment(SwingConstants.CENTER);
+		radom_txt.setVerticalAlignment(SwingConstants.TOP);
+		big_panel.add(radom_txt);
+		
+		commandPanel.add(big_panel);
+		commandPanel.revalidate();
+		commandPanel.repaint();
+	}
 
 	public JButton swordButton(int indexMonster){
 		ImageIcon icon = null;
@@ -539,25 +580,6 @@ public class GUI extends JFrame {
 		return attackType;
 	}
 
-	public void set_text_console(int pos) {
-		clear_text_console();
-		delaySec(1);
-		try {
-			sDoc.insertString(pos, message, style1);
-		}
-		catch (BadLocationException e) {}
-		reset_message();
-		delaySec(2);
-	}
-
-	public void clear_text_console() {
-		txtpn.setText("");
-	}
-
-	public int get_position_text() {
-		return position;
-	}
-
 	private void delaySec(int s) {
 		try {
 			TimeUnit.SECONDS.sleep(s);
@@ -567,7 +589,6 @@ public class GUI extends JFrame {
 			Thread.currentThread().interrupt();
 		}
 	}
-
 
 	public void update_playerLevel(int new_level) {
 		lblLvl.setText("lvl. " + new_level);
