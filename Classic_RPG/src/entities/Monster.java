@@ -38,6 +38,14 @@ public class Monster extends Entity{
 		}
 	}
 	
+	public void rest(boolean printView) {
+		if(printView)
+			GUI.edit_message(getName() + " take some rest.");
+		
+		setStamina(getCharacteristics().getMax_stamina());
+		hpChange(true, (int)Math.ceil(getCharacteristics().getMax_hp() / 14));
+	}
+	
 	@Override
 	public String toString() {
 		return name + " | " + "HP: " + getHp() + "/" + getCharacteristics().getMax_hp();
