@@ -3,6 +3,8 @@ package entities.character;
 import entities.Entity;
 import entities.Player;
 import game_management.Interfaces.GUI;
+import game_management.random.Random;
+import game_management.random.TestOutput;
 import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
 
@@ -26,7 +28,9 @@ public class Warrior extends Player{
 	}
 	
 	public void receiveAttack(int dmgIncoming) {
-		if(defense_position) {
+		int success = getCharacteristics().getStrength() + 30;
+		TestOutput result1D100 = Random.test1D100(success);
+		if(defense_position && result1D100 != TestOutput.CRITICAL_FAILURE && result1D100 != TestOutput.FAILURE) {
 			if(dmgIncoming > getCharacteristics().getStrength() * 5) {
 				hpChange(false, dmgIncoming / 2);
 			}
