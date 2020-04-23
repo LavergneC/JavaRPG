@@ -23,11 +23,11 @@ public class Monster extends Entity{
 	}
 	
 	public void action(Entity target) {
-		if((cpt_basic == 3 && getStamina() < 400) || getStamina() < 50) { /* not enough stamina to attack */
+		if((cpt_basic == 2 && getStamina() < 400) || getStamina() < 50) { /* not enough stamina to attack */
 			rest(true);
 		}
 		else {
-			if(cpt_basic == 3) {
+			if(cpt_basic == 2) {
 				specialHit(target);
 				cpt_basic = 0;
 			}
@@ -36,6 +36,14 @@ public class Monster extends Entity{
 				cpt_basic++;
 			}
 		}
+	}
+	
+	public void rest(boolean printView) {
+		if(printView)
+			GUI.edit_message(getName() + " take some rest.");
+		
+		setStamina(getCharacteristics().getMax_stamina());
+		hpChange(true, (int)Math.ceil(getCharacteristics().getMax_hp() / 14));
 	}
 	
 	@Override

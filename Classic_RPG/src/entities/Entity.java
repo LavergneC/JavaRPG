@@ -8,8 +8,10 @@ public abstract class Entity {
 	protected String name;
 	protected Characteristics characteristics;
 
-	protected void receiveAttack(int dmgIncoming) {
+	protected int receiveAttack(int dmgIncoming) {
 		hpChange(false, dmgIncoming);
+		
+		return dmgIncoming;
 	}
 
 	public abstract String toString();
@@ -51,9 +53,9 @@ public abstract class Entity {
 		this.attack(target, dmgs);
 	}
 
-	protected void attack(Entity target, int dmgs)
+	protected int attack(Entity target, int dmgs)
 	{
-		target.receiveAttack(dmgs);
+		return target.receiveAttack(dmgs);
 	}
 
 	public void rest(boolean printView) // TODO could be changed or implement in daughter class
