@@ -330,14 +330,14 @@ public class GUI extends JFrame {
 		
 		commandPanel = new JPanel();
 		commandPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
-		contentPane.add(commandPanel, BorderLayout.SOUTH);
+		contentPane.add(commandPanel, BorderLayout.EAST);
 		commandPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		commandPanel.setPreferredSize(new Dimension(150, 150));
+		commandPanel.setPreferredSize(new Dimension(400, 350));
 		
 		commandPanel.add(new JLabel(""));
 		commandPanel.add(new JLabel(""));
-		/*commandPanel.add(new JLabel(""));
-		commandPanel.add(new JLabel(""));*/
+		commandPanel.add(new JLabel(""));
+		commandPanel.add(new JLabel(""));
 		//TODO c'est ici
 		
 		monstersPanel = new JPanel();
@@ -463,22 +463,48 @@ public class GUI extends JFrame {
 	}
 	
 	public void generate_commands(String typeCommande, Entity entity) {
-		System.out.println("yo");
+		commandPanel.remove(0);
+		JPanel text_panel = new JPanel();
+		//text_panel.setPreferredSize(new Dimension(100, 20));
+		text_panel.setLayout(new FlowLayout());
+		
+		JLabel entity_name = new JLabel(entity.getName());
+		entity_name.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		text_panel.add(entity_name);
+		ImageIcon img = null;
+		if (typeCommande == "Rest") {
+			img = createImage("Images/rest.png", 18);
+		}
+		else if (typeCommande == "Protect"){
+			img = createImage("Images/protect.png", 18);
+		}
+		JLabel imageAttaque = new JLabel(img);
+		text_panel.add(imageAttaque);
+		
+		commandPanel.add(text_panel);
+		commandPanel.revalidate();
+		commandPanel.repaint();
 	}
 	
 	public void generate_commands(String typeCommande, Entity entity1, Entity entity2) {
 		
 		commandPanel.remove(0);
 		JPanel text_panel = new JPanel();
-		text_panel.setPreferredSize(new Dimension(100, 20));
+		//text_panel.setPreferredSize(new Dimension(100, 20));
 		text_panel.setLayout(new FlowLayout());
 		
 		JLabel attacker_name = new JLabel(entity1.getName());
 		attacker_name.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		text_panel.add(attacker_name);
-		
-		ImageIcon img = createImage("Images/sword.png", 16);
+		ImageIcon img = null;
+		if (typeCommande == "Attack") {
+			img = createImage("Images/sword.png", 14);
+		}
+		else if (typeCommande == "Special"){
+			img = createImage("Images/SpecialHit.png", 18);
+		}
 		JLabel imageAttaque = new JLabel(img);
 		text_panel.add(imageAttaque);
 		

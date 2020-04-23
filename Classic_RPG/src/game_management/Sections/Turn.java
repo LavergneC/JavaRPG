@@ -44,12 +44,14 @@ public class Turn {
 			switch(gui.getAttackType()) {
 			case BASIC_ATTACK:
 				player.basicHit(actual_wave.getMonsters().get(index_monstre));
+				gui.generate_commands("Attack", player, actual_wave.getMonsters().get(index_monstre));
 				break;
 			case SPECIAL_ATTACK:
 				player.specialHit(actual_wave.getMonsters().get(index_monstre));
+				gui.generate_commands("Special", player, actual_wave.getMonsters().get(index_monstre));
 				break;
 			}
-			gui.generate_commands("Attack", player, actual_wave.getMonsters().get(index_monstre));
+			
 
 			/* Remove monster from the wave if we get hp != 0 */
 			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0) {
@@ -67,10 +69,12 @@ public class Turn {
 
 		case REST:
 			player.rest(true);
+			gui.generate_commands("Rest", player);
 			break;
 
 		case DEFENSE:
 			player.setDefensePosition(true);
+			gui.generate_commands("Protect", player);
 			break;
 			//TODO add new actions
 		case PENDING: default:
@@ -84,6 +88,7 @@ public class Turn {
 		while(it.hasNext()) {
 			Monster monster = it.next();
 			monster.action(player);
+			gui.generate_commands("Attack", monster, player);
 			gui.updatePlayerBars(player);
 			if (player.getHp() <= 0) {
 				GUI.edit_message("Loser, you are defeated by weak monsters !");
