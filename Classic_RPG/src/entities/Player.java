@@ -1,7 +1,10 @@
 package entities;
 
+import java.util.ArrayList;
+
 import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
+import game_management.Interfaces.ActionModifier;
 
 public abstract class Player extends Entity{
 	
@@ -33,6 +36,7 @@ public abstract class Player extends Entity{
 	public void setDefensePosition(boolean defense_position_) {
 		this.defense_position = defense_position_;
 	}
+	
 	
 	public void levelUp() {
 		this.level += 1;
@@ -70,6 +74,6 @@ public abstract class Player extends Entity{
 		return name + " | " + "HP: " + getHp() + "/" + getCharacteristics().getMax_hp() + " | Stamina: " + getStamina() + "/" + getCharacteristics().getMax_stamina();
 	}
 	
-	public abstract boolean actionPossible(Attack attackType);
-	public abstract boolean actionPossible(Game_action action);
+	public abstract boolean actionPossible(Attack attackType, ArrayList<ActionModifier> modifiers);
+	public abstract boolean actionPossible(Game_action action, ArrayList<ActionModifier> modifiers);
 }
