@@ -30,11 +30,15 @@ public class Kiugg extends Monster{
 		return ret;
 	}
 	
-	public void action(Entity target) {
-		if(getStamina() >= 500)
+	public String action(Entity target) {
+		if(getStamina() >= 500) {
 			basicHit(target);
-		else
+			return "Attack";
+		}
+		else {
 			rest(true);
+			return "Rest";
+		}
 	}
 	
 	public void basicHit(Entity target)
