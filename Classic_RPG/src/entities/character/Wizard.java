@@ -46,21 +46,13 @@ public class Wizard extends Player{
 	public int receiveAttack(int dmgIncoming) {
 		int dmgTaken = 0;
 		
-		if(defense_position) {
-			int diff = magicShieldHp - dmgIncoming;
-			magicShieldHp -= dmgIncoming;
-
-			if(diff < 0) {
-				hpChange(false, Math.abs(diff));
-				dmgTaken = Math.abs(diff);
-			}
-			else {
-				GUI.edit_message(this.name + " stayed behind his magic shield (" + magicShieldHp + ")");
-			}
+		if(dmgIncoming >= magicShieldHp) {
+			dmgTaken = Math.abs(dmgIncoming - magicShieldHp);
+			hpChange(false, dmgTaken);
+			magicShieldHp = 0;
 		}
 		else {
-			super.receiveAttack(dmgIncoming);
-			dmgTaken = dmgIncoming;
+			magicShieldHp -= dmgIncoming;
 		}
 		
 		return dmgTaken;
@@ -70,7 +62,6 @@ public class Wizard extends Player{
 		if(defense_position_) {
 			magicShieldHp = getMagicShieldMaxHp();
 			manaChange(false, 64);
-			super.setDefensePosition(defense_position_);
 		}
 	}
 	
