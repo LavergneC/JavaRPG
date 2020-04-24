@@ -6,11 +6,6 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 import entities.Entity;
 import entities.Monster;
@@ -21,33 +16,22 @@ import entities.character.Wizard;
 import entities.characterisics.MagicianCharacteristiques;
 import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
-import javax.swing.BoxLayout;
 import java.awt.Image;
 import java.awt.Component;
 import java.awt.Dimension;
-
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
 import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-
 import java.awt.Color;
 import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
-
 import java.awt.event.ActionEvent;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
 public class GUI extends JFrame {
@@ -71,9 +55,7 @@ public class GUI extends JFrame {
 	private JPanel Actions;
 	
 	private JPanel commandPanel;
-
-	private int position = 0;
-
+	
 	private Game_action game_action = Game_action.PENDING;
 	private Attack attackType;
 	private int monsterTarget = -1;
@@ -376,33 +358,15 @@ public class GUI extends JFrame {
 		costs_panel_rest.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		costs_panel_attackB = new JPanel();
-		//ActionsCostsPanel.add(costs_panel_attackB);
 		costs_panel_attackB.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		costs_panel_attackS = new JPanel();
-		//ActionsCostsPanel.add(costs_panel_attackS);
 		costs_panel_attackS.setLayout(new GridLayout(0, 2, 0, 0));
 
 		monstersPanel = new JPanel();
-		monstersPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
+		monstersPanel.setBorder(new EmptyBorder(30, 60, 0, 30));
 		contentPane.add(monstersPanel, BorderLayout.CENTER);
-		monstersPanel.setLayout(new GridLayout(0, 1, 0, 0));
-
-		JPanel monster_1 = new JPanel();
-		monstersPanel.add(monster_1);
-		monster_1.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
-
-		JLabel monster_1_name = new JLabel("monster1_name");
-		monster_1.add(monster_1_name);
-
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setForeground(Color.RED);
-		progressBar.setStringPainted(true);
-		progressBar.setValue(50);
-		monster_1.add(progressBar);
-
-		/*JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.SOUTH);*/
+		monstersPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 13));
 
 		if (player instanceof Wizard) {
 			lblMana = new JLabel(createImage("Images/mana.png", 25));
@@ -485,22 +449,21 @@ public class GUI extends JFrame {
 
 		for (Monster monster : wave) {
 			JPanel new_monster_panel = new JPanel();
-			new_monster_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
+			new_monster_panel.setLayout(new BorderLayout(20, 7));
 
 			JLabel new_monster_name = new JLabel(monster.getName());
-			new_monster_panel.add(new_monster_name);
-
+			new_monster_panel.add(new_monster_name, BorderLayout.NORTH);
+			
 			JProgressBar progressBar = new JProgressBar();
 			progressBar.setForeground(Color.RED);
 			progressBar.setStringPainted(true);
 			progressBar.setMaximum(monster.getCharacteristics().getMax_hp());
 			progressBar.setValue(monster.getHp());
 			progressBar.setString(progressBar.getValue() + "/" + progressBar.getMaximum());
-			new_monster_panel.add(progressBar);
-
+			progressBar.setPreferredSize(new Dimension(175,26));
+			new_monster_panel.add(progressBar, BorderLayout.CENTER);
 			JButton swordButton = swordButton(wave.indexOf(monster));
-			new_monster_panel.add(swordButton);
-
+			new_monster_panel.add(swordButton, BorderLayout.EAST);
 			monstersPanel.add(new_monster_panel);
 		}
 		monstersPanel.revalidate();
@@ -622,12 +585,12 @@ public class GUI extends JFrame {
 			icon = new ImageIcon("Images/sword.png");
 
 		Image img = icon.getImage() ;  
-		Image newimg = img.getScaledInstance( 16, 16,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimg = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;  
 		icon = new ImageIcon(newimg);
 		JButton swordButton = new JButton("");
 		swordButton.setIcon(icon);
 		swordButton.setBackground(Color.WHITE);
-		swordButton.setPreferredSize(new Dimension(30, 30));
+		swordButton.setPreferredSize(new Dimension(26, 26));
 		swordButton.setFocusable(false);
 		swordButton.setVisible(false);
 
