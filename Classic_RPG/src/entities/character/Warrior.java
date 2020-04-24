@@ -1,10 +1,14 @@
 package entities.character;
 
+import java.util.ArrayList;
+
 import entities.Entity;
 import entities.Player;
+import game_management.Interfaces.ActionModifier;
 import game_management.Interfaces.GUI;
 import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
+import game_management.Action_Enums.Measure;
 
 public class Warrior extends Player{
 	final static int BASE_HP = 1500;
@@ -38,7 +42,7 @@ public class Warrior extends Player{
 		}
 	}
 	
-	public boolean actionPossible(Game_action action) {
+	public boolean actionPossible(Game_action action, ArrayList<ActionModifier> modifiers) {
 		boolean r = false;
 		switch(action) {
 		case ATTACK:
@@ -51,19 +55,28 @@ public class Warrior extends Player{
 			break;
 
 		case REST:
+			modifiers.add(new ActionModifier(Measure.HP, getCharacteristics().getMax_hp() / 14));
+			modifiers.add(new ActionModifier(Measure.STAMINA, getCharacteristics().getMax_stamina() / 5));
 			r = true;
 			break;
+			
 		case PENDING:
 		}
 		return r;
 	}
 	
-	public boolean  actionPossible(Attack attackType) {
+	public boolean actionPossible(Attack attackType, ArrayList<ActionModifier> modifiers) {
 		switch(attackType) {
 		case BASIC_ATTACK:
+			modifiers.add(new ActionModifier(Measure.DAMAGES, getCharacteristics().getStrength() * 4));
+			modifiers.add(new ActionModifier(Measure.STAMINA, -200));
 			return getStamina() >= 200;
+			
 		case SPECIAL_ATTACK:
+			modifiers.add(new ActionModifier(Measure.DAMAGES, getCharacteristics().getStrength() * 4 * 2));
+			modifiers.add(new ActionModifier(Measure.STAMINA, -600));
 			return getStamina() >= 600;
+			
 		default:
 			System.out.println("class warrior::ERROR this attack don't exist");
 			return false;

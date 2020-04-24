@@ -60,6 +60,7 @@ public class GUI extends JFrame {
 	private JLabel lblLvl;
 
 	private JPanel monstersPanel;
+	private JPanel ButtonPanel;
 	private JPanel Actions;
 
 	private JTextPane txtpn;
@@ -71,10 +72,17 @@ public class GUI extends JFrame {
 	private Attack attackType;
 	private int monsterTarget = -1;
 
-	JButton button_attack_basic;
-	JButton button_attack_special;
-	JButton button_def;
-	JButton button_rest;
+	private JButton button_attack_basic;
+	private JButton button_attack_special;
+	private JButton button_def;
+	private JButton button_rest;
+	
+	private JPanel ActionsCostsPanel;
+	private JPanel costs_panel_empty;
+	private JPanel costs_panel_def;
+	private JPanel costs_panel_rest;
+	private JPanel costs_panel_attackB;
+	private JPanel costs_panel_attackS;
 
 	static public void reset_message() {
 		message = "";
@@ -241,36 +249,14 @@ public class GUI extends JFrame {
 
 		Actions = new JPanel();
 		contentPane.add(Actions, BorderLayout.WEST);
-		Actions.setLayout(new GridLayout(0, 1, 0, 0));
-
-		JButton button_attack = new JButton("Attack");
 		button_attack_basic = new JButton("<html>Basic<br>attack</html>");
 		button_attack_special = new JButton("<html>Special<br>attack</html>");
 		JButton button_attack_back = new JButton("<");
-		button_def = new JButton("Defence");
-		button_rest = new JButton("Rest");
 
 		button_attack_basic.setBackground(Color.WHITE);
 		button_attack_special.setBackground(Color.WHITE);
 		button_attack_back.setBackground(Color.WHITE);
-		button_attack.setBackground(Color.WHITE);
-		button_def.setBackground(Color.WHITE);
-		button_rest.setBackground(Color.WHITE);
-
-		button_attack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-				Actions.remove(button_attack);
-				Actions.add(button_attack_basic);
-				Actions.add(button_attack_special);
-				Actions.add(button_attack_back);
-				Actions.remove(button_def);
-				Actions.remove(button_rest);
-
-				Actions.revalidate();
-				Actions.repaint();
-			}
-		});
-		Actions.add(button_attack);
+		Actions.setLayout(new BorderLayout(0, 0));
 
 		button_attack_basic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -290,31 +276,64 @@ public class GUI extends JFrame {
 			}
 		});
 		//Actions.add(button_attack_special);
+		ButtonPanel = new JPanel();
+		ButtonPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		JButton button_attack = new JButton("Attack");
+		ButtonPanel.add(button_attack);
+		button_attack.setBackground(Color.WHITE);
 
 		button_attack_back.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-				Actions.remove(button_attack_back);
-				Actions.add(button_attack);
-				Actions.add(button_def);
-				Actions.add(button_rest);
-				Actions.remove(button_attack_basic);
-				Actions.remove(button_attack_special);
+			public void actionPerformed(ActionEvent arg0) {	
+				ActionsCostsPanel.removeAll();
+				ActionsCostsPanel.add(costs_panel_empty);
+				ActionsCostsPanel.add(costs_panel_def);
+				ActionsCostsPanel.add(costs_panel_rest);
+				
+				ButtonPanel.removeAll();
+				ButtonPanel.add(button_attack);
+				ButtonPanel.add(button_def);
+				ButtonPanel.add(button_rest);
 
-				Actions.revalidate();
-				Actions.repaint();
+				ButtonPanel.revalidate();
+				ButtonPanel.repaint();
+				ActionsCostsPanel.revalidate();
+				ActionsCostsPanel.repaint();
 			}
 		});
-		//Actions.add(button_attack_back);
 
-		Actions.add(button_def);
+
+		Actions.add(ButtonPanel, BorderLayout.CENTER);
+		button_def = new JButton("Defence");
+		ButtonPanel.add(button_def);
+		button_rest = new JButton("Rest");
+		ButtonPanel.add(button_rest);
+		button_rest.setBackground(Color.WHITE);
+		button_def.setBackground(Color.WHITE);
+
+		button_attack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ActionsCostsPanel.removeAll();
+				ActionsCostsPanel.add(costs_panel_attackB);
+				ActionsCostsPanel.add(costs_panel_attackS);
+				ActionsCostsPanel.add(costs_panel_empty);
+				
+				ButtonPanel.removeAll();
+				ButtonPanel.add(button_attack_basic);
+				ButtonPanel.add(button_attack_special);
+				ButtonPanel.add(button_attack_back);
+
+				ButtonPanel.revalidate();
+				ButtonPanel.repaint();
+				ActionsCostsPanel.revalidate();
+				ActionsCostsPanel.repaint();
+			}
+		});
 		button_def.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				game_action = Game_action.DEFENSE;
 				System.out.println("Defense");
 			}
 		});
-
-		Actions.add(button_rest);
 		button_rest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				game_action = Game_action.REST;
@@ -322,6 +341,53 @@ public class GUI extends JFrame {
 			}
 		});
 
+		ActionsCostsPanel = new JPanel();
+		Actions.add(ActionsCostsPanel, BorderLayout.EAST);
+		ActionsCostsPanel.setLayout(new GridLayout(0, 1, 0, 0));
+
+		costs_panel_empty = new JPanel();
+		ActionsCostsPanel.add(costs_panel_empty);
+		costs_panel_empty.setLayout(new GridLayout(0, 2, 0, 0));
+
+		costs_panel_def = new JPanel();
+		ActionsCostsPanel.add(costs_panel_def);
+		costs_panel_def.setLayout(new GridLayout(0, 2, 0, 0));
+
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		costs_panel_def.add(lblNewLabel_4);
+
+		JLabel lblNewLabel_1_1 = new JLabel("New label");
+		costs_panel_def.add(lblNewLabel_1_1);
+
+		JLabel lblNewLabel_2_1 = new JLabel("New label");
+		costs_panel_def.add(lblNewLabel_2_1);
+
+		JLabel lblNewLabel_3_1 = new JLabel("New label");
+		costs_panel_def.add(lblNewLabel_3_1);
+
+		costs_panel_rest = new JPanel();
+		ActionsCostsPanel.add(costs_panel_rest);
+		costs_panel_rest.setLayout(new GridLayout(0, 2, 0, 0));
+
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		costs_panel_rest.add(lblNewLabel_5);
+
+		JLabel lblNewLabel_1_2 = new JLabel("New label");
+		costs_panel_rest.add(lblNewLabel_1_2);
+
+		JLabel lblNewLabel_2_2 = new JLabel("New label");
+		costs_panel_rest.add(lblNewLabel_2_2);
+
+		JLabel lblNewLabel_3_2 = new JLabel("New label");
+		costs_panel_rest.add(lblNewLabel_3_2);
+		
+		costs_panel_attackB = new JPanel();
+		//ActionsCostsPanel.add(costs_panel_attackB);
+		costs_panel_attackB.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		costs_panel_attackS = new JPanel();
+		//ActionsCostsPanel.add(costs_panel_attackS);
+		costs_panel_attackS.setLayout(new GridLayout(0, 2, 0, 0));
 
 		monstersPanel = new JPanel();
 		monstersPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
@@ -401,7 +467,7 @@ public class GUI extends JFrame {
 		staminaBar.setMaximum(p.getCharacteristics().getMax_stamina());
 		staminaBar.setValue(p.getStamina());
 		staminaBar.setString(staminaBar.getValue() + "/" + staminaBar.getMaximum());
-		
+
 		xpBar.setMaximum(p.getNext_lvl_xp());
 		xpBar.setValue(p.getXp());
 
@@ -493,23 +559,82 @@ public class GUI extends JFrame {
 	}
 
 	public void setButtonsEnable(boolean  b) {
-		for(Component button : Actions.getComponents()) {
+		for(Component button : ButtonPanel.getComponents()) {
 			button.setEnabled(b);
 		}
 	}
 
-	public void setButtonsEnable(boolean  b, Player player) {
+	public void setButtonsEnable(boolean b, Player player) {
 		if(b == false) {
 			setButtonsEnable(false);
 			return;
 		}
 		setButtonsEnable(true);
-		button_attack_basic.setEnabled(player.actionPossible(Attack.BASIC_ATTACK));
-		button_attack_special.setEnabled(player.actionPossible(Attack.SPECIAL_ATTACK));
-		button_def.setEnabled(player.actionPossible(Game_action.DEFENSE));
-		button_rest.setEnabled(player.actionPossible(Game_action.REST));
+		ArrayList<ActionModifier> modifier = new ArrayList<ActionModifier>();
+		
+		resetAllCostPanel();
+		button_attack_basic.setEnabled(player.actionPossible(Attack.BASIC_ATTACK, modifier));
+		updateMesurements(modifier, Attack.BASIC_ATTACK, Game_action.ATTACK);
+		
+		button_attack_special.setEnabled(player.actionPossible(Attack.SPECIAL_ATTACK, modifier));
+		updateMesurements(modifier, Attack.SPECIAL_ATTACK, Game_action.ATTACK);
+		
+		button_def.setEnabled(player.actionPossible(Game_action.DEFENSE, modifier));
+		updateMesurements(modifier, null, Game_action.DEFENSE);
+		
+		button_rest.setEnabled(player.actionPossible(Game_action.REST, modifier));
+		updateMesurements(modifier, null, Game_action.REST);
 	}
 
+	public void updateMesurements(ArrayList<ActionModifier> modifiers, Attack a, Game_action ga) {
+		for (ActionModifier modifier : modifiers) {
+			JLabel icon = new JLabel(createImage(modifier.getIconSource(), 15));
+			JLabel value = new JLabel(modifier.getValueS());
+			
+			if(modifier.getValue() > 0)
+				value.setForeground(UIManager.getColor("OptionPane.questionDialog.border.background"));
+			else if (modifier.getValue() < 0)
+				value.setForeground(Color.RED);
+			
+				switch(ga) {
+				case REST:
+					costs_panel_rest.add(icon);
+					costs_panel_rest.add(value);
+					break;
+					
+				case DEFENSE:
+					costs_panel_def.add(icon);
+					costs_panel_def.add(value);
+					break;
+					
+				case ATTACK:
+					switch(a) {
+					case BASIC_ATTACK:
+						costs_panel_attackB.add(icon);
+						costs_panel_attackB.add(value);
+						break;
+						
+					case SPECIAL_ATTACK:
+						costs_panel_attackS.add(icon);
+						costs_panel_attackS.add(value);
+						break;
+					}
+					break;
+				case PENDING: 
+					//never used
+				}
+		}
+		ActionsCostsPanel.revalidate();
+		ActionsCostsPanel.repaint();
+		modifiers.clear();
+	}
+
+	public void resetAllCostPanel() {
+		costs_panel_attackB.removeAll();
+		costs_panel_attackS.removeAll();
+		costs_panel_def.removeAll();
+		costs_panel_rest.removeAll();
+	}
 	public void setSwordsVisible(boolean b) {
 		for(Component c : monstersPanel.getComponents()) {
 			for(Component c2 : ((JPanel)c).getComponents()){
