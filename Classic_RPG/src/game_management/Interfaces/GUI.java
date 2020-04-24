@@ -23,6 +23,7 @@ import java.awt.Image;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JProgressBar;
 import java.awt.Color;
@@ -85,6 +86,7 @@ public class GUI extends JFrame {
 	 */
 
 	public GUI(Player player) {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -109,7 +111,6 @@ public class GUI extends JFrame {
 		H_text.setBackground(Color.WHITE);
 		headTexts.add(H_text);
 		H_text.setLayout(new GridLayout(0, 1, 0, 2));
-
 
 		ImageIcon player_img = null;
 

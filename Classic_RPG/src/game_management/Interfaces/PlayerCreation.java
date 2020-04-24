@@ -19,6 +19,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JToggleButton;
@@ -32,10 +34,24 @@ public class PlayerCreation extends JFrame {
 	private JTextField textField;
 	private boolean readyToLaunch = false;
 	private boolean JAR = true;
+	private List<String> list_carac;
 	/**
 	 * Create the frame.
 	 */
 	public PlayerCreation(Classic_RPG game) {
+		
+		list_carac = new ArrayList<String>();
+		list_carac.add("the annoying");
+		list_carac.add("the brainless");
+		list_carac.add("the useless");
+		list_carac.add("the pigs's friend");
+		list_carac.add("the insignificant");
+		list_carac.add("the courageous");
+		list_carac.add("the adventurous");
+		list_carac.add("the hobo");
+		list_carac.add("the brave");
+		list_carac.add("the idiot");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 604, 357);
 		contentPane = new JPanel();
@@ -204,12 +220,19 @@ public class PlayerCreation extends JFrame {
 		
 		validateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String nom = textField.getText();
+				if (nom.length() <= 10 ) {
+					nom += ' ' + list_carac.get(nom.length() % 10);
+				}
+				else if (nom.length() > 18) {
+					nom = "annoying long name";
+				}
 				if(tglbtnNewToggleButton.isSelected())
-					game.setPlayer(new Warrior(textField.getText()));
+					game.setPlayer(new Warrior(nom));
 				else if(tglbtnNewToggleButton_1.isSelected())
-					game.setPlayer(new Wizard(textField.getText()));
+					game.setPlayer(new Wizard(nom));
 				else if(tglbtnNewToggleButton_2.isSelected())
-					game.setPlayer(new Ninja(textField.getText()));
+					game.setPlayer(new Ninja(nom));
 				else {
 					System.out.println("Not any Job selected !");
 					return;
