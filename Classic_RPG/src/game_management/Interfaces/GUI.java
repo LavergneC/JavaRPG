@@ -301,7 +301,6 @@ public class GUI extends JFrame {
 			}
 		});
 
-
 		Actions.add(ButtonPanel, BorderLayout.CENTER);
 		button_def = new JButton("Defence");
 		ButtonPanel.add(button_def);
@@ -353,33 +352,9 @@ public class GUI extends JFrame {
 		ActionsCostsPanel.add(costs_panel_def);
 		costs_panel_def.setLayout(new GridLayout(0, 2, 0, 0));
 
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		costs_panel_def.add(lblNewLabel_4);
-
-		JLabel lblNewLabel_1_1 = new JLabel("New label");
-		costs_panel_def.add(lblNewLabel_1_1);
-
-		JLabel lblNewLabel_2_1 = new JLabel("New label");
-		costs_panel_def.add(lblNewLabel_2_1);
-
-		JLabel lblNewLabel_3_1 = new JLabel("New label");
-		costs_panel_def.add(lblNewLabel_3_1);
-
 		costs_panel_rest = new JPanel();
 		ActionsCostsPanel.add(costs_panel_rest);
 		costs_panel_rest.setLayout(new GridLayout(0, 2, 0, 0));
-
-		JLabel lblNewLabel_5 = new JLabel("New label");
-		costs_panel_rest.add(lblNewLabel_5);
-
-		JLabel lblNewLabel_1_2 = new JLabel("New label");
-		costs_panel_rest.add(lblNewLabel_1_2);
-
-		JLabel lblNewLabel_2_2 = new JLabel("New label");
-		costs_panel_rest.add(lblNewLabel_2_2);
-
-		JLabel lblNewLabel_3_2 = new JLabel("New label");
-		costs_panel_rest.add(lblNewLabel_3_2);
 		
 		costs_panel_attackB = new JPanel();
 		//ActionsCostsPanel.add(costs_panel_attackB);
