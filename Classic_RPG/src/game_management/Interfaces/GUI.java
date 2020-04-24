@@ -257,9 +257,9 @@ public class GUI extends JFrame {
 
 		Actions = new JPanel();
 		contentPane.add(Actions, BorderLayout.WEST);
-		button_attack_basic = new JButton("<html>Basic<br>attack</html>");
-		button_attack_special = new JButton("<html>Special<br>attack</html>");
-		JButton button_attack_back = new JButton("<");
+		button_attack_basic = new JButton(createImage("Images/sword.png", 30));
+		button_attack_special = new JButton(createImage("Images/SpecialHit.png", 30));
+		JButton button_attack_back = new JButton(createImage("Images/return.png", 30));
 
 		button_attack_basic.setBackground(Color.WHITE);
 		button_attack_special.setBackground(Color.WHITE);
@@ -286,7 +286,7 @@ public class GUI extends JFrame {
 		//Actions.add(button_attack_special);
 		ButtonPanel = new JPanel();
 		ButtonPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		JButton button_attack = new JButton("Attack");
+		JButton button_attack = new JButton(createImage("Images/sword.png", 30));
 		ButtonPanel.add(button_attack);
 		button_attack.setBackground(Color.WHITE);
 
@@ -310,9 +310,9 @@ public class GUI extends JFrame {
 		});
 
 		Actions.add(ButtonPanel, BorderLayout.CENTER);
-		button_def = new JButton("Defence");
+		button_def = new JButton(createImage("Images/protect.png", 30));
 		ButtonPanel.add(button_def);
-		button_rest = new JButton("Rest");
+		button_rest = new JButton(createImage("Images/rest.png", 30));
 		ButtonPanel.add(button_rest);
 		button_rest.setBackground(Color.WHITE);
 		button_def.setBackground(Color.WHITE);
