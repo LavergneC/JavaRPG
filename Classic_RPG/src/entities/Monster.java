@@ -22,18 +22,21 @@ public class Monster extends Entity{
 		staminaChange(false, 300);
 	}
 	
-	public void action(Entity target) {
+	public String action(Entity target) {
 		if((cpt_basic == 2 && getStamina() < 400) || getStamina() < 50) { /* not enough stamina to attack */
 			rest(true);
+			return "Rest";
 		}
 		else {
 			if(cpt_basic == 2) {
 				specialHit(target);
 				cpt_basic = 0;
+				return "Special";
 			}
 			else {
 				basicHit(target);
 				cpt_basic++;
+				return "Basic";
 			}
 		}
 	}

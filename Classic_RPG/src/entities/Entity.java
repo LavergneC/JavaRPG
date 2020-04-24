@@ -60,9 +60,6 @@ public abstract class Entity {
 
 	public void rest(boolean printView) // TODO could be changed or implement in daughter class
 	{
-		if(printView)
-			GUI.edit_message(getName() + " take some rest.");
-		
 		staminaChange(true, getCharacteristics().getMax_stamina() / 5);
 		hpChange(true, (int)Math.ceil(getCharacteristics().getMax_hp() / 14));
 	}

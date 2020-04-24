@@ -331,14 +331,13 @@ public class GUI extends JFrame {
 		commandPanel = new JPanel();
 		commandPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
 		contentPane.add(commandPanel, BorderLayout.EAST);
-		commandPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		commandPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 15));
 		commandPanel.setPreferredSize(new Dimension(400, 350));
 		
 		commandPanel.add(new JLabel(""));
 		commandPanel.add(new JLabel(""));
 		commandPanel.add(new JLabel(""));
 		commandPanel.add(new JLabel(""));
-		//TODO c'est ici
 		
 		monstersPanel = new JPanel();
 		monstersPanel.setBorder(new EmptyBorder(30, 30, 0, 30));
@@ -462,34 +461,57 @@ public class GUI extends JFrame {
 		monstersPanel.repaint();
 	}
 	
-	public void generate_commands(String typeCommande, Entity entity) {
+	
+	public void generate_commands(Game_action typeCommande, Entity entity, int cur_life,  int cur_mana_stamina, boolean is_magic) {
 		commandPanel.remove(0);
+		delaySec(1);
+		JPanel big_panel = new JPanel();
+		big_panel.setLayout(new GridLayout(2, 1, 0, 0));
 		JPanel text_panel = new JPanel();
-		//text_panel.setPreferredSize(new Dimension(100, 20));
-		text_panel.setLayout(new FlowLayout());
+		text_panel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JLabel entity_name = new JLabel(entity.getName());
+		JLabel entity_name = new JLabel(entity.getName() + " ");
 		entity_name.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		text_panel.add(entity_name);
 		ImageIcon img = null;
-		if (typeCommande == "Rest") {
+		String str = "";
+		if (typeCommande == Game_action.REST) {
 			img = createImage("Images/rest.png", 18);
+			if (is_magic) {
+				str = "<html>" + entity.getName() + " healed of " + (entity.getHp() - cur_life) + " HP and <br> recovered " + (entity.getMana() - cur_mana_stamina) + " mana </html>";
+				System.out.println("On est un magicien ! :)");
+			}
+			else
+				str = "<html>" + entity.getName() + " healed of " + (entity.getHp() - cur_life) + " HP and <br> recovered " + (entity.getStamina() - cur_mana_stamina) + " stamina </html>";
 		}
-		else if (typeCommande == "Protect"){
+		else if (typeCommande == Game_action.DEFENSE){
 			img = createImage("Images/protect.png", 18);
 		}
 		JLabel imageAttaque = new JLabel(img);
+		imageAttaque.setHorizontalAlignment(SwingConstants.LEFT);
 		text_panel.add(imageAttaque);
 		
-		commandPanel.add(text_panel);
+		big_panel.add(text_panel);
+		//commandPanel.add(text_panel);
+		if (typeCommande == Game_action.REST) {
+			JLabel radom_txt = new JLabel(str);
+			radom_txt.setHorizontalAlignment(SwingConstants.CENTER);
+			radom_txt.setVerticalAlignment(SwingConstants.TOP);
+			big_panel.add(radom_txt);
+			commandPanel.add(big_panel);
+		}
+		else {
+			commandPanel.add(text_panel);
+		}
 		commandPanel.revalidate();
 		commandPanel.repaint();
 	}
 	
-	public void generate_commands(String typeCommande, Entity entity1, Entity entity2) {
+	public void generate_commands(Attack typeAttaque, Entity entity1, Entity entity2, int cur_life, int cur_mana_stamina) {
 		
 		commandPanel.remove(0);
+		delaySec(1);
 		JPanel text_panel = new JPanel();
 		//text_panel.setPreferredSize(new Dimension(100, 20));
 		text_panel.setLayout(new FlowLayout());
@@ -499,10 +521,10 @@ public class GUI extends JFrame {
 		
 		text_panel.add(attacker_name);
 		ImageIcon img = null;
-		if (typeCommande == "Attack") {
+		if (typeAttaque == Attack.BASIC_ATTACK) {
 			img = createImage("Images/sword.png", 14);
 		}
-		else if (typeCommande == "Special"){
+		else if (typeAttaque == Attack.SPECIAL_ATTACK){
 			img = createImage("Images/SpecialHit.png", 18);
 		}
 		JLabel imageAttaque = new JLabel(img);
@@ -516,7 +538,7 @@ public class GUI extends JFrame {
 		//big_panel.setPreferredSize(new Dimension(75, 30));
 		big_panel.setLayout(new GridLayout(2, 1, 0, 0));
 		big_panel.add(text_panel);
-		JLabel radom_txt = new JLabel("Truc a pris truc de dommages");
+		JLabel radom_txt = new JLabel(entity2.getName() + " take " + (cur_life - entity2.getHp()) + " damages");
 		radom_txt.setHorizontalAlignment(SwingConstants.CENTER);
 		radom_txt.setVerticalAlignment(SwingConstants.TOP);
 		big_panel.add(radom_txt);
@@ -524,6 +546,22 @@ public class GUI extends JFrame {
 		commandPanel.add(big_panel);
 		commandPanel.revalidate();
 		commandPanel.repaint();
+	}
+	
+	public void clear_console() {
+		commandPanel.remove(0);
+		commandPanel.remove(0);
+		commandPanel.remove(0);
+		commandPanel.remove(0);
+		
+		commandPanel.add(new JLabel(""));
+		commandPanel.add(new JLabel(""));
+		commandPanel.add(new JLabel(""));
+		commandPanel.add(new JLabel(""));
+		
+		commandPanel.revalidate();
+		commandPanel.repaint();
+		
 	}
 
 	public JButton swordButton(int indexMonster){
