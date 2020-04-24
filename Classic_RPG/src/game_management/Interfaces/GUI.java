@@ -161,16 +161,18 @@ public class GUI extends JFrame {
 		JLabel lblStamina = new JLabel(createImage("Images/flash.png", 25));
 		lblStamina.setHorizontalAlignment(SwingConstants.CENTER);
 
-		staminaBar = new JProgressBar();
-		staminaBar.setMaximum(player.getStamina());
-		staminaBar.setValue(player.getStamina());
-		staminaBar.setStringPainted(true);
-		staminaBar.setString(player.getStamina() + "/" + staminaBar.getMaximum());
+		if(!(player instanceof Wizard)) {
+			staminaBar = new JProgressBar();
+			staminaBar.setMaximum(player.getStamina());
+			staminaBar.setValue(player.getStamina());
+			staminaBar.setStringPainted(true);
+			staminaBar.setString(player.getStamina() + "/" + staminaBar.getMaximum());
 
-		staminaBar.setForeground(UIManager.getColor("OptionPane.questionDialog.border.background"));
-		stamina_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		stamina_panel.add(lblStamina);
-		stamina_panel.add(staminaBar);
+			staminaBar.setForeground(UIManager.getColor("OptionPane.questionDialog.border.background"));
+			stamina_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			stamina_panel.add(lblStamina);
+			stamina_panel.add(staminaBar);
+		}
 
 		JPanel mana_panel = new JPanel();
 		mana_panel.setBackground(Color.WHITE);
@@ -398,10 +400,11 @@ public class GUI extends JFrame {
 		HPBar.setValue(p.getHp());
 		HPBar.setString(HPBar.getValue() + "/" + HPBar.getMaximum());
 
-		staminaBar.setMaximum(p.getCharacteristics().getMax_stamina());
-		staminaBar.setValue(p.getStamina());
-		staminaBar.setString(staminaBar.getValue() + "/" + staminaBar.getMaximum());
-		
+		if(!(p instanceof Wizard)) {
+			staminaBar.setMaximum(p.getCharacteristics().getMax_stamina());
+			staminaBar.setValue(p.getStamina());
+			staminaBar.setString(staminaBar.getValue() + "/" + staminaBar.getMaximum());
+		}
 		xpBar.setMaximum(p.getNext_lvl_xp());
 		xpBar.setValue(p.getXp());
 
