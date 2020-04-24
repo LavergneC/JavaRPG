@@ -1,5 +1,6 @@
 package game_management.Sections;
 
+import game_management.Action_Enums.Attack;
 import game_management.Action_Enums.Game_action;
 import game_management.Interfaces.GUI;
 
@@ -8,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import entities.Monster;
 import entities.Player;
+import entities.character.Wizard;
 
 public class Turn {
 	private int number;
@@ -37,20 +39,30 @@ public class Turn {
 		gui.setButtonsEnable(false);
 
 		int index_monstre = 0;
+		int cur_player_life = player.getHp();
+		/* variable which contains mana for magic entities and stamina for others */
+		int cur_player_mana_stamina = player.getStamina();
+		if(player instanceof Wizard)
+			cur_player_mana_stamina = player.getMana();
 		switch(action) {
 		case ATTACK:
 			index_monstre = monsterPick(this.actual_wave);
-
+			int cur_life = actual_wave.getMonsters().get(index_monstre).getHp();
+			int cur_stamina = actual_wave.getMonsters().get(index_monstre).getStamina();
+			
 			switch(gui.getAttackType()) {
 			case BASIC_ATTACK:
+				gui.clear_console();
 				player.basicHit(actual_wave.getMonsters().get(index_monstre));
+				gui.generate_commands( Attack.BASIC_ATTACK, player, actual_wave.getMonsters().get(index_monstre), cur_life, cur_stamina);
 				break;
 			case SPECIAL_ATTACK:
+				gui.clear_console();
 				player.specialHit(actual_wave.getMonsters().get(index_monstre));
+				gui.generate_commands(Attack.SPECIAL_ATTACK, player, actual_wave.getMonsters().get(index_monstre), cur_life, cur_stamina);
 				break;
 			}
 			
-
 			/* Remove monster from the wave if we get hp != 0 */
 			if (actual_wave.getMonsters().get(index_monstre).getHp() <= 0) {
 				boolean earn_lvl = player.earn_xp(actual_wave.getMonsters().get(index_monstre).getXpGiven());
@@ -66,32 +78,51 @@ public class Turn {
 			break;
 
 		case REST:
+			gui.clear_console();
 			player.rest(true);
+			gui.generate_commands(action, player, cur_player_life, cur_player_mana_stamina, player instanceof Wizard);
 			break;
 
 		case DEFENSE:
+			gui.clear_console();
 			player.setDefensePosition(true);
+			gui.generate_commands(action, player, cur_player_life, cur_player_mana_stamina, player instanceof Wizard);
 			break;
 			//TODO add new actions
 		case PENDING: default:
 			System.out.println("Turn Run error");
 		}
+		
 		gui.setGame_action(Game_action.PENDING);
-		gui.set_text_console(0);
 		gui.updatePlayerBars(player);
 		/* Monsters turn */
 		Iterator<Monster> it = this.actual_wave.getMonsters().iterator();
-
+		
 		while(it.hasNext()) {
+			cur_player_life = player.getHp();
+			cur_player_mana_stamina = player.getStamina();
+			
+			if (player instanceof Wizard) {
+				cur_player_mana_stamina = player.getMana();
+			}
+				
 			Monster monster = it.next();
-			monster.action(player);
+			int cur_monster_life = monster.getHp();
+			int cur_monster_stamina = monster.getStamina();
+			String action_monster = monster.action(player);
+			if (action_monster == "Special")
+				gui.generate_commands(Attack.SPECIAL_ATTACK, monster, player, cur_player_life, cur_player_mana_stamina);
+			else if(action_monster == "Basic")
+				gui.generate_commands(Attack.BASIC_ATTACK, monster, player, cur_player_life, cur_player_mana_stamina);
+			else if (action_monster == "Rest") {
+				gui.generate_commands(Game_action.REST, monster,cur_monster_life, cur_monster_stamina, false);
+			}
 			gui.updatePlayerBars(player);
 			if (player.getHp() <= 0) {
 				GUI.edit_message("Loser, you are defeated by weak monsters !");
 				return false;
 			}
 		}
-		gui.set_text_console(0);
 		player.setDefensePosition(false);
 		return true;
 	}
@@ -99,8 +130,6 @@ public class Turn {
 	public int getNumber() {
 		return number;
 	}
-
-	
 
 	int monsterPick(Wave wave) {
 		int index_monstre = -1;
