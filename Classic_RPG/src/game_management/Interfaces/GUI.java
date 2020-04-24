@@ -478,10 +478,8 @@ public class GUI extends JFrame {
 		String str = "";
 		if (typeCommande == Game_action.REST) {
 			img = createImage("Images/rest.png", 18);
-			if (is_magic) {
+			if (is_magic)
 				str = "<html>" + entity.getName() + " healed of " + (entity.getHp() - cur_life) + " HP and <br> recovered " + (entity.getMana() - cur_mana_stamina) + " mana </html>";
-				System.out.println("On est un magicien ! :)");
-			}
 			else
 				str = "<html>" + entity.getName() + " healed of " + (entity.getHp() - cur_life) + " HP and <br> recovered " + (entity.getStamina() - cur_mana_stamina) + " stamina </html>";
 		}

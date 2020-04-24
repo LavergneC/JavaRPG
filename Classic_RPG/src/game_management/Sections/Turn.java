@@ -40,6 +40,7 @@ public class Turn {
 
 		int index_monstre = 0;
 		int cur_player_life = player.getHp();
+		/* variable which contains mana for magic entities and stamina for others */
 		int cur_player_mana_stamina = player.getStamina();
 		if(player instanceof Wizard)
 			cur_player_mana_stamina = player.getMana();
@@ -53,12 +54,12 @@ public class Turn {
 			case BASIC_ATTACK:
 				gui.clear_console();
 				player.basicHit(actual_wave.getMonsters().get(index_monstre));
-				gui.generate_commands(gui.getAttackType(), player, actual_wave.getMonsters().get(index_monstre), cur_life, cur_stamina);
+				gui.generate_commands( Attack.BASIC_ATTACK, player, actual_wave.getMonsters().get(index_monstre), cur_life, cur_stamina);
 				break;
 			case SPECIAL_ATTACK:
 				gui.clear_console();
 				player.specialHit(actual_wave.getMonsters().get(index_monstre));
-				gui.generate_commands(gui.getAttackType(), player, actual_wave.getMonsters().get(index_monstre), cur_life, cur_stamina);
+				gui.generate_commands(Attack.SPECIAL_ATTACK, player, actual_wave.getMonsters().get(index_monstre), cur_life, cur_stamina);
 				break;
 			}
 			
