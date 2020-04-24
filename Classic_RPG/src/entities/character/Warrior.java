@@ -11,7 +11,7 @@ import game_management.Action_Enums.Game_action;
 import game_management.Action_Enums.Measure;
 
 public class Warrior extends Player{
-	final static int BASE_HP = 1500;
+	final static int BASE_HP = 1300;
 	final static int BASE_STAMINA = 2000;
 	
 	final static int BASE_STRENGTH = 30;
@@ -29,17 +29,23 @@ public class Warrior extends Player{
 		staminaChange(false, 200);
 	}
 	
-	public void receiveAttack(int dmgIncoming) {
+	public int receiveAttack(int dmgIncoming) {
+		int dmgTaken = 0;
+		
 		if(defense_position) {
 			if(dmgIncoming > getCharacteristics().getStrength() * 5) {
 				hpChange(false, dmgIncoming / 2);
+				dmgTaken = dmgIncoming /2;
 			}
 			else
 				GUI.edit_message(this.name + " held behind his shield");
 		}
 		else {
 			super.receiveAttack(dmgIncoming);
+			dmgTaken = dmgIncoming;
 		}
+		
+		return dmgTaken;
 	}
 	
 	public boolean actionPossible(Game_action action, ArrayList<ActionModifier> modifiers) {
